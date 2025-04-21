@@ -1,15 +1,15 @@
 "use client"
 
-import { ModernLayout } from "@/components/modern-layout"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
 import { AnalyticsView } from "@/components/analytics/analytics-view"
 import { Suspense } from "react"
 
 export default function AnalyticsPage() {
   return (
-    <ModernLayout>
+    <DashboardWrapper>
       <Suspense fallback={<div>Loading analytics...</div>}>
         <AnalyticsView />
       </Suspense>
-    </ModernLayout>
+    </DashboardWrapper>
   )
 }

@@ -1,15 +1,15 @@
 "use client"
 
-import { ModernLayout } from "@/components/modern-layout"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
 import { CRMView } from "@/components/crm/crm-view"
 import { Suspense } from "react"
 
 export default function CRMPage() {
   return (
-    <ModernLayout>
+    <DashboardWrapper>
       <Suspense fallback={<div>Loading CRM data...</div>}>
         <CRMView />
       </Suspense>
-    </ModernLayout>
+    </DashboardWrapper>
   )
 }

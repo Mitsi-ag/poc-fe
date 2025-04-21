@@ -1,15 +1,15 @@
 "use client"
 
-import { ModernLayout } from "@/components/modern-layout"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
 import { CompetitorsView } from "@/components/competitors/competitors-view"
 import { Suspense } from "react"
 
 export default function CompetitorsPage() {
   return (
-    <ModernLayout>
+    <DashboardWrapper>
       <Suspense fallback={<div>Loading competitors data...</div>}>
         <CompetitorsView />
       </Suspense>
-    </ModernLayout>
+    </DashboardWrapper>
   )
 }

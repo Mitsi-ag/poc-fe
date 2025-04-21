@@ -41,7 +41,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
       // Only redirect to login if not authenticated and not already on login, signup, or onboarding pages
       const authExemptPaths = ["/login", "/signup", "/onboarding"]
-      if (!isLoggedIn && !authExemptPaths.some((path) => pathname.startsWith(path))) {
+      if (!isLoggedIn && !authExemptPaths.some((path) => pathname?.startsWith(path))) {
         router.push("/login")
       }
     }

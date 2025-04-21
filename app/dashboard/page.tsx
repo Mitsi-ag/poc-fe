@@ -1,15 +1,15 @@
 "use client"
 
-import { ModernLayout } from "@/components/modern-layout"
-import { ModernDashboard } from "@/components/modern-dashboard"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
+import { DashboardView } from "@/components/dashboard/dashboard-view"
 import { Suspense } from "react"
 
 export default function DashboardPage() {
   return (
-    <ModernLayout>
+    <DashboardWrapper>
       <Suspense fallback={<div>Loading dashboard...</div>}>
-        <ModernDashboard />
+        <DashboardView />
       </Suspense>
-    </ModernLayout>
+    </DashboardWrapper>
   )
 }

@@ -1,15 +1,15 @@
 "use client"
 
-import { ModernLayout } from "@/components/modern-layout"
+import { DashboardWrapper } from "@/components/dashboard-wrapper"
 import { CalendarView } from "@/components/calendar/calendar-view"
 import { Suspense } from "react"
 
 export default function CalendarPage() {
   return (
-    <ModernLayout>
+    <DashboardWrapper>
       <Suspense fallback={<div>Loading calendar...</div>}>
         <CalendarView />
       </Suspense>
-    </ModernLayout>
+    </DashboardWrapper>
   )
 }

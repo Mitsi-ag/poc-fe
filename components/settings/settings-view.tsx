@@ -25,6 +25,17 @@ export function SettingsView() {
     }, 1000)
   }
 
+  // Default user data in case it's undefined
+  const defaultUserData = {
+    name: "",
+    email: "",
+    locations: [],
+    specializations: [],
+    experience: "",
+    goals: [],
+    preferredDashboardWidgets: [],
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -52,20 +63,7 @@ export function SettingsView() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <UserPreferencesForm
-                userData={
-                  userData || {
-                    name: "",
-                    email: "",
-                    locations: [],
-                    specializations: [],
-                    experience: "",
-                    goals: [],
-                    preferredDashboardWidgets: [],
-                  }
-                }
-                updateUserData={updateUserData}
-              />
+              <UserPreferencesForm userData={userData || defaultUserData} updateUserData={updateUserData} />
             </CardContent>
           </Card>
         </TabsContent>

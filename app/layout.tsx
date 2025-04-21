@@ -1,31 +1,28 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
+import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { OnboardingProvider } from "@/contexts/onboarding-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "RealtyMate - AI-Powered Real Estate Assistant",
   description:
-    "Gain a competitive edge with real-time insights and AI-powered tools for Australian real estate agents.",
+    "Gain a competitive edge with real-time insights into property listings, competitor agent activity, and automated tools for CRM, email outreach, and pitch preparation.",
     generator: 'v0.dev'
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-      </head>
+    <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
+          <OnboardingProvider>{children}</OnboardingProvider>
         </ThemeProvider>
       </body>
     </html>
