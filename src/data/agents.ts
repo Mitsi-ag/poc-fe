@@ -1,0 +1,171 @@
+export interface Agent {
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
+  phone: string;
+  agency: string;
+  position?: string;
+  areas: string[];
+  specializations: string[];
+  experience: number;
+  activeListings: number;
+  propertiesSold: number;
+  rating: number;
+  bio?: string;
+}
+
+export const agents: Agent[] = [
+  {
+    id: "a-001",
+    name: "Sarah Johnson",
+    avatar: "/confident-agent.png",
+    email: "sarah.johnson@realtymate.com",
+    phone: "0412 345 678",
+    agency: "Sydney Premier Properties",
+    position: "Senior Agent",
+    areas: ["Bondi", "Bronte", "Tamarama", "Coogee"],
+    specializations: [
+      "Luxury Properties",
+      "Beachfront Homes",
+      "Investment Properties",
+    ],
+    experience: 12,
+    activeListings: 8,
+    propertiesSold: 245,
+    rating: 4.9,
+    bio: "With over 12 years of experience in Sydney's Eastern Suburbs, Sarah has established herself as a trusted expert in luxury and beachfront properties. Her extensive network and negotiation skills consistently deliver outstanding results for her clients.",
+  },
+  {
+    id: "a-002",
+    name: "Michael Chen",
+    avatar: "/thoughtful-urbanite.png",
+    email: "michael.chen@realtymate.com",
+    phone: "0423 456 789",
+    agency: "Urban Property Group",
+    position: "Director",
+    areas: ["Chatswood", "North Sydney", "St Leonards", "Artarmon"],
+    specializations: ["Apartments", "Off-Plan Properties", "First Home Buyers"],
+    experience: 9,
+    activeListings: 15,
+    propertiesSold: 187,
+    rating: 4.7,
+    bio: "Michael specializes in helping clients navigate Sydney's competitive apartment market. His background in property development gives him unique insights that benefit both investors and first-home buyers.",
+  },
+  {
+    id: "a-003",
+    name: "Emma Williams",
+    avatar: "/confident-city-woman.png",
+    email: "emma.williams@realtymate.com",
+    phone: "0434 567 890",
+    agency: "Inner West Realty",
+    position: "Lead Agent",
+    areas: ["Newtown", "Marrickville", "Erskineville", "Enmore"],
+    specializations: ["Period Homes", "Creative Spaces", "Family Homes"],
+    experience: 7,
+    activeListings: 6,
+    propertiesSold: 112,
+    rating: 4.8,
+    bio: "Emma's passion for the Inner West's unique character and community shines through in her approach to real estate. She loves connecting people with homes that reflect their personality and lifestyle.",
+  },
+  {
+    id: "a-004",
+    name: "David Thompson",
+    avatar: "/thoughtful-elder.png",
+    email: "david.thompson@realtymate.com",
+    phone: "0445 678 901",
+    agency: "Northern Beaches Property",
+    position: "Senior Partner",
+    areas: ["Manly", "Freshwater", "Curl Curl", "Dee Why"],
+    specializations: [
+      "Luxury Properties",
+      "Waterfront Homes",
+      "Investment Properties",
+    ],
+    experience: 20,
+    activeListings: 10,
+    propertiesSold: 430,
+    rating: 4.9,
+    bio: "With two decades of experience on the Northern Beaches, David has an unparalleled understanding of the local market. His clients benefit from his extensive network and strategic approach to property transactions.",
+  },
+  {
+    id: "a-005",
+    name: "Jessica Patel",
+    avatar: "/serene-portrait.png",
+    email: "jessica.patel@realtymate.com",
+    phone: "0456 789 012",
+    agency: "Parramatta Prestige",
+    position: "Sales Director",
+    areas: ["Parramatta", "Westmead", "North Parramatta", "Harris Park"],
+    specializations: [
+      "New Developments",
+      "Family Homes",
+      "Investment Properties",
+    ],
+    experience: 8,
+    activeListings: 12,
+    propertiesSold: 156,
+    rating: 4.6,
+    bio: "Jessica has established herself as a leading agent in Western Sydney's rapidly evolving property market. She combines local market knowledge with innovative marketing strategies to achieve exceptional results.",
+  },
+  {
+    id: "a-006",
+    name: "James Wilson",
+    avatar: "/confident-urban-professional.png",
+    email: "james.wilson@realtymate.com",
+    phone: "0467 890 123",
+    agency: "Eastern Suburbs Elite",
+    position: "Principal",
+    areas: ["Double Bay", "Paddington", "Woollahra", "Bellevue Hill"],
+    specializations: [
+      "Luxury Properties",
+      "Heritage Homes",
+      "Prestige Apartments",
+    ],
+    experience: 15,
+    activeListings: 7,
+    propertiesSold: 310,
+    rating: 4.8,
+    bio: "James has built his reputation on discretion, attention to detail, and an unwavering commitment to achieving premium results. His portfolio includes some of Sydney's most prestigious properties.",
+  },
+  {
+    id: "a-007",
+    name: "Olivia Martinez",
+    avatar: "/contemplative-artist.png",
+    email: "olivia.martinez@realtymate.com",
+    phone: "0478 901 234",
+    agency: "Sutherland Shire Realty",
+    position: "Senior Agent",
+    areas: ["Cronulla", "Miranda", "Caringbah", "Gymea"],
+    specializations: [
+      "Waterfront Properties",
+      "Family Homes",
+      "First Home Buyers",
+    ],
+    experience: 11,
+    activeListings: 9,
+    propertiesSold: 205,
+    rating: 4.7,
+    bio: "Olivia combines her deep knowledge of the Sutherland Shire with a warm, personable approach. She's particularly skilled at helping families find their perfect home in this sought-after area.",
+  },
+  {
+    id: "a-008",
+    name: "Daniel Kim",
+    avatar: "/seasoned-agent-smile.png",
+    email: "daniel.kim@realtymate.com",
+    phone: "0489 012 345",
+    agency: "Strathfield Property Group",
+    position: "Director",
+    areas: ["Strathfield", "Burwood", "Concord", "Homebush"],
+    specializations: [
+      "Luxury Homes",
+      "Development Sites",
+      "Investment Properties",
+    ],
+    experience: 13,
+    activeListings: 11,
+    propertiesSold: 275,
+    rating: 4.8,
+    bio: "Daniel's background in property development gives him a unique edge in Sydney's inner west. He excels at identifying opportunities and negotiating complex deals for his diverse client base.",
+  },
+];
