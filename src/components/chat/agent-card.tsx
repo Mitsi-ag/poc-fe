@@ -23,7 +23,7 @@ export function AgentCard({
 }: AgentCardProps) {
   return (
     <Link href={`/competitors/agents/${id}`} className="block no-underline">
-      <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border-gray-200 dark:border-gray-800">
+      <Card className="overflow-hidden border-gray-200 transition-shadow duration-200 hover:shadow-md dark:border-gray-800">
         <CardContent className="p-3">
           <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12 border">
@@ -35,17 +35,17 @@ export function AgentCard({
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1 min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-sm truncate">{name}</h4>
-                <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                <h4 className="truncate text-sm font-medium">{name}</h4>
+                <ExternalLink className="text-muted-foreground h-3.5 w-3.5" />
               </div>
-              <p className="text-xs text-muted-foreground truncate">{agency}</p>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge variant="outline" className="text-xs px-1.5 py-0 h-5">
+              <p className="text-muted-foreground truncate text-xs">{agency}</p>
+              <div className="mt-1 flex items-center gap-2">
+                <Badge variant="outline" className="h-5 px-1.5 py-0 text-xs">
                   {listings} listings
                 </Badge>
-                <Badge variant="outline" className="text-xs px-1.5 py-0 h-5">
+                <Badge variant="outline" className="h-5 px-1.5 py-0 text-xs">
                   {clearanceRate}% clearance
                 </Badge>
               </div>

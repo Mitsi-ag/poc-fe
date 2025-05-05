@@ -111,21 +111,21 @@ export function ListingsComparison() {
                     <img
                       src={property.image || "/placeholder.svg"}
                       alt={property.title}
-                      className="w-full h-40 object-cover rounded-md"
+                      className="h-40 w-full rounded-md object-cover"
                     />
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute top-2 right-2 h-8 w-8 bg-white/80 hover:bg-white rounded-full"
+                      className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                   <div>
-                    <h3 className="font-semibold line-clamp-1">
+                    <h3 className="line-clamp-1 font-semibold">
                       {property.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-1">
+                    <p className="text-muted-foreground line-clamp-1 text-sm">
                       {property.address}
                     </p>
                   </div>
@@ -142,82 +142,82 @@ export function ListingsComparison() {
                     {property.features.includes("Air Conditioning") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Balcony") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("City Views") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Garden") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Gym") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Outdoor Entertainment") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Pool") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Renovated Kitchen") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Security Building") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                   <div>
                     {property.features.includes("Solar Panels") ? (
                       <Check className="h-4 w-4 text-green-500" />
                     ) : (
-                      <X className="h-4 w-4 text-muted-foreground" />
+                      <X className="text-muted-foreground h-4 w-4" />
                     )}
                   </div>
                 </div>
               ))}
 
               {/* Add property column */}
-              <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6">
-                <div className="mb-4 p-4 bg-muted rounded-full">
-                  <Plus className="h-6 w-6 text-muted-foreground" />
+              <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6">
+                <div className="bg-muted mb-4 rounded-full p-4">
+                  <Plus className="text-muted-foreground h-6 w-6" />
                 </div>
-                <h3 className="font-medium mb-2">Add Property</h3>
-                <p className="text-sm text-muted-foreground text-center mb-4">
+                <h3 className="mb-2 font-medium">Add Property</h3>
+                <p className="text-muted-foreground mb-4 text-center text-sm">
                   Add another property to compare
                 </p>
                 <Button>Add Property</Button>

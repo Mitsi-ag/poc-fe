@@ -232,7 +232,7 @@ export function UserPreferencesForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Personal Information */}
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Personal Information</h3>
@@ -353,7 +353,7 @@ export function UserPreferencesForm({
                       </Select>
                     )}
 
-                    <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="mt-2 flex flex-wrap gap-2">
                       {field.value.map((location) => (
                         <Badge
                           key={location}
@@ -391,7 +391,7 @@ export function UserPreferencesForm({
             name="specializations"
             render={() => (
               <FormItem>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                   {propertyTypes.map((type) => (
                     <FormField
                       key={type}
@@ -401,7 +401,7 @@ export function UserPreferencesForm({
                         return (
                           <FormItem
                             key={type}
-                            className="flex flex-row items-start space-x-3 space-y-0"
+                            className="flex flex-row items-start space-y-0 space-x-3"
                           >
                             <FormControl>
                               <Checkbox
@@ -444,7 +444,7 @@ export function UserPreferencesForm({
                 <FormDescription>
                   Select the goals you want to achieve with RealtyMate
                 </FormDescription>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-3">
                   {commonGoals.map((goal) => (
                     <FormField
                       key={goal}
@@ -454,7 +454,7 @@ export function UserPreferencesForm({
                         return (
                           <FormItem
                             key={goal}
-                            className="flex flex-row items-start space-x-3 space-y-0"
+                            className="flex flex-row items-start space-y-0 space-x-3"
                           >
                             <FormControl>
                               <Checkbox
@@ -497,7 +497,7 @@ export function UserPreferencesForm({
                 <FormDescription>
                   Select which widgets you want to see on your dashboard
                 </FormDescription>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-4">
                   {dashboardWidgets.map((widget) => (
                     <FormField
                       key={widget}
@@ -507,7 +507,7 @@ export function UserPreferencesForm({
                         return (
                           <FormItem
                             key={widget}
-                            className="flex flex-row items-start space-x-3 space-y-0"
+                            className="flex flex-row items-start space-y-0 space-x-3"
                           >
                             <FormControl>
                               <Checkbox

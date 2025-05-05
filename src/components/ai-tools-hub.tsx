@@ -347,17 +347,17 @@ export function AIToolsHub() {
   };
 
   return (
-    <div className="container mx-auto py-6 max-w-7xl">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+    <div className="container mx-auto max-w-7xl py-6">
+      <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold">AI Tools Hub</h1>
-          <p className="text-gray-500 mt-1 text-sm md:text-base">
+          <h1 className="text-2xl font-bold md:text-3xl">AI Tools Hub</h1>
+          <p className="mt-1 text-sm text-gray-500 md:text-base">
             Specialized AI workflows to supercharge your real estate business
           </p>
         </div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-blue-600 hover:bg-blue-700 whitespace-nowrap">
+            <Button className="bg-blue-600 whitespace-nowrap hover:bg-blue-700">
               <Sparkles className="mr-2 h-4 w-4" />
               <span className="text-sm">Custom Workflow</span>
             </Button>
@@ -366,8 +366,8 @@ export function AIToolsHub() {
             <DialogHeader>
               <DialogTitle>Request a Custom AI Workflow</DialogTitle>
               <DialogDescription>
-                Tell us about the AI workflow you'd like us to build for your
-                real estate business.
+                Tell us about the AI workflow you&apos;d like us to build for
+                your real estate business.
               </DialogDescription>
             </DialogHeader>
             <div className="py-4">
@@ -387,9 +387,9 @@ export function AIToolsHub() {
         </Dialog>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-        <div className="relative flex-1 w-full">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+      <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+        <div className="relative w-full flex-1">
+          <Search className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400" />
           <Input
             placeholder="Search AI tools..."
             className="pl-10"
@@ -397,7 +397,7 @@ export function AIToolsHub() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="w-full sm:w-auto overflow-x-auto -mx-3 px-3 pb-1">
+        <div className="-mx-3 w-full overflow-x-auto px-3 pb-1 sm:w-auto">
           <Tabs
             defaultValue="all"
             className="w-auto"
@@ -424,49 +424,43 @@ export function AIToolsHub() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {filteredTools.map((tool) => (
           <Card key={tool.id} className="overflow-hidden">
             <CardContent className="p-4 md:p-6">
-              <div className="flex items-start mb-3 md:mb-4">
-                <div className="bg-gray-100 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
+              <div className="mb-3 flex items-start md:mb-4">
+                <div className="mr-3 rounded-lg bg-gray-100 p-2 md:mr-4 md:p-3">
                   {tool.icon}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start flex-wrap gap-2">
-                    <h3 className="font-semibold text-base md:text-lg truncate">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <h3 className="truncate text-base font-semibold md:text-lg">
                       {tool.title}
                     </h3>
                     <Badge
                       variant="outline"
-                      className={`
-                text-xs whitespace-nowrap
-                ${tool.category === "marketing" ? "bg-purple-100 text-purple-800" : ""}
-                ${tool.category === "sales" ? "bg-blue-100 text-blue-800" : ""}
-                ${tool.category === "analysis" ? "bg-green-100 text-green-800" : ""}
-                ${tool.category === "international" ? "bg-indigo-100 text-indigo-800" : ""}
-              `}
+                      className={`text-xs whitespace-nowrap ${tool.category === "marketing" ? "bg-purple-100 text-purple-800" : ""} ${tool.category === "sales" ? "bg-blue-100 text-blue-800" : ""} ${tool.category === "analysis" ? "bg-green-100 text-green-800" : ""} ${tool.category === "international" ? "bg-indigo-100 text-indigo-800" : ""} `}
                     >
                       {tool.category.charAt(0).toUpperCase() +
                         tool.category.slice(1)}
                     </Badge>
                   </div>
-                  <p className="text-xs md:text-sm text-gray-500 mt-1">
+                  <p className="mt-1 text-xs text-gray-500 md:text-sm">
                     {tool.description}
                   </p>
                 </div>
               </div>
-              <p className="text-xs md:text-sm text-gray-700 mb-3 md:mb-4 line-clamp-3 md:line-clamp-4">
+              <p className="mb-3 line-clamp-3 text-xs text-gray-700 md:mb-4 md:line-clamp-4 md:text-sm">
                 {tool.longDescription}
               </p>
-              <div className="flex justify-between items-center mt-3 md:mt-4">
-                <div className="flex items-center text-gray-500 text-xs md:text-sm">
-                  <Clock className="h-3 w-3 md:h-4 md:w-4 mr-1" />
+              <div className="mt-3 flex items-center justify-between md:mt-4">
+                <div className="flex items-center text-xs text-gray-500 md:text-sm">
+                  <Clock className="mr-1 h-3 w-3 md:h-4 md:w-4" />
                   <span>{tool.timeEstimate}</span>
                 </div>
                 <Button
                   variant="ghost"
-                  className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 px-2 py-1 h-auto text-xs md:text-sm"
+                  className="h-auto px-2 py-1 text-xs text-blue-600 hover:bg-blue-50 hover:text-blue-800 md:text-sm"
                 >
                   Launch <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                 </Button>
@@ -477,7 +471,7 @@ export function AIToolsHub() {
       </div>
 
       {filteredTools.length === 0 && (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <p className="text-gray-500">
             No tools found matching your search criteria.
           </p>

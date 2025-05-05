@@ -93,7 +93,7 @@ export function LocationStep() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6"
+                className="absolute top-1/2 right-2 h-6 w-6 -translate-y-1/2"
                 onClick={() => setSearchTerm("")}
               >
                 <X className="h-4 w-4" />
@@ -103,14 +103,14 @@ export function LocationStep() {
 
           {/* Suggestions */}
           {suggestions.length > 0 && (
-            <div className="mt-1 p-2 bg-white border rounded-md shadow-sm max-h-48 overflow-y-auto">
+            <div className="mt-1 max-h-48 overflow-y-auto rounded-md border bg-white p-2 shadow-sm">
               {suggestions.map((suggestion) => (
                 <div
                   key={suggestion}
-                  className="px-2 py-1.5 hover:bg-gray-100 rounded cursor-pointer flex items-center gap-2"
+                  className="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 hover:bg-gray-100"
                   onClick={() => addLocation(suggestion)}
                 >
-                  <PlusCircle className="h-4 w-4 text-primary" />
+                  <PlusCircle className="text-primary h-4 w-4" />
                   {suggestion}
                 </div>
               ))}
@@ -121,9 +121,9 @@ export function LocationStep() {
         {/* Selected locations */}
         <div className="space-y-2">
           <Label>Your selected locations</Label>
-          <div className="min-h-24 p-3 border rounded-md bg-gray-50">
+          <div className="min-h-24 rounded-md border bg-gray-50 p-3">
             {locations.length === 0 ? (
-              <p className="text-gray-400 text-sm">
+              <p className="text-sm text-gray-400">
                 No locations selected yet. Search and add locations above.
               </p>
             ) : (
@@ -132,13 +132,13 @@ export function LocationStep() {
                   <Badge
                     key={location}
                     variant="secondary"
-                    className="pl-2 pr-1 py-1 flex items-center gap-1"
+                    className="flex items-center gap-1 py-1 pr-1 pl-2"
                   >
                     {location}
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-4 w-4 ml-1 hover:bg-gray-200 rounded-full"
+                      className="ml-1 h-4 w-4 rounded-full hover:bg-gray-200"
                       onClick={() => removeLocation(location)}
                     >
                       <X className="h-3 w-3" />
@@ -151,7 +151,7 @@ export function LocationStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-between">
+      <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>

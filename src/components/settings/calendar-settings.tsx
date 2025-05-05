@@ -169,7 +169,7 @@ export function CalendarSettings() {
             )}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormField
               control={form.control}
               name="workingHours.start"
@@ -206,7 +206,7 @@ export function CalendarSettings() {
             name="workingDays"
             render={() => (
               <FormItem>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                   {[
                     "monday",
                     "tuesday",
@@ -224,7 +224,7 @@ export function CalendarSettings() {
                         return (
                           <FormItem
                             key={day}
-                            className="flex flex-row items-start space-x-3 space-y-0"
+                            className="flex flex-row items-start space-y-0 space-x-3"
                           >
                             <FormControl>
                               <Checkbox
@@ -263,7 +263,7 @@ export function CalendarSettings() {
             render={() => (
               <FormItem>
                 <FormLabel>Default Reminder Times</FormLabel>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
                   {["15min", "30min", "1hour", "2hours", "1day", "2days"].map(
                     (time) => (
                       <FormField
@@ -274,7 +274,7 @@ export function CalendarSettings() {
                           return (
                             <FormItem
                               key={time}
-                              className="flex flex-row items-start space-x-3 space-y-0"
+                              className="flex flex-row items-start space-y-0 space-x-3"
                             >
                               <FormControl>
                                 <Checkbox

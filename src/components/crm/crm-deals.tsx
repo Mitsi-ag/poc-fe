@@ -120,7 +120,7 @@ export function CrmDeals() {
           <h2 className="text-2xl font-semibold tracking-tight">
             Active Deals
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Track and manage your active property transactions
           </p>
         </div>
@@ -140,11 +140,11 @@ export function CrmDeals() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {deals.map((deal) => (
           <Card key={deal.id} className="overflow-hidden">
             <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
+              <div className="flex items-start justify-between">
                 <div>
                   <CardTitle className="text-lg">{deal.title}</CardTitle>
                   <CardDescription>{deal.location}</CardDescription>
@@ -171,7 +171,7 @@ export function CrmDeals() {
               </div>
             </CardHeader>
             <CardContent className="pb-2">
-              <div className="flex justify-between items-center mb-2">
+              <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Avatar className="h-8 w-8">
                     <AvatarImage
@@ -204,45 +204,45 @@ export function CrmDeals() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex justify-between items-center text-sm">
+                <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Deal Progress</span>
                   <span className="font-medium">{deal.progress}%</span>
                 </div>
                 <Progress value={deal.progress} className="h-2" />
 
-                <div className="grid grid-cols-2 gap-4 mt-4">
+                <div className="mt-4 grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
-                    <div className="rounded-full bg-primary/10 p-1">
-                      <DollarSign className="h-4 w-4 text-primary" />
+                    <div className="bg-primary/10 rounded-full p-1">
+                      <DollarSign className="text-primary h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground">Value</p>
+                      <p className="text-muted-foreground text-xs">Value</p>
                       <p className="text-sm font-medium">{deal.value}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <div className="rounded-full bg-primary/10 p-1">
-                      <Calendar className="h-4 w-4 text-primary" />
+                    <div className="bg-primary/10 rounded-full p-1">
+                      <Calendar className="text-primary h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground">Next Step</p>
+                      <p className="text-muted-foreground text-xs">Next Step</p>
                       <p className="text-sm font-medium">{deal.nextDate}</p>
                     </div>
                   </div>
                 </div>
               </div>
             </CardContent>
-            <div className="px-6 py-3 bg-muted/50 border-t">
-              <div className="flex justify-between items-center">
+            <div className="bg-muted/50 border-t px-6 py-3">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 text-sm">
-                  <Clock className="h-4 w-4 text-muted-foreground" />
+                  <Clock className="text-muted-foreground h-4 w-4" />
                   <span>Next: {deal.nextStep}</span>
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 gap-1 text-primary"
+                  className="text-primary h-8 gap-1"
                 >
                   <span>View Deal</span>
                   <ArrowRight className="h-4 w-4" />
@@ -253,17 +253,17 @@ export function CrmDeals() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <DollarSign className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <DollarSign className="text-primary h-4 w-4" />
               Deal Value
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$6.22M</div>
-            <p className="text-sm text-muted-foreground">Total active deals</p>
+            <p className="text-muted-foreground text-sm">Total active deals</p>
             <div className="mt-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span>Purchase</span>
@@ -283,36 +283,36 @@ export function CrmDeals() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Home className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Home className="text-primary h-4 w-4" />
               Deal Pipeline
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="mb-1 flex justify-between text-sm">
                   <span>Lead</span>
                   <span>3</span>
                 </div>
                 <Progress value={30} className="h-2" />
               </div>
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="mb-1 flex justify-between text-sm">
                   <span>Negotiation</span>
                   <span>2</span>
                 </div>
                 <Progress value={20} className="h-2" />
               </div>
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="mb-1 flex justify-between text-sm">
                   <span>Due Diligence</span>
                   <span>2</span>
                 </div>
                 <Progress value={20} className="h-2" />
               </div>
               <div>
-                <div className="flex justify-between text-sm mb-1">
+                <div className="mb-1 flex justify-between text-sm">
                   <span>Contract</span>
                   <span>3</span>
                 </div>
@@ -324,43 +324,43 @@ export function CrmDeals() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <CheckCircle2 className="text-primary h-4 w-4" />
               Recent Settlements
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">15 Beach Road</p>
-                  <p className="text-sm text-muted-foreground">Bondi</p>
+                  <p className="text-muted-foreground text-sm">Bondi</p>
                 </div>
                 <div className="text-right">
                   <p className="font-medium">$1.42M</p>
-                  <p className="text-sm text-muted-foreground">Apr 10</p>
+                  <p className="text-muted-foreground text-sm">Apr 10</p>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">8/42 Park Street</p>
-                  <p className="text-sm text-muted-foreground">Surry Hills</p>
+                  <p className="text-muted-foreground text-sm">Surry Hills</p>
                 </div>
                 <div className="text-right">
                   <p className="font-medium">$875K</p>
-                  <p className="text-sm text-muted-foreground">Apr 5</p>
+                  <p className="text-muted-foreground text-sm">Apr 5</p>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">22 Harbour View</p>
-                  <p className="text-sm text-muted-foreground">Double Bay</p>
+                  <p className="text-muted-foreground text-sm">Double Bay</p>
                 </div>
                 <div className="text-right">
                   <p className="font-medium">$2.35M</p>
-                  <p className="text-sm text-muted-foreground">Mar 28</p>
+                  <p className="text-muted-foreground text-sm">Mar 28</p>
                 </div>
               </div>
             </div>

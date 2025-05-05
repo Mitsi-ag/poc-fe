@@ -40,9 +40,9 @@ export function AnalyticsView() {
         </p>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <Tabs defaultValue="performance" className="w-full sm:w-auto">
-          <TabsList className="grid grid-cols-5 w-full sm:w-auto">
+          <TabsList className="grid w-full grid-cols-5 sm:w-auto">
             <TabsTrigger
               value="performance"
               className="flex items-center gap-2"
@@ -72,7 +72,7 @@ export function AnalyticsView() {
           </TabsList>
         </Tabs>
 
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Select time range" />

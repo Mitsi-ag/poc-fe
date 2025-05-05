@@ -76,7 +76,7 @@ export function CustomSidebar() {
   };
 
   return (
-    <div className="h-full w-64 max-w-[85vw] border-r border-gray-200 bg-white flex flex-col">
+    <div className="flex h-full w-64 max-w-[85vw] flex-col border-r border-gray-200 bg-white">
       <div className="flex items-center p-4">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 text-white">
@@ -86,9 +86,9 @@ export function CustomSidebar() {
         </Link>
       </div>
 
-      <div className="px-3 py-2 flex-1">
+      <div className="flex-1 px-3 py-2">
         <div className="mb-4">
-          <div className="flex items-center justify-center gap-2 w-full py-2 px-3 bg-blue-50 text-blue-500 rounded-md">
+          <div className="flex w-full items-center justify-center gap-2 rounded-md bg-blue-50 px-3 py-2 text-blue-500">
             <Sparkles className="h-4 w-4" />
             <span className="font-medium">Pro Plan</span>
           </div>
@@ -100,7 +100,7 @@ export function CustomSidebar() {
               key={item.path}
               href={item.path}
               className={cn(
-                "flex w-full items-center gap-3 px-3 py-3 rounded-md transition-colors text-left",
+                "flex w-full items-center gap-3 rounded-md px-3 py-3 text-left transition-colors",
                 pathname === item.path
                   ? "bg-blue-50 text-blue-600"
                   : "text-gray-600 hover:bg-gray-100",
@@ -108,7 +108,7 @@ export function CustomSidebar() {
             >
               {React.cloneElement(item.icon as React.ReactElement, {
                 className: cn(
-                  "h-5 w-5 flex-shrink-0",
+                  "h-5 w-5 shrink-0",
                   pathname === item.path ? "text-blue-500" : "text-gray-500",
                 ),
               })}
@@ -122,7 +122,7 @@ export function CustomSidebar() {
         <Link
           href="/settings"
           className={cn(
-            "flex w-full items-center gap-3 px-3 py-2 rounded-md transition-colors text-left",
+            "flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors",
             pathname === "/settings"
               ? "bg-blue-50 text-blue-600"
               : "text-gray-600 hover:bg-gray-100",
@@ -137,12 +137,12 @@ export function CustomSidebar() {
           <span>Settings</span>
         </Link>
 
-        <div className="mt-4 p-3 bg-gray-50 rounded-md">
-          <div className="flex items-center gap-2 mb-1">
+        <div className="mt-4 rounded-md bg-gray-50 p-3">
+          <div className="mb-1 flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-blue-500" />
             <span className="font-medium text-gray-800">Upgrade Now</span>
           </div>
-          <p className="text-xs text-gray-500 mb-3">
+          <p className="mb-3 text-xs text-gray-500">
             Get advanced features and increased limits with our Pro plan.
           </p>
           <Button
@@ -155,10 +155,10 @@ export function CustomSidebar() {
 
         <Button
           variant="ghost"
-          className="w-full mt-3 text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-start"
+          className="mt-3 w-full justify-start text-gray-600 hover:bg-gray-100 hover:text-gray-900"
           onClick={handleLogout}
         >
-          <LogOut className="h-4 w-4 mr-2" />
+          <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </Button>
       </div>

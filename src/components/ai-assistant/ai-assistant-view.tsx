@@ -22,20 +22,20 @@ export function AIAssistantView() {
         <FullPageAssistant onClose={handleClose} />
       ) : (
         <div className="space-y-6">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-50 dark:to-gray-400">
+              <h1 className="bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-3xl font-bold tracking-tight text-transparent dark:from-gray-50 dark:to-gray-400">
                 AI Assistant
               </h1>
-              <p className="mt-1 text-muted-foreground">
+              <p className="text-muted-foreground mt-1">
                 Your intelligent real estate assistant and conversation history
               </p>
             </div>
             <Button
               onClick={() => setShowFullPage(true)}
-              className="gap-2 text-white bg-gradient-to-r to-blue-400 shadow-md transition-all duration-300 hover:to-blue-500 from-primary hover:from-primary/90"
+              className="from-primary hover:from-primary/90 gap-2 bg-linear-to-r to-blue-400 text-white shadow-md transition-all duration-300 hover:to-blue-500"
             >
-              <PlusCircle className="w-4 h-4" />
+              <PlusCircle className="h-4 w-4" />
               <span>New Chat</span>
             </Button>
           </div>

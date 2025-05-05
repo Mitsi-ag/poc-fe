@@ -52,14 +52,14 @@ export function SpecializationStep() {
       <div className="space-y-4 pt-4">
         <div className="space-y-2">
           <Label>Select your specializations</Label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {specializations.map((spec) => (
               <div
                 key={spec.id}
                 className={cn(
-                  "border rounded-lg p-4 cursor-pointer transition-all",
+                  "cursor-pointer rounded-lg border p-4 transition-all",
                   selected.includes(spec.id)
-                    ? "border-primary bg-primary/5 ring-1 ring-primary"
+                    ? "border-primary bg-primary/5 ring-primary ring-1"
                     : "hover:border-gray-300 hover:bg-gray-50",
                 )}
                 onClick={() => toggleSpecialization(spec.id)}
@@ -69,7 +69,7 @@ export function SpecializationStep() {
                   <div className="flex-1">{spec.label}</div>
                   <div
                     className={cn(
-                      "h-5 w-5 rounded-full border flex items-center justify-center",
+                      "flex h-5 w-5 items-center justify-center rounded-full border",
                       selected.includes(spec.id)
                         ? "border-primary bg-primary text-white"
                         : "border-gray-300",
@@ -86,7 +86,7 @@ export function SpecializationStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-between">
+      <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>

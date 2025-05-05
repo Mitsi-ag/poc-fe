@@ -106,19 +106,19 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-4 right-4 z-50 w-[400px] transition-all duration-300 ease-in-out",
-        isExpanded && "w-[600px] h-[80vh]",
+        "fixed right-4 bottom-4 z-50 w-[400px] transition-all duration-300 ease-in-out",
+        isExpanded && "h-[80vh] w-[600px]",
       )}
     >
-      <Card className="flex flex-col h-full shadow-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden bg-white/95 backdrop-blur-sm dark:bg-gray-900/95 rounded-2xl">
-        <CardHeader className="flex flex-row items-center justify-between p-4 border-b">
+      <Card className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200/50 bg-white/95 shadow-xl backdrop-blur-sm dark:border-gray-700/50 dark:bg-gray-900/95">
+        <CardHeader className="flex flex-row items-center justify-between border-b p-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/20">
+            <div className="bg-primary/10 text-primary dark:bg-primary/20 flex h-8 w-8 items-center justify-center rounded-full">
               <Bot className="h-4 w-4" />
             </div>
             <div>
               <h3 className="font-medium">RealtyMate AI</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 Your real estate assistant
               </p>
             </div>
@@ -130,7 +130,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 rounded-full"
+                    className="h-8 w-8 rounded-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                     onClick={() => setIsExpanded(!isExpanded)}
                   >
                     {isExpanded ? (
@@ -152,7 +152,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 rounded-full"
+                    className="h-8 w-8 rounded-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                     onClick={onClose}
                   >
                     <X className="h-4 w-4" />
@@ -169,24 +169,24 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
-          className="flex-1 flex flex-col"
+          className="flex flex-1 flex-col"
         >
-          <TabsList className="px-4 pt-2 bg-transparent justify-start border-b rounded-none gap-4">
+          <TabsList className="justify-start gap-4 rounded-none border-b bg-transparent px-4 pt-2">
             <TabsTrigger
               value="chat"
-              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none px-2 py-1 h-auto dark:data-[state=active]:text-primary"
+              className="data-[state=active]:border-primary data-[state=active]:text-primary dark:data-[state=active]:text-primary h-auto rounded-none px-2 py-1 data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               Chat
             </TabsTrigger>
             <TabsTrigger
               value="history"
-              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none px-2 py-1 h-auto dark:data-[state=active]:text-primary"
+              className="data-[state=active]:border-primary data-[state=active]:text-primary dark:data-[state=active]:text-primary h-auto rounded-none px-2 py-1 data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               History
             </TabsTrigger>
             <TabsTrigger
               value="tools"
-              className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none px-2 py-1 h-auto dark:data-[state=active]:text-primary"
+              className="data-[state=active]:border-primary data-[state=active]:text-primary dark:data-[state=active]:text-primary h-auto rounded-none px-2 py-1 data-[state=active]:border-b-2 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             >
               Tools
             </TabsTrigger>
@@ -212,7 +212,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
 
           <TabsContent
             value="chat"
-            className="flex-1 flex flex-col mt-0 data-[state=inactive]:hidden"
+            className="mt-0 flex flex-1 flex-col data-[state=inactive]:hidden"
           >
             <CardContent className="flex-1 overflow-auto p-4">
               <div className="space-y-4">
@@ -230,7 +230,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                       <AvatarImage src="/helpful-ai-interface.png" alt="AI" />
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col gap-1 flex-1">
+                    <div className="flex flex-1 flex-col gap-1">
                       <div className="flex items-center gap-2">
                         <span className="font-medium">RealtyMate AI</span>
                         <Badge
@@ -240,11 +240,11 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                           Assistant
                         </Badge>
                       </div>
-                      <div className="rounded-lg rounded-tl-none bg-gray-100 p-3 text-sm dark:bg-gray-800 min-h-[40px] flex items-center">
-                        <div className="flex space-x-2 animate-pulse">
-                          <div className="h-2 w-2 rounded-full bg-primary"></div>
-                          <div className="h-2 w-2 rounded-full bg-primary"></div>
-                          <div className="h-2 w-2 rounded-full bg-primary"></div>
+                      <div className="flex min-h-[40px] items-center rounded-lg rounded-tl-none bg-gray-100 p-3 text-sm dark:bg-gray-800">
+                        <div className="flex animate-pulse space-x-2">
+                          <div className="bg-primary h-2 w-2 rounded-full"></div>
+                          <div className="bg-primary h-2 w-2 rounded-full"></div>
+                          <div className="bg-primary h-2 w-2 rounded-full"></div>
                         </div>
                       </div>
                     </div>
@@ -254,7 +254,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                 <div ref={messagesEndRef} />
               </div>
             </CardContent>
-            <CardFooter className="border-t p-3 bg-gray-50 dark:bg-gray-800/50">
+            <CardFooter className="border-t bg-gray-50 p-3 dark:bg-gray-800/50">
               <div className="flex w-full flex-col gap-3">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
@@ -266,22 +266,22 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                               <Button
                                 variant="outline"
                                 size="icon"
-                                className="shrink-0 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                                className="shrink-0 rounded-full bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                               >
                                 <Paperclip className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                               <DropdownMenuItem className="cursor-pointer">
-                                <FileText className="h-4 w-4 mr-2" /> Attach
+                                <FileText className="mr-2 h-4 w-4" /> Attach
                                 document
                               </DropdownMenuItem>
                               <DropdownMenuItem className="cursor-pointer">
-                                <ImageIcon className="h-4 w-4 mr-2" /> Attach
+                                <ImageIcon className="mr-2 h-4 w-4" /> Attach
                                 image
                               </DropdownMenuItem>
                               <DropdownMenuItem className="cursor-pointer">
-                                <LinkIcon className="h-4 w-4 mr-2" /> Attach
+                                <LinkIcon className="mr-2 h-4 w-4" /> Attach
                                 link
                               </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -304,12 +304,12 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                           handleSendMessage();
                         }
                       }}
-                      className="rounded-full pr-10 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                      className="rounded-full border-gray-200 bg-white pr-10 dark:border-gray-700 dark:bg-gray-800"
                     />
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-primary hover:text-primary/80 rounded-full"
+                      className="text-primary hover:text-primary/80 absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2 rounded-full"
                       onClick={handleSendMessage}
                       disabled={!message.trim()}
                     >
@@ -321,7 +321,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-7 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Create pitch for 22 Palm St")
                     }
@@ -332,7 +332,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-7 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Market trends in Randwick")
                     }
@@ -343,7 +343,7 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-7 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Draft follow-up email")
                     }
@@ -358,29 +358,29 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
 
           <TabsContent
             value="history"
-            className="flex-1 flex flex-col mt-0 data-[state=inactive]:hidden"
+            className="mt-0 flex flex-1 flex-col data-[state=inactive]:hidden"
           >
             <CardContent className="flex-1 overflow-auto p-4">
               <div className="space-y-4">
                 {chatHistory.map((chat, index) => (
                   <div
                     key={index}
-                    className="rounded-lg border border-gray-200 dark:border-gray-800 p-3 hover:border-primary/20 hover:bg-primary/5 cursor-pointer transition-colors dark:hover:border-primary/30 dark:hover:bg-primary/10"
+                    className="hover:border-primary/20 hover:bg-primary/5 dark:hover:border-primary/30 dark:hover:bg-primary/10 cursor-pointer rounded-lg border border-gray-200 p-3 transition-colors dark:border-gray-800"
                     onClick={() => setActiveTab("chat")}
                   >
                     <div className="flex items-center justify-between">
                       <h4 className="font-medium">{chat.title}</h4>
                       <span className="text-xs text-gray-500">{chat.time}</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                    <p className="mt-1 line-clamp-2 text-sm text-gray-500">
                       {chat.preview}
                     </p>
-                    <div className="flex items-center gap-1 mt-2">
+                    <div className="mt-2 flex items-center gap-1">
                       {chat.tags.map((tag, tagIndex) => (
                         <Badge
                           key={tagIndex}
                           variant="secondary"
-                          className="px-2 py-0.5 text-xs bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+                          className="bg-gray-100 px-2 py-0.5 text-xs text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
                         >
                           {tag}
                         </Badge>
@@ -394,21 +394,21 @@ export function ChatbotFloating({ isOpen, onClose }: ChatbotFloatingProps) {
 
           <TabsContent
             value="tools"
-            className="flex-1 flex flex-col mt-0 data-[state=inactive]:hidden"
+            className="mt-0 flex flex-1 flex-col data-[state=inactive]:hidden"
           >
             <CardContent className="flex-1 overflow-auto p-4">
               <div className="grid grid-cols-2 gap-3">
                 {aiTools.map((tool, index) => (
                   <div
                     key={index}
-                    className="rounded-lg border border-gray-200 dark:border-gray-800 p-3 hover:border-primary/20 hover:bg-primary/5 cursor-pointer transition-colors dark:hover:border-primary/30 dark:hover:bg-primary/10"
+                    className="hover:border-primary/20 hover:bg-primary/5 dark:hover:border-primary/30 dark:hover:bg-primary/10 cursor-pointer rounded-lg border border-gray-200 p-3 transition-colors dark:border-gray-800"
                     onClick={() => {
                       setActiveTab("chat");
                       handleSuggestionClick(tool.prompt);
                     }}
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    <div className="mb-2 flex items-center gap-2">
+                      <div className="bg-primary/10 text-primary flex h-8 w-8 items-center justify-center rounded-md">
                         {tool.icon}
                       </div>
                       <h4 className="font-medium">{tool.title}</h4>
@@ -456,7 +456,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
           </>
         )}
       </Avatar>
-      <div className="flex flex-col gap-1 flex-1 group">
+      <div className="group flex flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
           <span className="font-medium">
             {isUser ? "You" : "RealtyMate AI"}
@@ -469,16 +469,16 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
         </div>
         <div
           className={cn(
-            "rounded-lg rounded-tl-none p-3 text-sm relative group",
+            "group relative rounded-lg rounded-tl-none p-3 text-sm",
             isUser
-              ? "bg-primary text-white dark:bg-primary dark:text-white"
+              ? "bg-primary dark:bg-primary text-white dark:text-white"
               : "bg-gray-100 dark:bg-gray-800",
           )}
         >
           <p>{message.content}</p>
 
           {!isUser && (
-            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
               <Button
                 variant="ghost"
                 size="icon"
@@ -500,7 +500,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
             <Button
               variant="outline"
               size="sm"
-              className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="h-7 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <span>Generate detailed report</span>
               <ArrowRight className="h-3 w-3" />
@@ -508,7 +508,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
             <Button
               variant="outline"
               size="sm"
-              className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="h-7 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <span>Compare with previous month</span>
               <ArrowRight className="h-3 w-3" />
@@ -516,7 +516,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
             <Button
               variant="outline"
               size="sm"
-              className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="h-7 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <span>Share with clients</span>
               <ArrowRight className="h-3 w-3" />

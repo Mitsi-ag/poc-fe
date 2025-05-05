@@ -63,24 +63,24 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="flex min-h-screen bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
         <AppSidebar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-1 flex-col">
           <header
             className={cn(
               "sticky top-0 z-30 flex h-16 items-center justify-between px-6 transition-all duration-200",
               scrolled
-                ? "bg-white/80 backdrop-blur-md border-b shadow-sm dark:bg-gray-900/80"
+                ? "border-b bg-white/80 shadow-sm backdrop-blur-md dark:bg-gray-900/80"
                 : "bg-transparent",
             )}
           >
             <div className="flex items-center gap-4">
               <SidebarTrigger className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" />
               <div className="relative w-64">
-                <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <Search className="absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <Input
                   placeholder="Search listings, agents, suburbs..."
-                  className="pl-8 bg-gray-100 border-0 focus-visible:ring-2 focus-visible:ring-primary dark:bg-gray-800"
+                  className="focus-visible:ring-primary border-0 bg-gray-100 pl-8 focus-visible:ring-2 dark:bg-gray-800"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -88,7 +88,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400 hover:text-gray-900"
+                    className="absolute top-1/2 right-1 h-6 w-6 -translate-y-1/2 text-gray-400 hover:text-gray-900"
                     onClick={() => setSearchQuery("")}
                   >
                     <X className="h-3 w-3" />
@@ -194,10 +194,10 @@ function AppSidebar() {
     <Sidebar variant="floating" className="border-0">
       <SidebarHeader className="flex items-center justify-center p-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-600 shadow-md">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-blue-500 to-blue-600 shadow-md">
             <Home className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-600 to-blue-400 bg-clip-text text-xl font-bold text-transparent">
             RealtyMate
           </span>
         </div>

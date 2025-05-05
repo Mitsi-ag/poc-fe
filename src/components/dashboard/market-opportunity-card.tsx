@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 
 export function MarketOpportunityCard() {
   return (
-    <Card className="overflow-hidden border shadow-sm hover:shadow transition-all dark:border-gray-800">
+    <Card className="overflow-hidden border shadow-sm transition-all hover:shadow dark:border-gray-800">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <BarChart3 className="text-primary h-5 w-5" />
           Market Opportunities
         </CardTitle>
       </CardHeader>
@@ -22,16 +22,16 @@ export function MarketOpportunityCard() {
           {opportunities.map((opportunity, index) => (
             <div
               key={index}
-              className="flex items-start gap-3 group cursor-pointer"
+              className="group flex cursor-pointer items-start gap-3"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex h-8 w-8 items-center justify-center rounded-full">
                 {opportunity.icon}
               </div>
-              <div className="space-y-1 flex-1">
-                <p className="font-medium group-hover:text-primary transition-colors">
+              <div className="flex-1 space-y-1">
+                <p className="group-hover:text-primary font-medium transition-colors">
                   {opportunity.title}
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {opportunity.description}
                 </p>
               </div>

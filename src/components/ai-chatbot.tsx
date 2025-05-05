@@ -70,7 +70,7 @@ export function AIChatbot() {
                   Assistant
                 </Badge>
               </div>
-              <div className="rounded-lg rounded-tl-none bg-muted p-3 text-sm">
+              <div className="bg-muted rounded-lg rounded-tl-none p-3 text-sm">
                 Hello John! How can I help you today? You can ask me about
                 market trends, competitor activity, or request help with emails
                 or pitches.
@@ -87,7 +87,7 @@ export function AIChatbot() {
               <div className="flex items-center gap-2">
                 <span className="font-medium">You</span>
               </div>
-              <div className="rounded-lg rounded-tl-none bg-primary p-3 text-sm text-primary-foreground">
+              <div className="bg-primary text-primary-foreground rounded-lg rounded-tl-none p-3 text-sm">
                 Who are the top agents in Bondi Beach this month?
               </div>
             </div>
@@ -108,12 +108,12 @@ export function AIChatbot() {
                   Assistant
                 </Badge>
               </div>
-              <div className="rounded-lg rounded-tl-none bg-muted p-3 text-sm">
+              <div className="bg-muted rounded-lg rounded-tl-none p-3 text-sm">
                 <p>
                   Based on the last 30 days of data, the top agents in Bondi
                   Beach are:
                 </p>
-                <ol className="ml-4 mt-2 list-decimal">
+                <ol className="mt-2 ml-4 list-decimal">
                   <li>
                     Sarah Johnson (Ray White) - 8 new listings, 76% clearance
                     rate
@@ -149,7 +149,7 @@ export function AIChatbot() {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="border-t bg-card pt-3">
+      <CardFooter className="bg-card border-t pt-3">
         <div className="flex w-full items-center gap-2">
           <Button variant="outline" size="icon" className="shrink-0">
             <Paperclip className="h-4 w-4" />
@@ -164,7 +164,7 @@ export function AIChatbot() {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-0 top-0 h-full"
+              className="absolute top-0 right-0 h-full"
             >
               <Send className="h-4 w-4" />
             </Button>

@@ -185,7 +185,7 @@ export function ListingPerformance({
             {topListings.map((listing, index) => (
               <div
                 key={index}
-                className="flex flex-col md:flex-row gap-4 border-b pb-4 last:border-0 last:pb-0"
+                className="flex flex-col gap-4 border-b pb-4 last:border-0 last:pb-0 md:flex-row"
               >
                 <div className="w-full md:w-1/4">
                   <Avatar className="h-24 w-full rounded-md">
@@ -198,35 +198,35 @@ export function ListingPerformance({
                   </Avatar>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-lg">{listing.address}</h3>
+                  <h3 className="text-lg font-medium">{listing.address}</h3>
                   <p className="text-primary font-bold">{listing.price}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     {listing.daysListed} days on market
                   </p>
-                  <div className="flex gap-4 mt-2">
+                  <div className="mt-2 flex gap-4">
                     <div className="flex items-center gap-1">
-                      <Eye className="h-4 w-4 text-muted-foreground" />
+                      <Eye className="text-muted-foreground h-4 w-4" />
                       <span className="text-sm">{listing.views}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                      <MessageSquare className="text-muted-foreground h-4 w-4" />
                       <span className="text-sm">{listing.inquiries}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Heart className="h-4 w-4 text-muted-foreground" />
+                      <Heart className="text-muted-foreground h-4 w-4" />
                       <span className="text-sm">
                         {Math.floor(listing.views * 0.15)}
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Share2 className="h-4 w-4 text-muted-foreground" />
+                      <Share2 className="text-muted-foreground h-4 w-4" />
                       <span className="text-sm">
                         {Math.floor(listing.views * 0.05)}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-row md:flex-col gap-2 items-start">
+                <div className="flex flex-row items-start gap-2 md:flex-col">
                   <Badge className="bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-300">
                     High Performing
                   </Badge>

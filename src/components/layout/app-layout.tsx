@@ -82,24 +82,24 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 transition-colors duration-300">
+      <div className="flex min-h-screen w-full bg-linear-to-br from-gray-50 to-gray-100 transition-colors duration-300 dark:from-gray-950 dark:to-gray-900">
         <AppSidebar isAuthenticated={isAuthenticated} />
-        <div className="flex-1 flex flex-col w-full">
+        <div className="flex w-full flex-1 flex-col">
           <header
             className={cn(
-              "sticky top-0 z-30 flex h-16 items-center justify-between px-3 sm:px-6 transition-all duration-200 w-full",
+              "sticky top-0 z-30 flex h-16 w-full items-center justify-between px-3 transition-all duration-200 sm:px-6",
               scrolled
-                ? "bg-white/90 backdrop-blur-md dark:bg-gray-900/90 shadow-sm"
+                ? "bg-white/90 shadow-sm backdrop-blur-md dark:bg-gray-900/90"
                 : "bg-transparent",
             )}
           >
             <div className="flex items-center gap-2 md:gap-4">
               <SidebarTrigger className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" />
               <div className="relative w-full max-w-[180px] sm:max-w-[240px] md:max-w-[320px]">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <Input
                   placeholder="Search..."
-                  className="rounded-full pl-10 pr-4 bg-gray-100/80 border-0 focus-visible:ring-2 focus-visible:ring-primary dark:bg-gray-800/50 text-sm"
+                  className="focus-visible:ring-primary rounded-full border-0 bg-gray-100/80 pr-4 pl-10 text-sm focus-visible:ring-2 dark:bg-gray-800/50"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -107,7 +107,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                    className="absolute top-1/2 right-2 h-6 w-6 -translate-y-1/2 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
                     onClick={() => setSearchQuery("")}
                   >
                     <X className="h-3 w-3" />
@@ -116,7 +116,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-1">
+              <div className="hidden items-center gap-1 md:flex">
                 <Switch
                   id="dark-mode"
                   checked={isDarkMode}
@@ -136,7 +136,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Button
                 variant="outline"
                 size="icon"
-                className="relative bg-white/80 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800 rounded-full"
+                className="relative rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800"
                 onClick={() => setNotifications(0)}
               >
                 <Bell className="h-4 w-4" />
@@ -149,7 +149,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Button
                 variant="outline"
                 size="icon"
-                className="bg-white/80 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800 rounded-full"
+                className="rounded-full bg-white/80 hover:bg-white dark:bg-gray-800/50 dark:hover:bg-gray-800"
                 onClick={() => setIsChatOpen(true)}
               >
                 <MessageSquare className="h-4 w-4" />
@@ -158,7 +158,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <UserMenu />
 
               <Button
-                className="hidden md:flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white shadow-md transition-all duration-300"
+                className="hidden items-center gap-2 bg-blue-500 text-white shadow-md transition-all duration-300 hover:bg-blue-600 md:flex"
                 size="sm"
               >
                 <Plus className="h-4 w-4" />
@@ -166,7 +166,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </Button>
             </div>
           </header>
-          <main className="flex-1 p-4 md:p-6 lg:p-8 w-full overflow-x-hidden">
+          <main className="w-full flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
             <div className="w-full max-w-full overflow-hidden">{children}</div>
           </main>
         </div>
@@ -192,17 +192,17 @@ function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex items-center gap-2 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-full p-1 pr-3"
+          className="flex items-center gap-2 rounded-full p-1 pr-3 hover:bg-white/50 dark:hover:bg-gray-800/50"
         >
           <Avatar className="h-8 w-8 border-2 border-white shadow-sm">
             <AvatarImage src="/confident-agent-handshake.png" alt="Agent" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <span className="font-medium hidden md:inline">John Doe</span>
+          <span className="hidden font-medium md:inline">John Doe</span>
           <ChevronDown className="h-4 w-4 text-gray-500" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 mt-1">
+      <DropdownMenuContent align="end" className="mt-1 w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">

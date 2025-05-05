@@ -42,7 +42,7 @@ interface FullPageAssistantProps {
 
 export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
   const [message, setMessage] = useState("");
-  const [activeTab, setActiveTab] = useState("chat");
+  // const [activeTab, setActiveTab] = useState("chat");
   const [activeChatId, setActiveChatId] = useState<string>("new");
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -131,14 +131,16 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
         };
       }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: getRandomResponse(message),
-          richContent: richContent,
-        },
-      ]);
+      console.log("richContent:", richContent);
+
+      // setMessages((prev) => [
+      //   ...prev,
+      //   {
+      //     role: "assistant",
+      //     content: getRandomResponse(message),
+      //     richContent: richContent,
+      //   },
+      // ]);
       setIsLoading(false);
     }, 1000);
   };
@@ -175,15 +177,15 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
     : chatHistory;
 
   return (
-    <div className="fixed inset-0 z-50 bg-white dark:bg-gray-950 overflow-hidden flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b">
+    <div className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-white dark:bg-gray-950">
+      <div className="flex items-center justify-between border-b p-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/20">
+          <div className="bg-primary/10 text-primary dark:bg-primary/20 flex h-10 w-10 items-center justify-center rounded-full">
             <Bot className="h-5 w-5" />
           </div>
           <div>
             <h2 className="text-xl font-semibold">RealtyMate AI</h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Your intelligent real estate companion
             </p>
           </div>
@@ -200,34 +202,34 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <div className="w-64 border-r flex flex-col bg-gray-50 dark:bg-gray-900">
-          <div className="p-3 flex flex-col gap-2">
+        <div className="flex w-64 flex-col border-r bg-gray-50 dark:bg-gray-900">
+          <div className="flex flex-col gap-2 p-3">
             <Button
               onClick={handleNewChat}
-              className="w-full gap-2 bg-primary hover:bg-primary/90 text-white"
+              className="bg-primary hover:bg-primary/90 w-full gap-2 text-white"
             >
               <PlusCircle className="h-4 w-4" />
               <span>New Chat</span>
             </Button>
 
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
               <Input
                 type="search"
                 placeholder="Search..."
-                className="pl-9 h-9"
+                className="h-9 pl-9"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto p-2 space-y-1.5">
+          <div className="flex-1 space-y-1.5 overflow-auto p-2">
             {filteredChatHistory.map((chat) => (
               <div
                 key={chat.id}
                 className={cn(
-                  "rounded-lg p-2 cursor-pointer transition-all text-sm",
+                  "cursor-pointer rounded-lg p-2 text-sm transition-all",
                   activeChatId === chat.id
                     ? "bg-primary/10 text-primary dark:bg-primary/20"
                     : "hover:bg-gray-100 dark:hover:bg-gray-800/50",
@@ -235,23 +237,23 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                 onClick={() => setActiveChatId(chat.id)}
               >
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium line-clamp-1">{chat.title}</h4>
+                  <h4 className="line-clamp-1 font-medium">{chat.title}</h4>
                   {chat.isSaved && (
-                    <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                    <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
                   )}
                 </div>
-                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                <p className="text-muted-foreground mt-0.5 line-clamp-1 text-xs">
                   {chat.preview}
                 </p>
-                <div className="flex items-center gap-1 mt-1">
-                  <span className="text-xs text-muted-foreground">
+                <div className="mt-1 flex items-center gap-1">
+                  <span className="text-muted-foreground text-xs">
                     {chat.time}
                   </span>
                   {chat.tags.slice(0, 1).map((tag, tagIndex) => (
                     <Badge
                       key={tagIndex}
                       variant="secondary"
-                      className="px-1.5 py-0 text-xs h-4"
+                      className="h-4 px-1.5 py-0 text-xs"
                     >
                       {tag}
                     </Badge>
@@ -263,12 +265,12 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
         </div>
 
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-1 flex-col">
           <div
             className="flex-1 overflow-y-auto p-4"
             id="chat-messages-container"
           >
-            <div className="max-w-3xl mx-auto space-y-6 min-h-full pb-10">
+            <div className="mx-auto min-h-full max-w-3xl space-y-6 pb-10">
               {messages.map((msg, index) => (
                 <ChatMessageItem
                   key={index}
@@ -283,18 +285,18 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                     <AvatarImage src="/helpful-ai-interface.png" alt="AI" />
                     <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
-                  <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex flex-1 flex-col gap-1">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">RealtyMate AI</span>
                       <Badge variant="secondary" className="px-1 py-0 text-xs">
                         Assistant
                       </Badge>
                     </div>
-                    <div className="rounded-lg rounded-tl-none bg-gray-100 p-4 text-sm dark:bg-gray-800 min-h-[40px] flex items-center">
-                      <div className="flex space-x-2 animate-pulse">
-                        <div className="h-2 w-2 rounded-full bg-primary"></div>
-                        <div className="h-2 w-2 rounded-full bg-primary"></div>
-                        <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    <div className="flex min-h-[40px] items-center rounded-lg rounded-tl-none bg-gray-100 p-4 text-sm dark:bg-gray-800">
+                      <div className="flex animate-pulse space-x-2">
+                        <div className="bg-primary h-2 w-2 rounded-full"></div>
+                        <div className="bg-primary h-2 w-2 rounded-full"></div>
+                        <div className="bg-primary h-2 w-2 rounded-full"></div>
                       </div>
                     </div>
                   </div>
@@ -305,8 +307,8 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
             </div>
           </div>
 
-          <div className="border-t p-4 bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-3xl mx-auto">
+          <div className="border-t bg-gray-50 p-4 dark:bg-gray-900">
+            <div className="mx-auto max-w-3xl">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1">
@@ -316,7 +318,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                           <Button
                             variant="outline"
                             size="icon"
-                            className="shrink-0 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full h-9 w-9"
+                            className="h-9 w-9 shrink-0 rounded-full bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                           >
                             <Paperclip className="h-4 w-4" />
                           </Button>
@@ -338,12 +340,12 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                           handleSendMessage();
                         }
                       }}
-                      className="rounded-full pr-10 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                      className="rounded-full border-gray-200 bg-white pr-10 dark:border-gray-700 dark:bg-gray-800"
                     />
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-primary hover:text-primary/80 rounded-full"
+                      className="text-primary hover:text-primary/80 absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2 rounded-full"
                       onClick={handleSendMessage}
                       disabled={!message.trim()}
                     >
@@ -355,7 +357,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-8 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick(
                         "Tell me about Sarah Johnson from Ray White",
@@ -368,7 +370,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-8 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Show me 22 Palm St property")
                     }
@@ -379,7 +381,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-8 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Market trends in Randwick")
                     }
@@ -390,7 +392,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-full"
+                    className="h-8 gap-1 rounded-full bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     onClick={() =>
                       handleSuggestionClick("Draft follow-up email")
                     }
@@ -405,15 +407,15 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
         </div>
 
         {/* Tools Sidebar - Simplified */}
-        <div className="w-64 border-l flex flex-col bg-gray-50 dark:bg-gray-900">
-          <div className="p-3 border-b">
+        <div className="flex w-64 flex-col border-l bg-gray-50 dark:bg-gray-900">
+          <div className="border-b p-3">
             <h3 className="font-medium">Quick Tools</h3>
           </div>
 
           <div className="flex-1 overflow-auto p-3">
             <div className="space-y-3">
               <div className="space-y-1.5">
-                <h4 className="text-xs font-medium text-muted-foreground">
+                <h4 className="text-muted-foreground text-xs font-medium">
                   Content
                 </h4>
                 <div className="grid grid-cols-1 gap-1.5">
@@ -421,10 +423,10 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                     <Button
                       key={tool.title}
                       variant="outline"
-                      className="justify-start h-9 px-2.5 text-xs"
+                      className="h-9 justify-start px-2.5 text-xs"
                       onClick={() => handleSuggestionClick(tool.prompt)}
                     >
-                      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary mr-2">
+                      <div className="bg-primary/10 text-primary mr-2 flex h-6 w-6 items-center justify-center rounded-md">
                         {tool.icon}
                       </div>
                       <span>{tool.title}</span>
@@ -434,7 +436,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
               </div>
 
               <div className="space-y-1.5">
-                <h4 className="text-xs font-medium text-muted-foreground">
+                <h4 className="text-muted-foreground text-xs font-medium">
                   Analysis
                 </h4>
                 <div className="grid grid-cols-1 gap-1.5">
@@ -442,10 +444,10 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                     <Button
                       key={tool.title}
                       variant="outline"
-                      className="justify-start h-9 px-2.5 text-xs"
+                      className="h-9 justify-start px-2.5 text-xs"
                       onClick={() => handleSuggestionClick(tool.prompt)}
                     >
-                      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary mr-2">
+                      <div className="bg-primary/10 text-primary mr-2 flex h-6 w-6 items-center justify-center rounded-md">
                         {tool.icon}
                       </div>
                       <span>{tool.title}</span>
@@ -492,7 +494,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
           </>
         )}
       </Avatar>
-      <div className="flex flex-col gap-1 flex-1 group">
+      <div className="group flex flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
           <span className="font-medium">
             {isUser ? "You" : "RealtyMate AI"}
@@ -505,16 +507,16 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
         </div>
         <div
           className={cn(
-            "rounded-lg rounded-tl-none p-4 text-sm relative group",
+            "group relative rounded-lg rounded-tl-none p-4 text-sm",
             isUser
-              ? "bg-primary text-white dark:bg-primary dark:text-white"
+              ? "bg-primary dark:bg-primary text-white dark:text-white"
               : "bg-gray-100 dark:bg-gray-800",
           )}
         >
           <p className="whitespace-pre-line">{message.content}</p>
 
           {!isUser && (
-            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
               <Button
                 variant="ghost"
                 size="icon"
@@ -579,7 +581,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+                className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <span>Generate detailed report</span>
                 <ArrowRight className="h-3 w-3" />
@@ -587,7 +589,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+                className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <span>Compare with previous month</span>
                 <ArrowRight className="h-3 w-3" />
@@ -600,7 +602,7 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
 }
 
 // Mock response generator
-function getRandomResponse(question: string): string {
+export function getRandomResponse(question: string): string {
   const responses = [
     "Based on the latest data, Bondi Beach has shown a 5.2% increase in median house prices over the last quarter. The average time on market is now 24 days, down from 28 days in the previous quarter. Would you like me to prepare a more comprehensive analysis?",
 

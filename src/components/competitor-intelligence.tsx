@@ -215,7 +215,7 @@ export function CompetitorIntelligence() {
   });
 
   return (
-    <Card className="overflow-hidden bg-white/80 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all dark:bg-gray-900/80">
+    <Card className="overflow-hidden border bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/80">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
@@ -285,10 +285,10 @@ export function CompetitorIntelligence() {
         <div className="space-y-4">
           <div className="flex flex-col gap-4 sm:flex-row">
             <div className="relative flex-1">
-              <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute top-1/2 left-2 h-4 w-4 -translate-y-1/2 text-gray-400" />
               <Input
                 placeholder="Search agents or agencies..."
-                className="pl-8 bg-gray-100 border-0 focus-visible:ring-2 focus-visible:ring-primary dark:bg-gray-800"
+                className="focus-visible:ring-primary border-0 bg-gray-100 pl-8 focus-visible:ring-2 dark:bg-gray-800"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -322,17 +322,17 @@ export function CompetitorIntelligence() {
           </div>
 
           {/* Card-based layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredCompetitors.map((agent) => (
               <Card
                 key={agent.id}
                 className={cn(
                   "overflow-hidden transition-all hover:shadow-md",
                   trackedAgents.includes(agent.id) &&
-                    "border-blue-200 bg-blue-50/50 dark:bg-blue-900/10 dark:border-blue-900/30",
+                    "border-blue-200 bg-blue-50/50 dark:border-blue-900/30 dark:bg-blue-900/10",
                 )}
               >
-                <CardHeader className="pb-2 pt-4">
+                <CardHeader className="pt-4 pb-2">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar className="h-10 w-10 border border-gray-200 dark:border-gray-700">
@@ -358,10 +358,10 @@ export function CompetitorIntelligence() {
                             </TooltipProvider>
                           )}
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="text-muted-foreground flex items-center gap-1 text-xs">
                           <span>{agent.agency}</span>
                         </div>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="text-muted-foreground flex items-center gap-1 text-xs">
                           <MapPin className="h-3 w-3" />
                           <span>{agent.primarySuburb}</span>
                         </div>
@@ -414,13 +414,13 @@ export function CompetitorIntelligence() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-500 hover:text-yellow-500 hover:bg-yellow-50 dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-800"
+                    className="text-gray-500 hover:bg-yellow-50 hover:text-yellow-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-yellow-400"
                     onClick={() => toggleTrackedAgent(agent.id)}
                   >
                     {trackedAgents.includes(agent.id) ? (
-                      <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
+                      <Star className="mr-1 h-4 w-4 fill-yellow-400 text-yellow-400" />
                     ) : (
-                      <Star className="h-4 w-4 mr-1" />
+                      <Star className="mr-1 h-4 w-4" />
                     )}
                     <span>
                       {trackedAgents.includes(agent.id) ? "Untrack" : "Track"}
@@ -437,9 +437,9 @@ export function CompetitorIntelligence() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+                          className="text-gray-500 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
                         >
-                          <Eye className="h-4 w-4 mr-1" />
+                          <Eye className="mr-1 h-4 w-4" />
                           <span>Profile</span>
                         </Button>
                       </DialogTrigger>
@@ -483,12 +483,12 @@ export function CompetitorIntelligence() {
                               <p className="text-sm text-gray-500">
                                 {agent.agency}
                               </p>
-                              <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                              <div className="mt-1 flex items-center gap-1 text-sm text-gray-500">
                                 <MapPin className="h-3 w-3" />
                                 <span>{agent.primarySuburb}</span>
                               </div>
 
-                              <div className="grid grid-cols-3 gap-4 mt-6">
+                              <div className="mt-6 grid grid-cols-3 gap-4">
                                 <div className="rounded-lg border p-3 text-center">
                                   <div className="text-2xl font-bold">
                                     {agent.listings}
@@ -578,9 +578,9 @@ export function CompetitorIntelligence() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+                          className="text-gray-500 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
                         >
-                          <FileText className="h-4 w-4 mr-1" />
+                          <FileText className="mr-1 h-4 w-4" />
                           <span>Pitch</span>
                         </Button>
                       </DialogTrigger>
@@ -596,7 +596,7 @@ export function CompetitorIntelligence() {
                         </DialogHeader>
 
                         {!pitchGenerated ? (
-                          <div className="py-4 space-y-4">
+                          <div className="space-y-4 py-4">
                             <div className="space-y-2">
                               <Label>Pitch Type</Label>
                               <RadioGroup
@@ -611,7 +611,7 @@ export function CompetitorIntelligence() {
                                   />
                                   <Label
                                     htmlFor="standard"
-                                    className="font-normal cursor-pointer"
+                                    className="cursor-pointer font-normal"
                                   >
                                     Standard Pitch
                                   </Label>
@@ -623,7 +623,7 @@ export function CompetitorIntelligence() {
                                   />
                                   <Label
                                     htmlFor="detailed"
-                                    className="font-normal cursor-pointer"
+                                    className="cursor-pointer font-normal"
                                   >
                                     Detailed Comparison
                                   </Label>
@@ -632,7 +632,7 @@ export function CompetitorIntelligence() {
                                   <RadioGroupItem value="script" id="script" />
                                   <Label
                                     htmlFor="script"
-                                    className="font-normal cursor-pointer"
+                                    className="cursor-pointer font-normal"
                                   >
                                     Conversation Script
                                   </Label>
@@ -701,7 +701,7 @@ export function CompetitorIntelligence() {
                             </DialogFooter>
                           </div>
                         ) : (
-                          <div className="py-4 space-y-4">
+                          <div className="space-y-4 py-4">
                             <Tabs defaultValue="pitch">
                               <TabsList className="grid w-full grid-cols-3">
                                 <TabsTrigger value="pitch">Pitch</TabsTrigger>
@@ -714,9 +714,9 @@ export function CompetitorIntelligence() {
                               </TabsList>
                               <TabsContent
                                 value="pitch"
-                                className="space-y-4 mt-4"
+                                className="mt-4 space-y-4"
                               >
-                                <div className="rounded-md border p-4 bg-gray-50 dark:bg-gray-800">
+                                <div className="rounded-md border bg-gray-50 p-4 dark:bg-gray-800">
                                   <div className="prose dark:prose-invert max-w-none">
                                     {generatedPitch}
                                   </div>
@@ -724,20 +724,20 @@ export function CompetitorIntelligence() {
                               </TabsContent>
                               <TabsContent
                                 value="comparison"
-                                className="space-y-4 mt-4"
+                                className="mt-4 space-y-4"
                               >
-                                <div className="rounded-md border overflow-hidden">
+                                <div className="overflow-hidden rounded-md border">
                                   <table className="w-full">
                                     <thead className="bg-gray-100 dark:bg-gray-800">
                                       <tr>
-                                        <th className="text-left p-3">
+                                        <th className="p-3 text-left">
                                           Metric
                                         </th>
-                                        <th className="text-center p-3">You</th>
-                                        <th className="text-center p-3">
+                                        <th className="p-3 text-center">You</th>
+                                        <th className="p-3 text-center">
                                           {agent.name}
                                         </th>
-                                        <th className="text-center p-3">
+                                        <th className="p-3 text-center">
                                           Your Advantage
                                         </th>
                                       </tr>
@@ -747,11 +747,11 @@ export function CompetitorIntelligence() {
                                         <td className="p-3">
                                           Avg. Days on Market
                                         </td>
-                                        <td className="text-center p-3">24</td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">24</td>
+                                        <td className="p-3 text-center">
                                           {agent.avgDOM}
                                         </td>
-                                        <td className="text-center p-3 text-green-600">
+                                        <td className="p-3 text-center text-green-600">
                                           {agent.avgDOM > 24
                                             ? `${agent.avgDOM - 24} days faster`
                                             : "—"}
@@ -759,11 +759,11 @@ export function CompetitorIntelligence() {
                                       </tr>
                                       <tr className="border-t">
                                         <td className="p-3">Clearance Rate</td>
-                                        <td className="text-center p-3">82%</td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">82%</td>
+                                        <td className="p-3 text-center">
                                           {agent.clearanceRate}
                                         </td>
-                                        <td className="text-center p-3 text-green-600">
+                                        <td className="p-3 text-center text-green-600">
                                           {Number.parseInt(
                                             agent.clearanceRate,
                                           ) < 82
@@ -775,13 +775,13 @@ export function CompetitorIntelligence() {
                                         <td className="p-3">
                                           Digital Marketing
                                         </td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">
                                           Premium
                                         </td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">
                                           Standard
                                         </td>
-                                        <td className="text-center p-3 text-green-600">
+                                        <td className="p-3 text-center text-green-600">
                                           Superior
                                         </td>
                                       </tr>
@@ -789,13 +789,13 @@ export function CompetitorIntelligence() {
                                         <td className="p-3">
                                           Professional Photography
                                         </td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">
                                           Included
                                         </td>
-                                        <td className="text-center p-3">
+                                        <td className="p-3 text-center">
                                           Extra Cost
                                         </td>
-                                        <td className="text-center p-3 text-green-600">
+                                        <td className="p-3 text-center text-green-600">
                                           Included
                                         </td>
                                       </tr>
@@ -805,35 +805,36 @@ export function CompetitorIntelligence() {
                               </TabsContent>
                               <TabsContent
                                 value="talking-points"
-                                className="space-y-4 mt-4"
+                                className="mt-4 space-y-4"
                               >
                                 <div className="space-y-3">
                                   <div className="rounded-md border p-3">
                                     <h4 className="font-medium">
                                       1. Market Knowledge
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                                       Emphasize your deep understanding of{" "}
                                       {agent.primarySuburb} and surrounding
-                                      areas compared to {agent.name}'s broader
-                                      focus.
+                                      areas compared to {agent.name}&apos;s
+                                      broader focus.
                                     </p>
                                   </div>
                                   <div className="rounded-md border p-3">
                                     <h4 className="font-medium">
                                       2. Marketing Approach
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                                       Highlight your premium digital marketing
                                       package that reaches more qualified buyers
-                                      than {agent.agency}'s standard approach.
+                                      than {agent.agency}&apos;s standard
+                                      approach.
                                     </p>
                                   </div>
                                   <div className="rounded-md border p-3">
                                     <h4 className="font-medium">
                                       3. Performance Metrics
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                                       Share your superior days on market (24 vs{" "}
                                       {agent.avgDOM}) and clearance rate (82% vs{" "}
                                       {agent.clearanceRate}).
@@ -843,9 +844,9 @@ export function CompetitorIntelligence() {
                                     <h4 className="font-medium">
                                       4. Personal Attention
                                     </h4>
-                                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                                       Stress your personalized approach compared
-                                      to {agent.name}'s higher volume of
+                                      to {agent.name}&apos;s higher volume of
                                       listings ({agent.listings} active
                                       listings).
                                     </p>
@@ -855,7 +856,7 @@ export function CompetitorIntelligence() {
                             </Tabs>
 
                             <DialogFooter>
-                              <div className="flex justify-between w-full">
+                              <div className="flex w-full justify-between">
                                 <Button
                                   variant="outline"
                                   onClick={handleClosePitchGenerator}

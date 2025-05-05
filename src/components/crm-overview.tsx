@@ -67,7 +67,7 @@ export function CrmOverview() {
   });
 
   return (
-    <Card className="overflow-hidden bg-white/80 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all dark:bg-gray-900/80">
+    <Card className="overflow-hidden border bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/80">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
@@ -80,7 +80,7 @@ export function CrmOverview() {
             <DialogTrigger asChild>
               <Button
                 size="sm"
-                className="gap-1 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all duration-300 shadow-sm hover:shadow"
+                className="gap-1 bg-linear-to-r from-blue-600 to-blue-500 shadow-sm transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add Lead</span>
@@ -174,28 +174,28 @@ export function CrmOverview() {
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="all" onValueChange={setActiveTab}>
-          <TabsList className="w-full rounded-none border-b bg-transparent justify-start p-0">
+          <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
             <TabsTrigger
               value="all"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 px-4 py-2 dark:data-[state=active]:text-blue-400"
+              className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:data-[state=active]:text-blue-400"
             >
               All Leads
             </TabsTrigger>
             <TabsTrigger
               value="hot"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-red-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-red-600 px-4 py-2 dark:data-[state=active]:text-red-400"
+              className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-red-500 data-[state=active]:bg-transparent data-[state=active]:text-red-600 data-[state=active]:shadow-none dark:data-[state=active]:text-red-400"
             >
               Hot
             </TabsTrigger>
             <TabsTrigger
               value="warm"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-blue-600 px-4 py-2 dark:data-[state=active]:text-blue-400"
+              className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-blue-500 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none dark:data-[state=active]:text-blue-400"
             >
               Warm
             </TabsTrigger>
             <TabsTrigger
               value="cold"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-gray-600 px-4 py-2 dark:data-[state=active]:text-gray-400"
+              className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-gray-500 data-[state=active]:bg-transparent data-[state=active]:text-gray-600 data-[state=active]:shadow-none dark:data-[state=active]:text-gray-400"
             >
               Cold
             </TabsTrigger>
@@ -301,7 +301,7 @@ export function CrmOverview() {
                             {lead.property}
                           </p>
 
-                          <div className="grid grid-cols-2 gap-4 mt-4">
+                          <div className="mt-4 grid grid-cols-2 gap-4">
                             <div className="space-y-1">
                               <Label className="text-xs text-gray-500">
                                 Contact Info
@@ -354,7 +354,7 @@ export function CrmOverview() {
                         <div className="space-y-3">
                           <div className="flex gap-3">
                             <div className="flex flex-col items-center">
-                              <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
                                 <Phone className="h-4 w-4" />
                               </div>
                               <div className="h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
@@ -378,7 +378,7 @@ export function CrmOverview() {
 
                           <div className="flex gap-3">
                             <div className="flex flex-col items-center">
-                              <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 dark:bg-green-900/30 dark:text-green-400">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
                                 <Mail className="h-4 w-4" />
                               </div>
                               <div className="h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
@@ -401,7 +401,7 @@ export function CrmOverview() {
 
                           <div className="flex gap-3">
                             <div className="flex flex-col items-center">
-                              <div className="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
                                 <User className="h-4 w-4" />
                               </div>
                             </div>
@@ -428,19 +428,19 @@ export function CrmOverview() {
                         <div className="flex flex-wrap gap-1">
                           <Badge
                             variant="secondary"
-                            className="px-2 py-0.5 text-xs bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+                            className="bg-gray-100 px-2 py-0.5 text-xs text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
                           >
                             Bondi
                           </Badge>
                           <Badge
                             variant="secondary"
-                            className="px-2 py-0.5 text-xs bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+                            className="bg-gray-100 px-2 py-0.5 text-xs text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
                           >
                             Seller
                           </Badge>
                           <Badge
                             variant="secondary"
-                            className="px-2 py-0.5 text-xs bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+                            className="bg-gray-100 px-2 py-0.5 text-xs text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
                           >
                             3BR
                           </Badge>
@@ -465,7 +465,7 @@ export function CrmOverview() {
                           <span>Email</span>
                         </Button>
                         <Button
-                          className="gap-1 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600"
+                          className="gap-1 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600"
                           onClick={() => {}}
                         >
                           <span>Schedule Meeting</span>
@@ -511,7 +511,7 @@ function LeadItem({ lead, onViewDetails }: LeadItemProps) {
 
   return (
     <div
-      className="flex items-center justify-between rounded-md p-2 hover:bg-blue-50 transition-colors cursor-pointer dark:hover:bg-gray-800"
+      className="flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-blue-50 dark:hover:bg-gray-800"
       onClick={onViewDetails}
     >
       <div className="flex items-center gap-3">
@@ -524,7 +524,7 @@ function LeadItem({ lead, onViewDetails }: LeadItemProps) {
         </Avatar>
         <div>
           <div className="font-medium">{lead.name}</div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-2 text-xs">
             <span>{lead.property}</span>
             <Badge
               variant={
@@ -552,7 +552,7 @@ function LeadItem({ lead, onViewDetails }: LeadItemProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-gray-500 hover:text-yellow-500 hover:bg-yellow-50 dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-800"
+          className="h-8 w-8 text-gray-500 hover:bg-yellow-50 hover:text-yellow-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-yellow-400"
           onClick={(e) => {
             e.stopPropagation();
             setIsPriority(!isPriority);
@@ -568,7 +568,7 @@ function LeadItem({ lead, onViewDetails }: LeadItemProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+          className="h-8 w-8 text-gray-500 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -580,7 +580,7 @@ function LeadItem({ lead, onViewDetails }: LeadItemProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+              className="h-8 w-8 text-gray-500 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
               onClick={(e) => e.stopPropagation()}
             >
               <MoreHorizontal className="h-4 w-4" />

@@ -155,8 +155,8 @@ export function CrmClients() {
         </CardHeader>
         <CardContent>
           <div className="relative mb-4">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search clients..." className="pl-8 max-w-sm" />
+            <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
+            <Input placeholder="Search clients..." className="max-w-sm pl-8" />
           </div>
           <Table>
             <TableHeader>
@@ -189,7 +189,7 @@ export function CrmClients() {
                       </Avatar>
                       <div>
                         <div className="font-medium">{client.name}</div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-muted-foreground text-sm">
                           {client.email}
                         </div>
                       </div>
@@ -246,17 +246,17 @@ export function CrmClients() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Home className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Home className="text-primary h-4 w-4" />
               Property Viewings
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">24</div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Scheduled this month
             </p>
           </CardContent>
@@ -264,40 +264,40 @@ export function CrmClients() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Calendar className="text-primary h-4 w-4" />
               Meetings
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">18</div>
-            <p className="text-sm text-muted-foreground">Scheduled this week</p>
+            <p className="text-muted-foreground text-sm">Scheduled this week</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Mail className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Mail className="text-primary h-4 w-4" />
               Emails
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">42</div>
-            <p className="text-sm text-muted-foreground">Sent this week</p>
+            <p className="text-muted-foreground text-sm">Sent this week</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Phone className="h-4 w-4 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Phone className="text-primary h-4 w-4" />
               Calls
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">15</div>
-            <p className="text-sm text-muted-foreground">Made this week</p>
+            <p className="text-muted-foreground text-sm">Made this week</p>
           </CardContent>
         </Card>
       </div>
@@ -311,10 +311,10 @@ export function CrmClients() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Card>
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div>
                       <CardTitle className="text-base">
                         Robert Williams
@@ -354,7 +354,7 @@ export function CrmClients() {
 
               <Card>
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div>
                       <CardTitle className="text-base">
                         Jennifer Parker

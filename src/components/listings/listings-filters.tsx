@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 
 interface ListingsFiltersProps {
-  onFilterChange?: (filters: Record<string, any>) => void;
+  onFilterChange?: (filters: Record<string, unknown>) => void;
 }
 
 export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
@@ -28,7 +28,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
     features: [] as string[],
   });
 
-  const handleFilterChange = (key: string, value: any) => {
+  const handleFilterChange = (key: string, value: unknown) => {
     setFilters((prev) => {
       const newFilters = { ...prev, [key]: value };
       return newFilters;
@@ -68,7 +68,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
         <div className="space-y-4">
           <div>
             <Label className="text-sm font-medium">Price Range</Label>
-            <div className="flex items-center gap-4 mt-2">
+            <div className="mt-2 flex items-center gap-4">
               <div className="flex-1">
                 <Input
                   type="number"
@@ -80,7 +80,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                   min={0}
                   step={50000}
                 />
-                <span className="text-xs text-muted-foreground mt-1 block">
+                <span className="text-muted-foreground mt-1 block text-xs">
                   Min
                 </span>
               </div>
@@ -96,7 +96,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                   min={0}
                   step={50000}
                 />
-                <span className="text-xs text-muted-foreground mt-1 block">
+                <span className="text-muted-foreground mt-1 block text-xs">
                   Max
                 </span>
               </div>
@@ -168,7 +168,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
           </div>
 
           <div>
-            <Label className="text-sm font-medium mb-2 block">Features</Label>
+            <Label className="mb-2 block text-sm font-medium">Features</Label>
             <div className="grid grid-cols-2 gap-2">
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -180,7 +180,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                 />
                 <label
                   htmlFor="pool"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Pool
                 </label>
@@ -195,7 +195,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                 />
                 <label
                   htmlFor="garage"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Garage
                 </label>
@@ -210,7 +210,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                 />
                 <label
                   htmlFor="aircon"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Air Conditioning
                 </label>
@@ -225,7 +225,7 @@ export function ListingsFilters({ onFilterChange }: ListingsFiltersProps) {
                 />
                 <label
                   htmlFor="balcony"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Balcony
                 </label>

@@ -32,7 +32,7 @@ import {
 export function ListingsAnalytics() {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-bold">Listings Analytics</h2>
           <p className="text-muted-foreground">
@@ -57,7 +57,7 @@ export function ListingsAnalytics() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           title="Total Views"
           value="2,458"
@@ -95,8 +95,8 @@ export function ListingsAnalytics() {
           <TabsTrigger value="traffic">Traffic Sources</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="performance" className="space-y-4 mt-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <TabsContent value="performance" className="mt-4 space-y-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Listing Views Over Time</CardTitle>
@@ -104,12 +104,12 @@ export function ListingsAnalytics() {
                   Total views across all your listings
                 </CardDescription>
               </CardHeader>
-              <CardContent className="h-80 flex items-center justify-center bg-muted/20">
+              <CardContent className="bg-muted/20 flex h-80 items-center justify-center">
                 <div className="text-center">
                   <p className="text-muted-foreground mb-2">
                     Chart visualization would appear here
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Showing daily views for the last 30 days
                   </p>
                 </div>
@@ -125,46 +125,46 @@ export function ListingsAnalytics() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-start justify-between pb-4 border-b">
+                  <div className="flex items-start justify-between border-b pb-4">
                     <div>
                       <div className="font-medium">
                         Modern Waterfront Apartment
                       </div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         42 Harbour Street, Sydney
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="font-medium">458 views</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         24 inquiries
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-start justify-between pb-4 border-b">
+                  <div className="flex items-start justify-between border-b pb-4">
                     <div>
                       <div className="font-medium">Charming Family Home</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         15 Wattle Avenue, Bondi
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="font-medium">392 views</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         18 inquiries
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-start justify-between pb-4 border-b">
+                  <div className="flex items-start justify-between border-b pb-4">
                     <div>
                       <div className="font-medium">Stylish Urban Loft</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         7/120 Crown Street, Surry Hills
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="font-medium">312 views</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         15 inquiries
                       </div>
                     </div>
@@ -174,13 +174,13 @@ export function ListingsAnalytics() {
                       <div className="font-medium">
                         Renovated Victorian Terrace
                       </div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         42 Oxford Street, Paddington
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="font-medium">278 views</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-sm">
                         12 inquiries
                       </div>
                     </div>
@@ -197,12 +197,12 @@ export function ListingsAnalytics() {
                 Percentage of views that result in inquiries
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-64 flex items-center justify-center bg-muted/20">
+            <CardContent className="bg-muted/20 flex h-64 items-center justify-center">
               <div className="text-center">
                 <p className="text-muted-foreground mb-2">
                   Chart visualization would appear here
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Showing conversion rates by property type
                 </p>
               </div>
@@ -210,8 +210,8 @@ export function ListingsAnalytics() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="market" className="space-y-4 mt-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <TabsContent value="market" className="mt-4 space-y-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Price Trends by Suburb</CardTitle>
@@ -219,12 +219,12 @@ export function ListingsAnalytics() {
                   Average price changes in your target areas
                 </CardDescription>
               </CardHeader>
-              <CardContent className="h-80 flex items-center justify-center bg-muted/20">
+              <CardContent className="bg-muted/20 flex h-80 items-center justify-center">
                 <div className="text-center">
                   <p className="text-muted-foreground mb-2">
                     Chart visualization would appear here
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Showing price trends for the last 12 months
                   </p>
                 </div>
@@ -238,12 +238,12 @@ export function ListingsAnalytics() {
                   Average time to sell different property types
                 </CardDescription>
               </CardHeader>
-              <CardContent className="h-80 flex items-center justify-center bg-muted/20">
+              <CardContent className="bg-muted/20 flex h-80 items-center justify-center">
                 <div className="text-center">
                   <p className="text-muted-foreground mb-2">
                     Chart visualization would appear here
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Comparing your listings vs. market average
                   </p>
                 </div>
@@ -258,12 +258,12 @@ export function ListingsAnalytics() {
                 How your listings compare to competitors
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-64 flex items-center justify-center bg-muted/20">
+            <CardContent className="bg-muted/20 flex h-64 items-center justify-center">
               <div className="text-center">
                 <p className="text-muted-foreground mb-2">
                   Chart visualization would appear here
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Comparing pricing, features, and performance
                 </p>
               </div>
@@ -271,7 +271,7 @@ export function ListingsAnalytics() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="traffic" className="space-y-4 mt-4">
+        <TabsContent value="traffic" className="mt-4 space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Traffic Sources</CardTitle>
@@ -279,19 +279,19 @@ export function ListingsAnalytics() {
                 Where your listing views are coming from
               </CardDescription>
             </CardHeader>
-            <CardContent className="h-80 flex items-center justify-center bg-muted/20">
+            <CardContent className="bg-muted/20 flex h-80 items-center justify-center">
               <div className="text-center">
                 <p className="text-muted-foreground mb-2">
                   Chart visualization would appear here
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Breakdown of traffic sources for your listings
                 </p>
               </div>
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
                 <CardTitle>Device Breakdown</CardTitle>
@@ -299,12 +299,12 @@ export function ListingsAnalytics() {
                   Devices used to view your listings
                 </CardDescription>
               </CardHeader>
-              <CardContent className="h-64 flex items-center justify-center bg-muted/20">
+              <CardContent className="bg-muted/20 flex h-64 items-center justify-center">
                 <div className="text-center">
                   <p className="text-muted-foreground mb-2">
                     Chart visualization would appear here
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Mobile vs. desktop vs. tablet usage
                   </p>
                 </div>
@@ -318,12 +318,12 @@ export function ListingsAnalytics() {
                   When your listings get the most views
                 </CardDescription>
               </CardHeader>
-              <CardContent className="h-64 flex items-center justify-center bg-muted/20">
+              <CardContent className="bg-muted/20 flex h-64 items-center justify-center">
                 <div className="text-center">
                   <p className="text-muted-foreground mb-2">
                     Chart visualization would appear here
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Hourly breakdown of listing views
                   </p>
                 </div>
@@ -348,27 +348,27 @@ function MetricCard({ title, value, change, trend, icon }: MetricCardProps) {
   return (
     <Card>
       <CardContent className="p-6">
-        <div className="flex justify-between items-center mb-4">
+        <div className="mb-4 flex items-center justify-between">
           <div className="text-muted-foreground">{title}</div>
-          <div className="bg-muted p-2 rounded-full">{icon}</div>
+          <div className="bg-muted rounded-full p-2">{icon}</div>
         </div>
-        <div className="text-2xl font-bold mb-2">{value}</div>
+        <div className="mb-2 text-2xl font-bold">{value}</div>
         <div className="flex items-center">
           {trend === "up" && (
             <Badge
               variant="outline"
-              className="text-green-500 border-green-200 bg-green-50"
+              className="border-green-200 bg-green-50 text-green-500"
             >
-              <ArrowUpRight className="h-3 w-3 mr-1" />
+              <ArrowUpRight className="mr-1 h-3 w-3" />
               {change}
             </Badge>
           )}
           {trend === "down" && (
             <Badge
               variant="outline"
-              className="text-red-500 border-red-200 bg-red-50"
+              className="border-red-200 bg-red-50 text-red-500"
             >
-              <ArrowDownRight className="h-3 w-3 mr-1" />
+              <ArrowDownRight className="mr-1 h-3 w-3" />
               {change}
             </Badge>
           )}

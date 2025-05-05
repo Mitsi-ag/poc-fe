@@ -43,7 +43,7 @@ export function ExperienceStep() {
     <div className="space-y-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">
-          What's your experience level?
+          What&apos;s your experience level?
         </h1>
         <p className="text-gray-500">
           This helps us tailor our AI assistant and tools to your specific
@@ -78,7 +78,7 @@ export function ExperienceStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-between">
+      <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>

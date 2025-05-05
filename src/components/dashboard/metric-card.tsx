@@ -28,12 +28,12 @@ export function MetricCard({
 }: MetricCardProps) {
   return (
     <Card
-      className="overflow-hidden bg-white backdrop-blur-sm border shadow-sm hover:shadow transition-all cursor-pointer group dark:bg-gray-900/50 dark:border-gray-800"
+      className="group cursor-pointer overflow-hidden border bg-white shadow-sm backdrop-blur-sm transition-all hover:shadow dark:border-gray-800 dark:bg-gray-900/50"
       onClick={onClick}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="rounded-full bg-gray-100 p-1 group-hover:bg-primary/20 transition-colors dark:bg-gray-800">
+        <div className="group-hover:bg-primary/20 rounded-full bg-gray-100 p-1 transition-colors dark:bg-gray-800">
           {icon}
         </div>
       </CardHeader>

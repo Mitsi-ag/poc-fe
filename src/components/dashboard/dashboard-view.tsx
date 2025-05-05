@@ -58,21 +58,22 @@ export function DashboardView() {
   };
 
   return (
-    <div className="space-y-8 w-full relative">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 md:gap-4">
+    <div className="relative w-full space-y-8">
+      <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end md:gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent dark:from-gray-50 dark:to-gray-400">
+          <h1 className="bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent md:text-3xl dark:from-gray-50 dark:to-gray-400">
             Welcome back, John
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground mt-1">
-            Here's what's happening in your market today - April 19, 2025
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">
+            Here&apos;s what&apos;s happening in your market today - April 19,
+            2025
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-2 md:mt-0">
+        <div className="mt-2 flex flex-wrap items-center gap-2 md:mt-0 md:gap-3">
           <Button
             variant="outline"
             size="sm"
-            className="h-8 md:h-9 gap-1 bg-white/80 backdrop-blur-sm hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-900/80 transition-all"
+            className="h-8 gap-1 bg-white/80 backdrop-blur-sm transition-all hover:bg-white md:h-9 dark:bg-gray-900/50 dark:hover:bg-gray-900/80"
             onClick={handleRefresh}
           >
             <RefreshCw
@@ -81,22 +82,22 @@ export function DashboardView() {
                 isRefreshing && "animate-spin",
               )}
             />
-            <span className="hidden sm:inline text-xs md:text-sm">Refresh</span>
+            <span className="hidden text-xs sm:inline md:text-sm">Refresh</span>
           </Button>
           <Button
             variant="outline"
             size="sm"
-            className="h-8 md:h-9 gap-1 bg-white/80 backdrop-blur-sm hover:bg-white dark:bg-gray-900/50 dark:hover:bg-gray-900/80 transition-all"
+            className="h-8 gap-1 bg-white/80 backdrop-blur-sm transition-all hover:bg-white md:h-9 dark:bg-gray-900/50 dark:hover:bg-gray-900/80"
             onClick={openFullPageAssistant}
           >
             <MessageSquare className="h-3 w-3 md:h-4 md:w-4" />
-            <span className="hidden sm:inline text-xs md:text-sm">
+            <span className="hidden text-xs sm:inline md:text-sm">
               AI Assistant
             </span>
           </Button>
           <Button
             size="sm"
-            className="h-8 md:h-9 gap-1 bg-gradient-to-r from-primary to-blue-400 hover:from-primary/90 hover:to-blue-500 text-white shadow-md transition-all duration-300"
+            className="from-primary hover:from-primary/90 h-8 gap-1 bg-linear-to-r to-blue-400 text-white shadow-md transition-all duration-300 hover:to-blue-500 md:h-9"
           >
             <Plus className="h-3 w-3 md:h-4 md:w-4" />
             <span className="text-xs md:text-sm">Add Widget</span>
@@ -104,7 +105,7 @@ export function DashboardView() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 w-full">
+      <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4 md:gap-6">
         <MetricCard
           title="New Listings"
           value="24"
@@ -144,23 +145,23 @@ export function DashboardView() {
       </div>
 
       <Tabs defaultValue="insights" className="w-full">
-        <div className="flex items-center justify-between mb-4 overflow-x-auto pb-1 -mx-2 px-2">
-          <TabsList className="bg-white/80 backdrop-blur-sm dark:bg-gray-900/50 p-1">
+        <div className="-mx-2 mb-4 flex items-center justify-between overflow-x-auto px-2 pb-1">
+          <TabsList className="bg-white/80 p-1 backdrop-blur-sm dark:bg-gray-900/50">
             <TabsTrigger
               value="insights"
-              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm py-1 px-2 md:px-3"
+              className="data-[state=active]:bg-primary rounded-md px-2 py-1 text-xs data-[state=active]:text-white md:px-3 md:text-sm"
             >
               AI Insights
             </TabsTrigger>
             <TabsTrigger
               value="activity"
-              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm py-1 px-2 md:px-3"
+              className="data-[state=active]:bg-primary rounded-md px-2 py-1 text-xs data-[state=active]:text-white md:px-3 md:text-sm"
             >
               Recent Activity
             </TabsTrigger>
             <TabsTrigger
               value="meetings"
-              className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm py-1 px-2 md:px-3"
+              className="data-[state=active]:bg-primary rounded-md px-2 py-1 text-xs data-[state=active]:text-white md:px-3 md:text-sm"
             >
               Upcoming
             </TabsTrigger>
@@ -168,10 +169,10 @@ export function DashboardView() {
         </div>
 
         <TabsContent value="insights" className="space-y-6">
-          <Card className="overflow-hidden bg-white backdrop-blur-md border shadow-sm hover:shadow transition-all dark:bg-gray-900/50 dark:border-gray-800 w-full">
+          <Card className="w-full overflow-hidden border bg-white shadow-sm backdrop-blur-md transition-all hover:shadow dark:border-gray-800 dark:bg-gray-900/50">
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <Sparkles className="text-primary h-5 w-5" />
                 AI Daily Insights
               </CardTitle>
               <CardDescription>
@@ -200,13 +201,13 @@ export function DashboardView() {
                     >
                       {insight.icon}
                     </div>
-                    <div className="space-y-1 flex-1">
+                    <div className="flex-1 space-y-1">
                       <div className="flex items-start justify-between">
                         <p className="font-medium">{insight.title}</p>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-7 w-7 rounded-full -mt-1 -mr-1 text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-300"
+                          className="-mt-1 -mr-1 h-7 w-7 rounded-full text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-300"
                           onClick={() =>
                             setExpandedInsight(
                               expandedInsight === index ? null : index,
@@ -220,12 +221,12 @@ export function DashboardView() {
                           )}
                         </Button>
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {insight.description}
                       </p>
 
                       {expandedInsight === index && (
-                        <div className="pt-3 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <div className="animate-in fade-in slide-in-from-top-2 space-y-3 pt-3 duration-300">
                           <p className="text-sm">{insight.details}</p>
                           <div className="flex flex-wrap gap-2">
                             {insight.actions.map((action, actionIndex) => (
@@ -233,7 +234,7 @@ export function DashboardView() {
                                 key={actionIndex}
                                 variant="outline"
                                 size="sm"
-                                className="h-8 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                                 onClick={() => {}}
                               >
                                 <span>{action}</span>
@@ -247,7 +248,7 @@ export function DashboardView() {
                       {expandedInsight !== index && (
                         <Button
                           variant="link"
-                          className="h-auto p-0 text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 -ml-3"
+                          className="text-primary dark:text-primary dark:hover:text-primary/80 hover:text-primary/80 -ml-3 h-auto p-0"
                           onClick={() => setExpandedInsight(index)}
                         >
                           <span>View details</span>
@@ -261,7 +262,7 @@ export function DashboardView() {
             </CardContent>
           </Card>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <MarketOpportunityCard />
             <PropertiesTrackingCard />
             <TopAgentsCard />
@@ -293,7 +294,7 @@ export function DashboardView() {
                           {activity.icon}
                         </div>
                         {i < activities.length - 1 && (
-                          <div className="absolute left-1/2 top-8 bottom-0 w-px -translate-x-1/2 bg-gray-200 dark:bg-gray-800" />
+                          <div className="absolute top-8 bottom-0 left-1/2 w-px -translate-x-1/2 bg-gray-200 dark:bg-gray-800" />
                         )}
                       </div>
                       <div className="flex-1 pb-6">
@@ -303,11 +304,11 @@ export function DashboardView() {
                             {activity.time}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">
+                        <p className="text-muted-foreground mt-1 text-sm">
                           {activity.description}
                         </p>
                         {activity.actions && (
-                          <div className="flex gap-2 mt-3">
+                          <div className="mt-3 flex gap-2">
                             {activity.actions.map((action, i) => (
                               <Button key={i} variant="outline" size="sm">
                                 {action}
@@ -340,17 +341,17 @@ export function DashboardView() {
             <CardContent>
               <div className="space-y-6">
                 {meetings.map((meeting, i) => (
-                  <div key={i} className="flex gap-4 items-start">
+                  <div key={i} className="flex items-start gap-4">
                     <div className="min-w-24 text-center">
-                      <div className="bg-gray-100 dark:bg-gray-800 rounded-t-lg px-2 py-1">
+                      <div className="rounded-t-lg bg-gray-100 px-2 py-1 dark:bg-gray-800">
                         <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
                           {meeting.month}
                         </p>
                       </div>
-                      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-b-lg px-2 py-2">
+                      <div className="rounded-b-lg border border-gray-200 bg-white px-2 py-2 dark:border-gray-800 dark:bg-gray-900">
                         <p className="text-xl font-bold">{meeting.day}</p>
                       </div>
-                      <p className="text-xs mt-1 text-gray-500">
+                      <p className="mt-1 text-xs text-gray-500">
                         {meeting.time}
                       </p>
                     </div>
@@ -388,10 +389,10 @@ export function DashboardView() {
                           </Button>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-muted-foreground mt-1 text-sm">
                         {meeting.description}
                       </p>
-                      <div className="flex items-center gap-3 mt-3">
+                      <div className="mt-3 flex items-center gap-3">
                         <div className="flex -space-x-2">
                           {meeting.participants.map((participant, p) => (
                             <Avatar
@@ -407,13 +408,13 @@ export function DashboardView() {
                             </Avatar>
                           ))}
                         </div>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-muted-foreground text-xs">
                           {meeting.participants.length} participant
                           {meeting.participants.length !== 1 ? "s" : ""}
                         </p>
-                        <div className="flex items-center gap-1 ml-auto">
-                          <MapPin className="h-3 w-3 text-muted-foreground" />
-                          <p className="text-xs text-muted-foreground">
+                        <div className="ml-auto flex items-center gap-1">
+                          <MapPin className="text-muted-foreground h-3 w-3" />
+                          <p className="text-muted-foreground text-xs">
                             {meeting.location}
                           </p>
                         </div>
@@ -448,7 +449,7 @@ export function DashboardView() {
       {!isChatbotOpen && !isFullPageAssistantOpen && (
         <Button
           onClick={() => setIsChatbotOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-primary hover:bg-primary/90 text-white shadow-lg z-50 flex items-center justify-center"
+          className="bg-primary hover:bg-primary/90 fixed right-6 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg"
         >
           <MessageSquare className="h-6 w-6" />
         </Button>

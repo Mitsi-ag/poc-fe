@@ -37,10 +37,7 @@ interface CompetitorAnalysisProps {
   region: string;
 }
 
-export function CompetitorAnalysis({
-  timeRange,
-  region,
-}: CompetitorAnalysisProps) {
+export function CompetitorAnalysis(props: CompetitorAnalysisProps) {
   // Sample data - in a real app, this would come from an API
   const marketShareData = [
     { name: "Your Agency", value: 22 },
@@ -288,7 +285,7 @@ export function CompetitorAnalysis({
             {topCompetitors.map((competitor, index) => (
               <div
                 key={index}
-                className="flex flex-col sm:flex-row gap-4 border-b pb-4 last:border-0 last:pb-0"
+                className="flex flex-col gap-4 border-b pb-4 last:border-0 last:pb-0 sm:flex-row"
               >
                 <div className="flex items-center gap-4">
                   <Avatar className="h-12 w-12">
@@ -300,17 +297,17 @@ export function CompetitorAnalysis({
                   </Avatar>
                   <div>
                     <h3 className="font-medium">{competitor.name}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       {competitor.agency}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-1 flex-wrap gap-4 sm:justify-end items-center">
+                <div className="flex flex-1 flex-wrap items-center gap-4 sm:justify-end">
                   <div className="flex flex-col items-center">
                     <span className="text-lg font-bold">
                       {competitor.listings}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       Listings
                     </span>
                   </div>
@@ -318,13 +315,13 @@ export function CompetitorAnalysis({
                     <span className="text-lg font-bold">
                       {competitor.sales}
                     </span>
-                    <span className="text-xs text-muted-foreground">Sales</span>
+                    <span className="text-muted-foreground text-xs">Sales</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <span className="text-lg font-bold">
                       {competitor.avgDays}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       Avg Days
                     </span>
                   </div>

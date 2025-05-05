@@ -81,13 +81,13 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-500 to-blue-600">
+    <div className="flex min-h-screen flex-col bg-linear-to-b from-blue-500 to-blue-600">
       {/* Header */}
-      <header className="container py-6 mx-auto">
-        <div className="flex justify-between items-center">
-          <Link href="/" className="flex gap-2 items-center">
-            <div className="overflow-hidden relative w-8 h-8 bg-white rounded-full">
-              <div className="flex absolute inset-0 justify-center items-center font-bold text-blue-500">
+      <header className="container mx-auto py-6">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="relative h-8 w-8 overflow-hidden rounded-full bg-white">
+              <div className="absolute inset-0 flex items-center justify-center font-bold text-blue-500">
                 RM
               </div>
             </div>
@@ -106,7 +106,7 @@ export default function SignUpPage() {
       </header>
 
       {/* Main content */}
-      <main className="container flex flex-1 justify-center items-center py-12 px-4 mx-auto">
+      <main className="container mx-auto flex flex-1 items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           <Card className="border-0 shadow-xl">
             <CardHeader className="space-y-1">
@@ -115,10 +115,10 @@ export default function SignUpPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="p-0 mr-2 w-8 h-8"
+                    className="mr-2 h-8 w-8 p-0"
                     onClick={() => setStep(1)}
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="h-4 w-4" />
                     <span className="sr-only">Back</span>
                   </Button>
                 )}
@@ -185,13 +185,13 @@ export default function SignUpPage() {
                         />
                         <button
                           type="button"
-                          className="absolute right-3 top-1/2 text-gray-500 -translate-y-1/2 hover:text-gray-700"
+                          className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
-                            <EyeOff className="w-4 h-4" />
+                            <EyeOff className="h-4 w-4" />
                           ) : (
-                            <Eye className="w-4 h-4" />
+                            <Eye className="h-4 w-4" />
                           )}
                           <span className="sr-only">
                             {showPassword ? "Hide password" : "Show password"}
@@ -269,7 +269,7 @@ export default function SignUpPage() {
                         }
                       />
                       <Label htmlFor="marketing" className="text-sm">
-                        I'd like to receive product updates and marketing
+                        I&apos;d like to receive product updates and marketing
                         communications
                       </Label>
                     </div>
@@ -279,7 +279,7 @@ export default function SignUpPage() {
               <CardFooter>
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600"
+                  className="w-full bg-linear-to-r from-blue-500 to-blue-600"
                   disabled={isLoading}
                 >
                   {step === 1 ? (
@@ -287,7 +287,7 @@ export default function SignUpPage() {
                   ) : isLoading ? (
                     <>
                       <svg
-                        className="mr-2 w-4 h-4 animate-spin"
+                        className="mr-2 h-4 w-4 animate-spin"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -311,7 +311,7 @@ export default function SignUpPage() {
                   ) : (
                     <>
                       Create Account
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </>
                   )}
                 </Button>
@@ -324,22 +324,22 @@ export default function SignUpPage() {
             <p className="text-lg font-medium">
               No credit card required. Free 14-day trial. Cancel anytime.
             </p>
-            <div className="flex justify-center mt-4 space-x-4">
+            <div className="mt-4 flex justify-center space-x-4">
               <div className="flex items-center">
-                <div className="flex justify-center items-center mr-2 w-5 h-5 bg-white rounded-full">
-                  <Check className="w-3 h-3 text-blue-500" />
+                <div className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-white">
+                  <Check className="h-3 w-3 text-blue-500" />
                 </div>
                 <span className="text-sm">Full access</span>
               </div>
               <div className="flex items-center">
-                <div className="flex justify-center items-center mr-2 w-5 h-5 bg-white rounded-full">
-                  <Check className="w-3 h-3 text-blue-500" />
+                <div className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-white">
+                  <Check className="h-3 w-3 text-blue-500" />
                 </div>
                 <span className="text-sm">No setup fees</span>
               </div>
               <div className="flex items-center">
-                <div className="flex justify-center items-center mr-2 w-5 h-5 bg-white rounded-full">
-                  <Check className="w-3 h-3 text-blue-500" />
+                <div className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-white">
+                  <Check className="h-3 w-3 text-blue-500" />
                 </div>
                 <span className="text-sm">Easy setup</span>
               </div>

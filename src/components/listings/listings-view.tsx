@@ -41,9 +41,9 @@ export function ListingsView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent dark:from-gray-50 dark:to-gray-400">
+          <h1 className="bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-3xl font-bold tracking-tight text-transparent dark:from-gray-50 dark:to-gray-400">
             Listings Explorer
           </h1>
           <p className="text-muted-foreground mt-1">
@@ -52,11 +52,11 @@ export function ListingsView() {
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" />
+            <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
           <Button size="sm">
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="mr-2 h-4 w-4" />
             Add Listing
           </Button>
         </div>
@@ -68,7 +68,7 @@ export function ListingsView() {
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="grid grid-cols-5 w-full max-w-3xl">
+        <TabsList className="grid w-full max-w-3xl grid-cols-5">
           <TabsTrigger value="explore">Explore</TabsTrigger>
           <TabsTrigger value="my-listings">My Listings</TabsTrigger>
           <TabsTrigger value="saved">Saved</TabsTrigger>
@@ -77,14 +77,14 @@ export function ListingsView() {
         </TabsList>
 
         <TabsContent value="explore" className="space-y-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 flex gap-2">
+          <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-1 gap-2">
               <div className="relative flex-1">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
                 <Input
                   type="search"
                   placeholder="Search by address, suburb, or property ID..."
-                  className="pl-9 w-full"
+                  className="w-full pl-9"
                 />
               </div>
               <Button
@@ -95,14 +95,14 @@ export function ListingsView() {
               >
                 <SlidersHorizontal className="h-4 w-4" />
               </Button>
-              <div className="hidden md:flex border rounded-md">
+              <div className="hidden rounded-md border md:flex">
                 <Button
                   variant="ghost"
                   size="sm"
                   className={`rounded-r-none ${viewMode === "grid" ? "bg-accent" : ""}`}
                   onClick={() => setViewMode("grid")}
                 >
-                  <Grid className="h-4 w-4 mr-2" />
+                  <Grid className="mr-2 h-4 w-4" />
                   Grid
                 </Button>
                 <Button
@@ -111,7 +111,7 @@ export function ListingsView() {
                   className={`rounded-l-none ${viewMode === "map" ? "bg-accent" : ""}`}
                   onClick={() => setViewMode("map")}
                 >
-                  <Map className="h-4 w-4 mr-2" />
+                  <Map className="mr-2 h-4 w-4" />
                   Map
                 </Button>
               </div>
@@ -136,15 +136,15 @@ export function ListingsView() {
 
           {showFilters && <ListingsFilters onFilterChange={setFilters} />}
 
-          <div className="flex md:hidden justify-center mb-4">
-            <div className="inline-flex border rounded-md">
+          <div className="mb-4 flex justify-center md:hidden">
+            <div className="inline-flex rounded-md border">
               <Button
                 variant="ghost"
                 size="sm"
                 className={`rounded-r-none ${viewMode === "grid" ? "bg-accent" : ""}`}
                 onClick={() => setViewMode("grid")}
               >
-                <Grid className="h-4 w-4 mr-2" />
+                <Grid className="mr-2 h-4 w-4" />
                 Grid
               </Button>
               <Button
@@ -153,7 +153,7 @@ export function ListingsView() {
                 className={`rounded-l-none ${viewMode === "map" ? "bg-accent" : ""}`}
                 onClick={() => setViewMode("map")}
               >
-                <Map className="h-4 w-4 mr-2" />
+                <Map className="mr-2 h-4 w-4" />
                 Map
               </Button>
             </div>
@@ -186,18 +186,19 @@ export function ListingsView() {
                   <ListingsGrid isManagement />
                 </TabsContent>
                 <TabsContent value="pending" className="mt-4">
-                  <div className="text-center py-8 text-muted-foreground">
-                    Select "Pending" to view your listings with pending offers
+                  <div className="text-muted-foreground py-8 text-center">
+                    Select &ldquo;Pending&rdquo; to view your listings with
+                    pending offers
                   </div>
                 </TabsContent>
                 <TabsContent value="sold" className="mt-4">
-                  <div className="text-center py-8 text-muted-foreground">
-                    Select "Sold" to view your completed sales
+                  <div className="text-muted-foreground py-8 text-center">
+                    Select &ldquo;Sold&rdquo; to view your completed sales
                   </div>
                 </TabsContent>
                 <TabsContent value="drafts" className="mt-4">
-                  <div className="text-center py-8 text-muted-foreground">
-                    Select "Drafts" to view your draft listings
+                  <div className="text-muted-foreground py-8 text-center">
+                    Select &ldquo;Drafts&rdquo; to view your draft listings
                   </div>
                 </TabsContent>
               </Tabs>

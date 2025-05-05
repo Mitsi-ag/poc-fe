@@ -215,7 +215,7 @@ export function MarketInsights({ timeRange, region }: MarketInsightsProps) {
                 >
                   <div>
                     <div className="font-medium">{suburb.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       Median: {suburb.median}
                     </div>
                   </div>

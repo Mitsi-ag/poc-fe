@@ -212,7 +212,7 @@ export function CrmLeads() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Lead Sources</CardTitle>
@@ -220,55 +220,55 @@ export function CrmLeads() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Domain.com.au</span>
                 <span className="font-medium">32%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="h-2.5 w-full rounded-full bg-gray-200">
                 <div
                   className="bg-primary h-2.5 rounded-full"
                   style={{ width: "32%" }}
                 ></div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Website</span>
                 <span className="font-medium">24%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="h-2.5 w-full rounded-full bg-gray-200">
                 <div
                   className="bg-primary h-2.5 rounded-full"
                   style={{ width: "24%" }}
                 ></div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Referrals</span>
                 <span className="font-medium">18%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="h-2.5 w-full rounded-full bg-gray-200">
                 <div
                   className="bg-primary h-2.5 rounded-full"
                   style={{ width: "18%" }}
                 ></div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Social Media</span>
                 <span className="font-medium">15%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="h-2.5 w-full rounded-full bg-gray-200">
                 <div
                   className="bg-primary h-2.5 rounded-full"
                   style={{ width: "15%" }}
                 ></div>
               </div>
 
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Open Houses</span>
                 <span className="font-medium">11%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="h-2.5 w-full rounded-full bg-gray-200">
                 <div
                   className="bg-primary h-2.5 rounded-full"
                   style={{ width: "11%" }}
@@ -287,7 +287,7 @@ export function CrmLeads() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-blue-500"></div>
                   <span>New</span>
                 </div>
                 <span className="font-medium">24</span>
@@ -295,7 +295,7 @@ export function CrmLeads() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
                   <span>Contacted</span>
                 </div>
                 <span className="font-medium">36</span>
@@ -303,7 +303,7 @@ export function CrmLeads() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-green-500"></div>
                   <span>Qualified</span>
                 </div>
                 <span className="font-medium">18</span>
@@ -311,7 +311,7 @@ export function CrmLeads() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-purple-500"></div>
                   <span>Nurturing</span>
                 </div>
                 <span className="font-medium">42</span>
@@ -319,7 +319,7 @@ export function CrmLeads() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-gray-500"></div>
                   <span>Closed</span>
                 </div>
                 <span className="font-medium">15</span>
@@ -335,51 +335,51 @@ export function CrmLeads() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="border-l-2 border-primary pl-4 pb-2">
+              <div className="border-primary border-l-2 pb-2 pl-4">
                 <p className="text-sm font-medium">
                   Email sent to Sarah Johnson
                 </p>
-                <p className="text-xs text-muted-foreground">Today, 10:30 AM</p>
+                <p className="text-muted-foreground text-xs">Today, 10:30 AM</p>
               </div>
 
-              <div className="border-l-2 border-primary pl-4 pb-2">
+              <div className="border-primary border-l-2 pb-2 pl-4">
                 <p className="text-sm font-medium">
                   Call scheduled with Michael Chen
                 </p>
-                <p className="text-xs text-muted-foreground">Today, 9:15 AM</p>
+                <p className="text-muted-foreground text-xs">Today, 9:15 AM</p>
               </div>
 
-              <div className="border-l-2 border-primary pl-4 pb-2">
+              <div className="border-primary border-l-2 pb-2 pl-4">
                 <p className="text-sm font-medium">
                   Property viewing with Emma Wilson
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   Yesterday, 3:00 PM
                 </p>
               </div>
 
-              <div className="border-l-2 border-primary pl-4 pb-2">
+              <div className="border-primary border-l-2 pb-2 pl-4">
                 <p className="text-sm font-medium">New lead: Jessica Lee</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   Yesterday, 11:45 AM
                 </p>
               </div>
 
-              <div className="border-l-2 border-primary pl-4 pb-2">
+              <div className="border-primary border-l-2 pb-2 pl-4">
                 <p className="text-sm font-medium">
                   Follow-up email to David Thompson
                 </p>
-                <p className="text-xs text-muted-foreground">Apr 14, 2023</p>
+                <p className="text-muted-foreground text-xs">Apr 14, 2023</p>
               </div>
             </div>
           </CardContent>
-          <div className="px-6 py-3 border-t">
+          <div className="border-t px-6 py-3">
             <Button
               variant="link"
-              className="p-0 h-auto flex items-center text-primary"
+              className="text-primary flex h-auto items-center p-0"
             >
               <span>View all activity</span>
-              <ArrowUpRight className="h-4 w-4 ml-1" />
+              <ArrowUpRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
         </Card>

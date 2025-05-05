@@ -32,8 +32,8 @@ export function WelcomeStep() {
           Welcome to RealtyMate
         </h1>
         <p className="text-gray-500">
-          Let's set up your account to get the most out of your AI-powered real
-          estate assistant.
+          Let&apos;s set up your account to get the most out of your AI-powered
+          real estate assistant.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export function WelcomeStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-end">
+      <div className="flex justify-end pt-4">
         <Button onClick={handleContinue} disabled={!isValid} className="gap-2">
           Continue <ArrowRight className="h-4 w-4" />
         </Button>

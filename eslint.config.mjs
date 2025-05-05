@@ -4,6 +4,7 @@ import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -31,10 +32,12 @@ export default defineConfig([
     },
   },
   tseslint.configs.recommended,
+  ...pluginQuery.configs["flat/recommended"],
   ...compat.config({
     extends: ["next"],
     rules: {
       "react-hooks/exhaustive-deps": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   }),
 ]);

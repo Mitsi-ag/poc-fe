@@ -162,7 +162,7 @@ export function LeadAnalytics({ timeRange, region }: LeadAnalyticsProps) {
                 <div key={index} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{stage.stage}</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {stage.count}
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export function LeadAnalytics({ timeRange, region }: LeadAnalyticsProps) {
                   />
                 </div>
               ))}
-              <div className="pt-2 text-sm text-muted-foreground">
+              <div className="text-muted-foreground pt-2 text-sm">
                 Conversion rate:{" "}
                 {(
                   (conversionData[4].count / conversionData[0].count) *
@@ -248,7 +248,7 @@ export function LeadAnalytics({ timeRange, region }: LeadAnalyticsProps) {
                 >
                   <div>
                     <div className="font-medium">{lead.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       {lead.source} • {lead.value}
                     </div>
                   </div>

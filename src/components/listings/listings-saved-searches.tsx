@@ -87,8 +87,8 @@ const savedProperties = [
 
 export function ListingsSavedSearches() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div className="lg:col-span-2 space-y-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="space-y-6 lg:col-span-2">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
@@ -98,7 +98,7 @@ export function ListingsSavedSearches() {
               </CardDescription>
             </div>
             <Button>
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               New Search
             </Button>
           </CardHeader>
@@ -106,7 +106,7 @@ export function ListingsSavedSearches() {
             {savedSearches.map((search) => (
               <Card key={search.id}>
                 <CardHeader className="p-4 pb-2">
-                  <div className="flex justify-between items-start">
+                  <div className="flex items-start justify-between">
                     <div>
                       <CardTitle className="text-lg">{search.name}</CardTitle>
                       <CardDescription>
@@ -130,7 +130,7 @@ export function ListingsSavedSearches() {
                   </div>
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="mb-3 flex flex-wrap gap-2">
                     {search.criteria.map((criterion, index) => (
                       <Badge
                         key={index}
@@ -161,17 +161,19 @@ export function ListingsSavedSearches() {
         <Card>
           <CardHeader>
             <CardTitle>Saved Properties</CardTitle>
-            <CardDescription>Properties you've saved for later</CardDescription>
+            <CardDescription>
+              Properties you&apos;ve saved for later
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {savedProperties.map((property) => (
               <div
                 key={property.id}
-                className="flex justify-between items-start pb-3 border-b last:border-0 last:pb-0"
+                className="flex items-start justify-between border-b pb-3 last:border-0 last:pb-0"
               >
                 <div>
                   <div className="font-medium">{property.address}</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-muted-foreground text-sm">
                     {property.price} · Saved {property.savedDate}
                   </div>
                 </div>

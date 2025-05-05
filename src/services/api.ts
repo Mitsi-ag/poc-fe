@@ -1,3 +1,5 @@
+const API_BACKEND_URL = "http://170.64.164.95";
+
 // Base fetch utility for all API calls
 async function fetchAPI<T>(
   endpoint: string,
@@ -7,7 +9,7 @@ async function fetchAPI<T>(
     "Content-Type": "application/json",
   };
 
-  const config = {
+  const config: RequestInit = {
     ...options,
     headers: {
       ...defaultHeaders,
@@ -15,7 +17,7 @@ async function fetchAPI<T>(
     },
   };
 
-  const response = await fetch(`/api/${endpoint}`, config);
+  const response = await fetch(`${API_BACKEND_URL}/api/v1/${endpoint}`, config);
 
   if (!response.ok) {
     const error = await response.json();
@@ -36,13 +38,13 @@ export const listingsAPI = {
 
   getListing: (id: string) => fetchAPI(`listings/${id}`),
 
-  createListing: (data: any) =>
+  createListing: (data: unknown) =>
     fetchAPI("listings", {
       method: "POST",
       body: JSON.stringify(data),
     }),
 
-  updateListing: (id: string, data: any) =>
+  updateListing: (id: string, data: unknown) =>
     fetchAPI(`listings/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -89,7 +91,7 @@ export const usersAPI = {
 
   getUser: (id: string) => fetchAPI(`users/${id}`),
 
-  updateUser: (id: string, data: any) =>
+  updateUser: (id: string, data: unknown) =>
     fetchAPI(`users/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -107,13 +109,13 @@ export const calendarAPI = {
 
   getEvent: (id: string) => fetchAPI(`calendar/${id}`),
 
-  createEvent: (data: any) =>
+  createEvent: (data: unknown) =>
     fetchAPI("calendar", {
       method: "POST",
       body: JSON.stringify(data),
     }),
 
-  updateEvent: (id: string, data: any) =>
+  updateEvent: (id: string, data: unknown) =>
     fetchAPI(`calendar/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -136,13 +138,13 @@ export const contactsAPI = {
 
   getContact: (id: string) => fetchAPI(`contacts/${id}`),
 
-  createContact: (data: any) =>
+  createContact: (data: unknown) =>
     fetchAPI("contacts", {
       method: "POST",
       body: JSON.stringify(data),
     }),
 
-  updateContact: (id: string, data: any) =>
+  updateContact: (id: string, data: unknown) =>
     fetchAPI(`contacts/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),

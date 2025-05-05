@@ -261,7 +261,7 @@ export function CrmIntegrations() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
@@ -272,7 +272,7 @@ export function CrmIntegrations() {
             </CardHeader>
             <CardContent>
               <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-                <TabsList className="grid grid-cols-4 mb-4">
+                <TabsList className="mb-4 grid grid-cols-4">
                   {integrationCategories.slice(0, 4).map((category) => (
                     <TabsTrigger
                       key={category.id}
@@ -284,7 +284,7 @@ export function CrmIntegrations() {
                     </TabsTrigger>
                   ))}
                 </TabsList>
-                <TabsList className="grid grid-cols-3 mb-6">
+                <TabsList className="mb-6 grid grid-cols-3">
                   {integrationCategories.slice(4).map((category) => (
                     <TabsTrigger
                       key={category.id}
@@ -303,11 +303,11 @@ export function CrmIntegrations() {
                     value={category.id}
                     className="space-y-4"
                   >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {category.tools.map((tool) => (
                         <Card key={tool.id} className="border border-gray-200">
                           <CardHeader className="pb-2">
-                            <div className="flex justify-between items-center">
+                            <div className="flex items-center justify-between">
                               <CardTitle className="text-base">
                                 {tool.name}
                               </CardTitle>
@@ -348,7 +348,7 @@ export function CrmIntegrations() {
                   .map((tool) => (
                     <div
                       key={tool.id}
-                      className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
+                      className="flex items-center justify-between border-b border-gray-100 py-2 last:border-0"
                     >
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
@@ -382,13 +382,13 @@ export function CrmIntegrations() {
             {dataFlows.map((flow) => (
               <Card key={flow.id} className="border border-gray-200">
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between items-center">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-base flex items-center gap-2">
+                      <CardTitle className="flex items-center gap-2 text-base">
                         {flow.name}
                         {getStatusIcon(flow.status)}
                       </CardTitle>
-                      <CardDescription className="text-sm mt-1">
+                      <CardDescription className="mt-1 text-sm">
                         {flow.description}
                       </CardDescription>
                     </div>
@@ -403,8 +403,8 @@ export function CrmIntegrations() {
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="pb-2 pt-0">
-                  <div className="flex items-center text-sm text-muted-foreground">
+                <CardContent className="pt-0 pb-2">
+                  <div className="text-muted-foreground flex items-center text-sm">
                     <span>
                       From: <strong>{flow.source}</strong>
                     </span>
@@ -416,7 +416,7 @@ export function CrmIntegrations() {
                   </div>
                 </CardContent>
                 <CardFooter className="pt-2">
-                  <div className="flex gap-2 w-full">
+                  <div className="flex w-full gap-2">
                     <Button variant="outline" size="sm" className="flex-1">
                       Edit
                     </Button>
@@ -437,7 +437,7 @@ export function CrmIntegrations() {
         </CardContent>
         <CardFooter>
           <Button className="w-full">
-            <PlusCircle className="h-4 w-4 mr-2" />
+            <PlusCircle className="mr-2 h-4 w-4" />
             Create New Data Flow
           </Button>
         </CardFooter>

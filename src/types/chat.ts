@@ -5,7 +5,7 @@ export interface ChatMessage {
   content: string;
   richContent?: {
     type: "agent" | "property" | "marketInsight" | null;
-    data: any;
+    data: unknown;
   } | null;
 }
 

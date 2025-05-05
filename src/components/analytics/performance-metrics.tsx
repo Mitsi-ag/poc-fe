@@ -63,7 +63,7 @@ export function PerformanceMetrics({
           change="+12.5%"
           trend="up"
           description="vs. previous period"
-          icon={<Eye className="h-4 w-4 text-muted-foreground" />}
+          icon={<Eye className="text-muted-foreground h-4 w-4" />}
         />
         <MetricCard
           title="Active Listings"
@@ -71,7 +71,7 @@ export function PerformanceMetrics({
           change="+8.2%"
           trend="up"
           description="vs. previous period"
-          icon={<Home className="h-4 w-4 text-muted-foreground" />}
+          icon={<Home className="text-muted-foreground h-4 w-4" />}
         />
         <MetricCard
           title="Inquiries"
@@ -79,7 +79,7 @@ export function PerformanceMetrics({
           change="+15.3%"
           trend="up"
           description="vs. previous period"
-          icon={<MessageSquare className="h-4 w-4 text-muted-foreground" />}
+          icon={<MessageSquare className="text-muted-foreground h-4 w-4" />}
         />
         <MetricCard
           title="Appointments"
@@ -87,7 +87,7 @@ export function PerformanceMetrics({
           change="-2.4%"
           trend="down"
           description="vs. previous period"
-          icon={<Calendar className="h-4 w-4 text-muted-foreground" />}
+          icon={<Calendar className="text-muted-foreground h-4 w-4" />}
         />
       </div>
 
@@ -198,7 +198,7 @@ function MetricCard({
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground flex items-center mt-1">
+        <p className="text-muted-foreground mt-1 flex items-center text-xs">
           {trend === "up" ? (
             <ArrowUpRight className="mr-1 h-4 w-4 text-green-500" />
           ) : (

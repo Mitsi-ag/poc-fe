@@ -56,11 +56,11 @@ export function DashboardWidgets() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent dark:from-gray-100 dark:to-gray-400">
+          <h1 className="bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent dark:from-gray-100 dark:to-gray-400">
             Welcome back, John
           </h1>
           <p className="text-muted-foreground">
-            Here's what's happening in your market today.
+            Here&apos;s what&apos;s happening in your market today.
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -77,7 +77,7 @@ export function DashboardWidgets() {
             onOpenChange={setShowAddWidgetDialog}
           >
             <DialogTrigger asChild>
-              <Button className="gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all duration-300 shadow-md hover:shadow-lg">
+              <Button className="gap-2 bg-linear-to-r from-blue-600 to-blue-500 shadow-md transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow-lg">
                 <Plus className="h-4 w-4" />
                 <span>Add Widget</span>
               </Button>
@@ -90,7 +90,7 @@ export function DashboardWidgets() {
                 {widgetOptions.map((widget, index) => (
                   <div
                     key={index}
-                    className="flex flex-col gap-2 p-4 border rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all dark:hover:bg-gray-800"
+                    className="flex cursor-pointer flex-col gap-2 rounded-lg border p-4 transition-all hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-800"
                     onClick={() => setShowAddWidgetDialog(false)}
                   >
                     <div className="flex items-center gap-2">
@@ -166,7 +166,7 @@ export function DashboardWidgets() {
           </div>
         </div>
 
-        <TabsContent value="all" className="space-y-4 mt-0">
+        <TabsContent value="all" className="mt-0 space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="New Listings"
@@ -206,7 +206,7 @@ export function DashboardWidgets() {
             />
           </div>
 
-          <Card className="overflow-hidden bg-white/80 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all dark:bg-gray-900/80">
+          <Card className="overflow-hidden border bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/80">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg font-medium">
@@ -216,7 +216,7 @@ export function DashboardWidgets() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+                    className="h-8 w-8 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100"
                     onClick={handleRefresh}
                   >
                     <RefreshCw
@@ -226,7 +226,7 @@ export function DashboardWidgets() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800"
+                    className="h-8 w-8 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100"
                   >
                     <MoreHorizontal className="h-4 w-4" />
                   </Button>
@@ -258,13 +258,13 @@ export function DashboardWidgets() {
                     >
                       <Sparkles className="h-4 w-4" />
                     </div>
-                    <div className="space-y-1 flex-1">
+                    <div className="flex-1 space-y-1">
                       <div className="flex items-start justify-between">
                         <p className="font-medium">{insight.title}</p>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6 -mt-1 -mr-1 text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-300"
+                          className="-mt-1 -mr-1 h-6 w-6 text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-300"
                           onClick={() =>
                             setExpandedInsight(
                               expandedInsight === index ? null : index,
@@ -278,12 +278,12 @@ export function DashboardWidgets() {
                           )}
                         </Button>
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {insight.description}
                       </p>
 
                       {expandedInsight === index && (
-                        <div className="pt-2 space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <div className="animate-in fade-in slide-in-from-top-2 space-y-2 pt-2 duration-300">
                           <p className="text-sm">{insight.details}</p>
                           <div className="flex flex-wrap gap-2">
                             {insight.actions.map((action, actionIndex) => (
@@ -291,7 +291,7 @@ export function DashboardWidgets() {
                                 key={actionIndex}
                                 variant="outline"
                                 size="sm"
-                                className="h-7 gap-1 text-xs bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                className="h-7 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                                 onClick={() => {}}
                               >
                                 <span>{action}</span>
@@ -320,7 +320,7 @@ export function DashboardWidgets() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="listings" className="space-y-4 mt-0">
+        <TabsContent value="listings" className="mt-0 space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="New Listings"
@@ -343,7 +343,7 @@ export function DashboardWidgets() {
           </div>
         </TabsContent>
 
-        <TabsContent value="agents" className="space-y-4 mt-0">
+        <TabsContent value="agents" className="mt-0 space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="Competitor Activity"
@@ -366,7 +366,7 @@ export function DashboardWidgets() {
           </div>
         </TabsContent>
 
-        <TabsContent value="crm" className="space-y-4 mt-0">
+        <TabsContent value="crm" className="mt-0 space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="Active Leads"
@@ -414,12 +414,12 @@ function MetricCard({
 }: MetricCardProps) {
   return (
     <Card
-      className="overflow-hidden bg-white/80 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all cursor-pointer group dark:bg-gray-900/80"
+      className="group cursor-pointer overflow-hidden border bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/80"
       onClick={onClick}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="rounded-full bg-gray-100 p-1 group-hover:bg-blue-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700">
+        <div className="rounded-full bg-gray-100 p-1 transition-colors group-hover:bg-blue-100 dark:bg-gray-800 dark:group-hover:bg-gray-700">
           {icon}
         </div>
       </CardHeader>

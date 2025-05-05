@@ -70,6 +70,7 @@ export default function LoginPage() {
         });
       }
     } catch (error) {
+      console.error(error);
       toast({
         variant: "destructive",
         title: "Login failed",
@@ -81,9 +82,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="flex min-h-screen flex-col md:flex-row">
       {/* Left side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex flex-1 items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <div className="flex justify-center">
@@ -117,7 +118,7 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <Mail className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
@@ -141,19 +142,19 @@ export default function LoginPage() {
                   </Link>
                 </div>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <Lock className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="pl-10 pr-10"
+                    className="pr-10 pl-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                   <button
                     type="button"
-                    className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                    className="absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -189,7 +190,7 @@ export default function LoginPage() {
             </Button>
 
             <div className="text-center text-sm">
-              <span className="text-gray-600">Don't have an account?</span>{" "}
+              <span className="text-gray-600">Don&apos;t have an account?</span>{" "}
               <Link
                 href="/signup"
                 className="font-medium text-blue-600 hover:text-blue-500"
@@ -202,37 +203,37 @@ export default function LoginPage() {
       </div>
 
       {/* Right side - Image */}
-      <div className="hidden md:flex md:flex-1 bg-blue-600 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-90"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-12 z-10">
-          <h2 className="text-3xl font-bold mb-4">
+      <div className="relative hidden bg-blue-600 md:flex md:flex-1">
+        <div className="absolute inset-0 bg-linear-to-br from-blue-500 to-blue-700 opacity-90"></div>
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-12 text-white">
+          <h2 className="mb-4 text-3xl font-bold">
             Gain a competitive edge with RealtyMate
           </h2>
-          <p className="text-lg mb-8 max-w-md text-center">
+          <p className="mb-8 max-w-md text-center text-lg">
             Access real-time insights, track competitor activity, and leverage
             AI tools designed specifically for Australian real estate agents.
           </p>
-          <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-semibold mb-1">AI-Powered Insights</h3>
+          <div className="grid w-full max-w-md grid-cols-2 gap-4">
+            <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+              <h3 className="mb-1 font-semibold">AI-Powered Insights</h3>
               <p className="text-sm text-blue-100">
                 Get smart recommendations based on market data
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-semibold mb-1">Competitor Tracking</h3>
+            <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+              <h3 className="mb-1 font-semibold">Competitor Tracking</h3>
               <p className="text-sm text-blue-100">
                 Monitor other agents in your target suburbs
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-semibold mb-1">Smart CRM</h3>
+            <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+              <h3 className="mb-1 font-semibold">Smart CRM</h3>
               <p className="text-sm text-blue-100">
                 Manage leads and clients with AI assistance
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-              <h3 className="font-semibold mb-1">Pitch Generator</h3>
+            <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+              <h3 className="mb-1 font-semibold">Pitch Generator</h3>
               <p className="text-sm text-blue-100">
                 Create compelling pitches in seconds
               </p>
@@ -243,7 +244,7 @@ export default function LoginPage() {
           src="/real-estate-analytics-dashboard.png"
           alt="RealtyMate Dashboard"
           fill
-          className="object-cover mix-blend-overlay opacity-20"
+          className="object-cover opacity-20 mix-blend-overlay"
         />
       </div>
     </div>

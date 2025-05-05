@@ -59,7 +59,7 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <Input
             placeholder="Search conversations..."
             className="pl-9"
@@ -88,7 +88,7 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
         <TabsContent value={activeTab} className="mt-4">
           {filteredChats.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
+              <MessageSquare className="text-muted-foreground/50 mb-4 h-12 w-12" />
               <h3 className="text-lg font-medium">No conversations found</h3>
               <p className="text-muted-foreground mt-1 max-w-md">
                 {searchQuery
@@ -104,11 +104,11 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {filteredChats.map((chat, index) => (
                 <Card
                   key={index}
-                  className="cursor-pointer hover:shadow-md transition-shadow"
+                  className="cursor-pointer transition-shadow hover:shadow-md"
                   onClick={() => onChatSelect?.(`chat-${index}`)}
                 >
                   <CardHeader className="pb-2">
@@ -117,10 +117,10 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
                         <CardTitle className="text-base">
                           {chat.title}
                         </CardTitle>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className="text-muted-foreground flex items-center gap-2 text-xs">
                           <Calendar className="h-3 w-3" />
                           <span>{chat.time}</span>
-                          <Clock className="h-3 w-3 ml-1" />
+                          <Clock className="ml-1 h-3 w-3" />
                           <span>{chat.duration}</span>
                         </div>
                       </div>
@@ -146,34 +146,34 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
                     </div>
                   </CardHeader>
                   <CardContent className="pb-2">
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <p className="text-muted-foreground line-clamp-2 text-sm">
                       {chat.preview}
                     </p>
                   </CardContent>
                   <CardFooter className="flex flex-col items-start pt-0">
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="mt-2 flex flex-wrap gap-1">
                       {chat.tags.map((tag, tagIndex) => (
                         <Badge
                           key={tagIndex}
                           variant="secondary"
-                          className="px-2 py-0.5 text-xs bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
+                          className="bg-gray-100 px-2 py-0.5 text-xs text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300"
                         >
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex items-center gap-2 mt-3 w-full">
+                    <div className="mt-3 flex w-full items-center gap-2">
                       <Avatar className="h-6 w-6">
                         <AvatarImage src="/helpful-ai-interface.png" alt="AI" />
                         <AvatarFallback>AI</AvatarFallback>
                       </Avatar>
                       <div className="h-1 flex-1 rounded-full bg-gray-100 dark:bg-gray-800">
                         <div
-                          className="h-1 rounded-full bg-primary"
+                          className="bg-primary h-1 rounded-full"
                           style={{ width: `${chat.completionPercentage}%` }}
                         />
                       </div>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-muted-foreground text-xs">
                         {chat.messageCount} messages
                       </span>
                     </div>

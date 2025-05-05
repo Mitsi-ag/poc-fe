@@ -64,7 +64,7 @@ export function IntegrationsView() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="rounded-md bg-primary/10 p-2 text-primary">
+                  <div className="bg-primary/10 text-primary rounded-md p-2">
                     {integration.icon}
                   </div>
                   <CardTitle>{integration.name}</CardTitle>

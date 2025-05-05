@@ -69,8 +69,8 @@ export function GoalsStep() {
           What are your goals?
         </h1>
         <p className="text-gray-500">
-          Select what you'd like to achieve with RealtyMate. We'll customize
-          your experience accordingly.
+          Select what you&apos;d like to achieve with RealtyMate. We&apos;ll
+          customize your experience accordingly.
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export function GoalsStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-between">
+      <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>

@@ -87,7 +87,7 @@ export function DashboardStep() {
           Customize your dashboard
         </h1>
         <p className="text-gray-500">
-          Select which widgets you'd like to see on your dashboard. You can
+          Select which widgets you&apso;d like to see on your dashboard. You can
           always change this later.
         </p>
       </div>
@@ -95,12 +95,12 @@ export function DashboardStep() {
       <div className="space-y-4 pt-4">
         <div className="space-y-2">
           <Label>Select dashboard widgets</Label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {dashboardWidgets.map((widget) => (
               <div
                 key={widget.id}
                 className={cn(
-                  "border rounded-lg p-4 cursor-pointer transition-all",
+                  "cursor-pointer rounded-lg border p-4 transition-all",
                   selectedWidgets.includes(widget.id)
                     ? "border-primary bg-primary/5"
                     : "hover:border-gray-300 hover:bg-gray-50",
@@ -129,7 +129,7 @@ export function DashboardStep() {
         </div>
       </div>
 
-      <div className="pt-4 flex justify-between">
+      <div className="flex justify-between pt-4">
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>

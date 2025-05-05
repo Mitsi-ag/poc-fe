@@ -11,10 +11,10 @@ import { Eye, Users } from "lucide-react";
 
 export function TopAgentsCard() {
   return (
-    <Card className="overflow-hidden border shadow-sm hover:shadow transition-all dark:border-gray-800">
+    <Card className="overflow-hidden border shadow-sm transition-all hover:shadow dark:border-gray-800">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <Users className="h-5 w-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <Users className="text-primary h-5 w-5" />
           Top Agents
         </CardTitle>
       </CardHeader>
@@ -23,7 +23,7 @@ export function TopAgentsCard() {
           {topAgents.map((agent, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 group cursor-pointer"
+              className="group flex cursor-pointer items-center gap-3"
             >
               <Avatar className="h-10 w-10 border border-gray-200 dark:border-gray-700">
                 <AvatarImage
@@ -32,16 +32,16 @@ export function TopAgentsCard() {
                 />
                 <AvatarFallback>{agent.initials}</AvatarFallback>
               </Avatar>
-              <div className="space-y-1 flex-1">
-                <p className="font-medium group-hover:text-primary transition-colors">
+              <div className="flex-1 space-y-1">
+                <p className="group-hover:text-primary font-medium transition-colors">
                   {agent.name}
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {agent.agency}
                   </span>
-                  <span className="text-xs text-muted-foreground">•</span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">•</span>
+                  <span className="text-muted-foreground text-xs">
                     {agent.listings} listings
                   </span>
                 </div>

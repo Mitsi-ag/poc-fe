@@ -36,7 +36,7 @@ export function TrialStatus({
       <Button
         size="sm"
         variant="outline"
-        className="flex items-center gap-1.5 h-8 border-blue-200 bg-blue-50 hover:bg-blue-100 dark:border-blue-900 dark:bg-blue-900/30 dark:hover:bg-blue-900/50"
+        className="flex h-8 items-center gap-1.5 border-blue-200 bg-blue-50 hover:bg-blue-100 dark:border-blue-900 dark:bg-blue-900/30 dark:hover:bg-blue-900/50"
         onClick={onUpgrade}
       >
         <Clock className="h-3.5 w-3.5 text-blue-600" />
@@ -49,7 +49,7 @@ export function TrialStatus({
 
   if (variant === "banner") {
     return (
-      <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 px-4 py-2.5 border-b border-blue-100 dark:border-blue-900/50">
+      <div className="flex items-center justify-between border-b border-blue-100 bg-blue-50 px-4 py-2.5 dark:border-blue-900/50 dark:bg-blue-900/20">
         <div className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           <span className="text-sm font-medium text-blue-800 dark:text-blue-300">
@@ -78,21 +78,21 @@ export function TrialStatus({
 
   // Default sidebar variant
   return (
-    <div className="rounded-lg border border-border p-3 bg-background">
-      <div className="flex items-center justify-between mb-1.5">
+    <div className="border-border bg-background rounded-lg border p-3">
+      <div className="mb-1.5 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <Clock className="h-4 w-4 text-primary" />
+          <Clock className="text-primary h-4 w-4" />
           <span className="text-sm font-medium">Trial Status</span>
         </div>
         {isEnding && (
-          <Badge variant="destructive" className="text-[10px] h-5 px-1.5">
+          <Badge variant="destructive" className="h-5 px-1.5 text-[10px]">
             Ending soon!
           </Badge>
         )}
       </div>
-      <Progress value={progress} className="h-1.5 mb-2" />
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs text-muted-foreground">
+      <Progress value={progress} className="mb-2 h-1.5" />
+      <div className="mb-3 flex items-center justify-between">
+        <span className="text-muted-foreground text-xs">
           {daysRemaining} days remaining
         </span>
         <span className="text-xs font-medium">Pro Trial</span>

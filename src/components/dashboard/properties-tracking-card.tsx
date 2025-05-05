@@ -12,10 +12,10 @@ import { Home } from "lucide-react";
 
 export function PropertiesTrackingCard() {
   return (
-    <Card className="overflow-hidden border shadow-sm hover:shadow transition-all dark:border-gray-800">
+    <Card className="overflow-hidden border shadow-sm transition-all hover:shadow dark:border-gray-800">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <Home className="h-5 w-5 text-primary" />
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <Home className="text-primary h-5 w-5" />
           Properties Tracking
         </CardTitle>
       </CardHeader>
@@ -24,14 +24,14 @@ export function PropertiesTrackingCard() {
           {properties.map((property, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 group cursor-pointer"
+              className="group flex cursor-pointer items-center gap-3"
             >
               <div
                 className="h-14 w-14 rounded-lg bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${property.image})` }}
               />
-              <div className="space-y-1 flex-1">
-                <p className="font-medium group-hover:text-primary transition-colors">
+              <div className="flex-1 space-y-1">
+                <p className="group-hover:text-primary font-medium transition-colors">
                   {property.address}
                 </p>
                 <div className="flex items-center gap-2">
@@ -40,16 +40,16 @@ export function PropertiesTrackingCard() {
                     className={cn(
                       "text-xs",
                       property.status === "For Sale" &&
-                        "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400",
+                        "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-400",
                       property.status === "Under Offer" &&
-                        "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-400",
+                        "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400",
                       property.status === "Sold" &&
-                        "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400",
+                        "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400",
                     )}
                   >
                     {property.status}
                   </Badge>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     {property.price}
                   </span>
                 </div>
