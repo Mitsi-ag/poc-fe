@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatDate, toCapitalCase } from "@/lib/utils";
 import { useListingsQuery } from "@/modules/listings/hooks/queries";
 import { Bath, Bed, Car, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
@@ -17,7 +16,7 @@ interface ListingsGridProps {
 }
 
 export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
-  const { data, isLoading } = useListingsQuery();
+  const { data, isLoading, isError } = useListingsQuery();
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const toggleFavorite = (id: number) => {
@@ -50,11 +49,15 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
     );
   }
 
-  const listings = data?.results;
+  if (isError || !data) {
+    return <div className="text-center font-bold">No results found</div>;
+  }
+
+  const listings = data.results;
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-      {listings?.map((listing) => (
+      {listings.map((listing) => (
         <Card key={listing.id} className="overflow-hidden">
           <div className="relative">
             <AspectRatio ratio={16 / 9}>
@@ -97,32 +100,40 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
                   {listing.address.display_name}
                 </h3>
                 <p className="text-muted-foreground line-clamp-1 text-sm">
-                  {toCapitalCase(listing.address.suburb)}
+                  {listing.address.suburb}
                 </p>
               </div>
             </div>
           </CardContent>
           <CardContent className="p-4">
             <div className="mb-2 text-xl font-bold">{listing.price}</div>
-            <div className="mb-2 flex justify-between text-xs md:text-sm">
-              <div className="flex items-center gap-1">
-                <Bed className="size-4" />
-                <span className="font-medium">{listing.bedrooms} bed(s)</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Bath className="size-4" />
-                <span className="font-medium">{listing.bathrooms} bath(s)</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Car className="size-4" />
-                <span className="font-medium">{listing.parking} car(s)</span>
-              </div>
+            <div className="mb-2 flex items-center text-xs md:text-sm">
+              {listing.bedrooms > 0 && (
+                <div className="flex flex-1 items-center gap-1">
+                  <Bed className="size-4" />
+                  <span className="font-medium">{listing.bedrooms} bed(s)</span>
+                </div>
+              )}
+              {listing.bathrooms > 0 && (
+                <div className="flex flex-1 items-center gap-1">
+                  <Bath className="size-4" />
+                  <span className="font-medium">
+                    {listing.bathrooms} bath(s)
+                  </span>
+                </div>
+              )}
+              {listing.parking > 0 && (
+                <div className="flex flex-1 items-center gap-1">
+                  <Car className="size-4" />
+                  <span className="font-medium">{listing.parking} car(s)</span>
+                </div>
+              )}
               {/* <div className="hidden gap-1 items-center sm:flex"> */}
               {/*   <span className="font-medium">{listing.area}</span> */}
               {/* </div> */}
             </div>
             <div className="text-muted-foreground flex justify-between text-xs">
-              <div>Listed: {formatDate(listing.updated_on)}</div>
+              <div>Listed: {listing.timestamp}</div>
               {/* <div>Agent: {listing.agent}</div> */}
             </div>
             {/* {isManagement && ( */}

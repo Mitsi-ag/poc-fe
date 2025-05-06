@@ -1,1 +1,1 @@
-export type ResponseWrapper<T> = { data: T; message: string };
+export type ResponseWrapper<T> = { data: T; message: string | null };

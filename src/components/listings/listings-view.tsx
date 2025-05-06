@@ -68,10 +68,16 @@ export function ListingsView() {
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="grid w-full max-w-3xl grid-cols-5">
-          <TabsTrigger value="explore">Explore</TabsTrigger>
-          <TabsTrigger value="my-listings">My Listings</TabsTrigger>
-          <TabsTrigger value="saved">Saved</TabsTrigger>
+        <TabsList className="flex w-full max-w-3xl">
+          <TabsTrigger value="explore" className="flex-1">
+            Explore
+          </TabsTrigger>
+          <TabsTrigger value="my-listings" className="flex-1">
+            My Listings
+          </TabsTrigger>
+          <TabsTrigger value="saved" className="flex-1">
+            Saved
+          </TabsTrigger>
           {/* <TabsTrigger value="compare">Compare</TabsTrigger> */}
           {/* <TabsTrigger value="analytics">Analytics</TabsTrigger> */}
         </TabsList>

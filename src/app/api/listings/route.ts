@@ -1,13 +1,19 @@
-import { listingsAPI } from "@/services/api";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
+import { ListingsController } from "@/modules/listings/controller";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const listings = await listingsAPI.getListings();
-    return NextResponse.json({ data: listings, message: "" });
+    const { searchParams } = new URL(request.url);
+    const controller = new ListingsController();
+    const data = await controller.fetchAll(searchParams);
+    return NextResponse.json({ data, message: null });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ data: null, message: "Something went wrong!" });
+    let message = DEFAULT_ERROR_MESSAGE;
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    return NextResponse.json({ data: null, message });
   }
 }
 
