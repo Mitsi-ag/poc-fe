@@ -17,7 +17,7 @@ interface ListingsGridProps {
 }
 
 export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
-  const { data: listings, isLoading } = useListingsQuery();
+  const { data, isLoading } = useListingsQuery();
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const toggleFavorite = (id: number) => {
@@ -49,6 +49,8 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
       </div>
     );
   }
+
+  const listings = data?.results;
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">

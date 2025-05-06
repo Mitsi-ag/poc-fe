@@ -72,8 +72,8 @@ export function ListingsView() {
           <TabsTrigger value="explore">Explore</TabsTrigger>
           <TabsTrigger value="my-listings">My Listings</TabsTrigger>
           <TabsTrigger value="saved">Saved</TabsTrigger>
-          <TabsTrigger value="compare">Compare</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          {/* <TabsTrigger value="compare">Compare</TabsTrigger> */}
+          {/* <TabsTrigger value="analytics">Analytics</TabsTrigger> */}
         </TabsList>
 
         <TabsContent value="explore" className="space-y-4">

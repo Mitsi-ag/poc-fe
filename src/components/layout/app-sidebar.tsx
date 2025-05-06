@@ -1,20 +1,6 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  Calendar,
-  Home,
-  LayoutGrid,
-  MapPin,
-  MessageSquare,
-  Settings,
-  Users,
-  Sparkles,
-  BarChart3,
-  LogOut,
-} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -23,9 +9,21 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { UpgradeModal } from "@/components/upgrade/upgrade-modal";
+import { cn } from "@/lib/utils";
+import {
+  Calendar,
+  Home,
+  LayoutGrid,
+  LogOut,
+  MapPin,
+  MessageSquare,
+  Settings,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 // Define sidebar navigation items
 const navigationItems = [
@@ -54,11 +52,11 @@ const navigationItems = [
     label: "AI Tools",
     icon: <Sparkles className="h-4 w-4" />,
   },
-  {
-    path: "/analytics",
-    label: "Analytics",
-    icon: <BarChart3 className="h-4 w-4" />,
-  },
+  // {
+  //   path: "/analytics",
+  //   label: "Analytics",
+  //   icon: <BarChart3 className="h-4 w-4" />,
+  // },
   { path: "/crm", label: "CRM", icon: <Users className="h-4 w-4" /> },
   {
     path: "/calendar",
@@ -125,7 +123,7 @@ export function AppSidebar({ isAuthenticated = false }: AppSidebarProps) {
                     : "text-gray-600 hover:bg-gray-100",
                 )}
               >
-                {React.cloneElement(item.icon as React.ReactElement, {
+                {React.cloneElement(item.icon as React.ReactSVGElement, {
                   className: cn(
                     "h-5 w-5 shrink-0",
                     pathname === item.path ? "text-blue-500" : "text-gray-500",
