@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
@@ -11,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -18,20 +16,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Download, Grid, Map, Search, SlidersHorizontal } from "lucide-react";
+import { useState } from "react";
+import { ListingsAnalytics } from "./listings-analytics";
+import { ListingsComparison } from "./listings-comparison";
+import { ListingsFilters } from "./listings-filters";
 import { ListingsGrid } from "./listings-grid";
 import { ListingsMap } from "./listings-map";
-import { ListingsFilters } from "./listings-filters";
 import { ListingsSavedSearches } from "./listings-saved-searches";
-import { ListingsComparison } from "./listings-comparison";
-import { ListingsAnalytics } from "./listings-analytics";
-import {
-  Search,
-  Grid,
-  Map,
-  SlidersHorizontal,
-  Plus,
-  Download,
-} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function ListingsView() {
   const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
@@ -54,10 +48,6 @@ export function ListingsView() {
           <Button variant="outline" size="sm">
             <Download className="mr-2 h-4 w-4" />
             Export
-          </Button>
-          <Button size="sm">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Listing
           </Button>
         </div>
       </div>
@@ -105,7 +95,10 @@ export function ListingsView() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`rounded-r-none ${viewMode === "grid" ? "bg-accent" : ""}`}
+                  className={cn("rounded-r-none", {
+                    "bg-secondary text-secondary-foreground":
+                      viewMode === "grid",
+                  })}
                   onClick={() => setViewMode("grid")}
                 >
                   <Grid className="mr-2 h-4 w-4" />
@@ -114,7 +107,10 @@ export function ListingsView() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`rounded-l-none ${viewMode === "map" ? "bg-accent" : ""}`}
+                  className={cn("rounded-r-none", {
+                    "bg-secondary text-secondary-foreground":
+                      viewMode === "map",
+                  })}
                   onClick={() => setViewMode("map")}
                 >
                   <Map className="mr-2 h-4 w-4" />
@@ -147,7 +143,9 @@ export function ListingsView() {
               <Button
                 variant="ghost"
                 size="sm"
-                className={`rounded-r-none ${viewMode === "grid" ? "bg-accent" : ""}`}
+                className={cn("rounded-r-none", {
+                  "bg-primary text-primary-foreground": viewMode === "grid",
+                })}
                 onClick={() => setViewMode("grid")}
               >
                 <Grid className="mr-2 h-4 w-4" />
@@ -156,7 +154,9 @@ export function ListingsView() {
               <Button
                 variant="ghost"
                 size="sm"
-                className={`rounded-l-none ${viewMode === "map" ? "bg-accent" : ""}`}
+                className={cn("rounded-r-none", {
+                  "bg-primary text-primary-foreground": viewMode === "map",
+                })}
                 onClick={() => setViewMode("map")}
               >
                 <Map className="mr-2 h-4 w-4" />

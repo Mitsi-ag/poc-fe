@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { useListingsQuery } from "@/modules/listings/hooks/queries";
 import { Bath, Bed, Car, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
@@ -76,7 +77,10 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
                 onClick={() => toggleFavorite(listing.id)}
               >
                 <Heart
-                  className={`h-4 w-4 ${favorites.includes(listing.id) ? "fill-red-500 text-red-500" : ""}`}
+                  className={cn("stroke-foreground h-4 w-4", {
+                    "fill-destructive text-destructive stroke-destructive":
+                      favorites.includes(listing.id),
+                  })}
                 />
               </Button>
               {!isManagement && (
@@ -85,7 +89,7 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
                   size="icon"
                   className="h-8 w-8 rounded-full bg-white/80 hover:bg-white"
                 >
-                  <Share2 className="h-4 w-4" />
+                  <Share2 className="stroke-foreground h-4 w-4" />
                 </Button>
               )}
             </div>
