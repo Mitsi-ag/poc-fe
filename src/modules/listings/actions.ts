@@ -2,6 +2,6 @@
 
 import { ListingsController } from "@/modules/listings/controller";
 
-export async function fetchAllListings() {
-  return await ListingsController.fetchAll();
+export function fetchAllListings() {
+  return ListingsController.fetchAll();
 }

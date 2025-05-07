@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const responseSchema = <T extends z.ZodSchema>(innerSchema: T) =>
+export const paginatedResponseSchema = <T extends z.ZodSchema>(
+  innerSchema: T,
+) =>
   z.object({
     results: z.array(innerSchema),
     next: z.string().url().nullable(),
@@ -8,7 +10,7 @@ export const responseSchema = <T extends z.ZodSchema>(innerSchema: T) =>
     count: z.number().optional(),
   });
 
-export type APIResponse<T> = {
+export type PaginatedResponse<T> = {
   results: T[];
   next: string | null;
   previous: string | null;

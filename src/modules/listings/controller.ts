@@ -3,10 +3,12 @@ import { Listing } from "@/modules/listings/entity";
 import { ListingsRepository } from "@/modules/listings/repository";
 import { ListingsService } from "@/modules/listings/service";
 import { ListingsValidator } from "@/modules/listings/validator";
-import { APIResponse } from "@/modules/shared/response-schema";
+import { PaginatedResponse } from "@/modules/shared/response-schema";
 
 export const ListingsController = {
-  async fetchAll(filters?: URLSearchParams): Promise<APIResponse<Listing>> {
+  async fetchAll(
+    filters?: URLSearchParams,
+  ): Promise<PaginatedResponse<Listing>> {
     try {
       const data = await ListingsRepository.fetchAll(filters);
       const listingsData = ListingsValidator.validateListings(data);

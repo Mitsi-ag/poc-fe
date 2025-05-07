@@ -1,19 +1,13 @@
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
-import { messageSchema } from "@/modules/messages/entity";
 import { MessagesRepository } from "@/modules/messages/repository";
 import { MessagesService } from "@/modules/messages/service";
-import { responseSchema } from "@/modules/shared/response-schema";
+import { MessagesValidator } from "@/modules/messages/validator";
 
 export const MessagesController = {
   async fetchAll() {
     try {
       const data = await MessagesRepository.fetchAll();
-      const parseResult = responseSchema(messageSchema).safeParse(data);
-      if (!parseResult.success) {
-        throw new Error(parseResult.error.message);
-      }
-
-      const messagesData = parseResult.data;
+      const messagesData = MessagesValidator.validateMessages(data);
       messagesData.results = MessagesService.processMessages(
         messagesData.results,
       );
