@@ -1,7 +1,7 @@
 import { formatDate, toCapitalCase } from "@/lib/utils";
-import { Listing } from "@/modules/listings/entities/listing.entity";
+import { Listing } from "@/modules/listings/entity";
 
-export class ListingService {
+export const ListingsService = {
   processListings(listings: Listing[]): Listing[] {
     return listings.map((res) => ({
       ...res,
@@ -18,5 +18,5 @@ export class ListingService {
         ? formatDate(new Date(res.source_created).toDateString())
         : null,
     }));
-  }
-}
+  },
+};

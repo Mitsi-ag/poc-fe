@@ -17,7 +17,7 @@ interface ListingsGridProps {
 }
 
 export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
-  const { data, isLoading, isError } = useListingsQuery();
+  const { data, isLoading, error } = useListingsQuery();
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const toggleFavorite = (id: number) => {
@@ -50,7 +50,7 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
     );
   }
 
-  if (isError || !data) {
+  if (error || !data) {
     return <div className="text-center font-bold">No results found</div>;
   }
 

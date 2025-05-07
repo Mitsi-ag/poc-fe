@@ -1,12 +1,12 @@
-import { fetchAPI } from "@/modules/shared/fetchApi";
+import { fetchAPI } from "@/modules/shared/fetch-api";
 
-export class ListingsRepository {
-  async fetchAll(filters?: URLSearchParams): Promise<unknown> {
+export const ListingsRepository = {
+  fetchAll(filters?: URLSearchParams): Promise<unknown> {
     let queryString = "";
     if (filters) {
       queryString = filters.toString();
     }
 
-    return await fetchAPI(`listings${queryString}`);
-  }
-}
+    return fetchAPI(`listings${queryString}`);
+  },
+};

@@ -1,4 +1,4 @@
-import { User } from "@/modules/users/entities/user.entity";
+import { User } from "@/modules/users/entity";
 
 export interface IAuthService {
   getUserId: () => Promise<string>;
