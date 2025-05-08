@@ -1,4 +1,5 @@
-import { CompetitorIntelligence } from "@/components/competitor-intelligence";
+import { CompetitorIntelligence } from "@/components/competitors/competitor-intelligence";
+// import { CompetitorIntelligence } from "@/components/competitor-intelligence";
 
 export function CompetitorsView() {
   return (
@@ -11,7 +12,6 @@ export function CompetitorsView() {
           Track and analyze competitor activity in your target markets
         </p>
       </div>
-
       <CompetitorIntelligence />
     </div>
   );
