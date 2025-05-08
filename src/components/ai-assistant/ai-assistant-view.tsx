@@ -1,25 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { FullPageAssistant } from "@/components/ai-assistant/full-page-assistant";
+import { ChatHistory } from "@/components/chat-history";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { ChatHistory } from "@/components/chat-history";
+import { useState } from "react";
 
 export function AIAssistantView() {
-  const router = useRouter();
   const [showFullPage, setShowFullPage] = useState(true);
-
-  // Handle closing the full-page assistant
-  const handleClose = () => {
-    router.push("/");
-  };
 
   return (
     <>
       {showFullPage ? (
-        <FullPageAssistant onClose={handleClose} />
+        <FullPageAssistant />
       ) : (
         <div className="space-y-6">
           <div className="flex items-center justify-between">

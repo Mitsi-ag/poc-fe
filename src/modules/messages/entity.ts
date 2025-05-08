@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const messageSchema = z.object({
   id: z.number(),
-  chat_id: z.number(),
+  chat_id: z.number().nullable(),
   tool_calls: z.array(z.string()),
   text: z.string(),
   by_user: z.boolean(),

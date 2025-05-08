@@ -7,6 +7,6 @@ export const ListingsRepository = {
       queryString = filters.toString();
     }
 
-    return fetchAPI(`listings${queryString}`);
+    return fetchAPI(`listings/?${queryString}`);
   },
 };

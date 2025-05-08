@@ -1,165 +1,54 @@
-import { useState, useRef, useEffect } from "react";
-import {
-  ArrowRight,
-  Bot,
-  FileText,
-  ImageIcon,
-  Lightbulb,
-  Paperclip,
-  Send,
-  X,
-  Copy,
-  Check,
-  Users,
-  BarChart3,
-  Search,
-  PlusCircle,
-  Star,
-  Home,
-  Map,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { ChatMessage } from "@/types/chat";
-import { AgentCard } from "@/components/chat/agent-card";
-import { PropertyCard } from "@/components/chat/property-card";
-import { MarketInsightCard } from "@/components/chat/market-insight-card";
+import { useMessages } from "@/modules/messages/hooks/use-messages";
+import {
+  BarChart3,
+  Bot,
+  Check,
+  Copy,
+  FileText,
+  Home,
+  ImageIcon,
+  Lightbulb,
+  Map,
+  PlusCircle,
+  Search,
+  Send,
+  Star,
+  Users,
+  X,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import Link from "next/link";
 
-interface FullPageAssistantProps {
-  onClose: () => void;
-}
-
-export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
-  const [message, setMessage] = useState("");
-  // const [activeTab, setActiveTab] = useState("chat");
+export function FullPageAssistant() {
+  const router = useRouter();
   const [activeChatId, setActiveChatId] = useState<string>("new");
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content:
-        "Hello John! I'm your RealtyMate AI assistant. How can I help you today? You can ask me about market trends, competitor activity, or request help with emails or pitches.",
-      richContent: null,
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  // Scroll to bottom when new messages arrive
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  // Mock send message function
-  const handleSendMessage = () => {
-    if (!message.trim()) return;
-
-    // Add user message
-    setMessages([
-      ...messages,
-      { role: "user", content: message, richContent: null },
-    ]);
-    setIsLoading(true);
-    setMessage("");
-
-    // Simulate AI response after delay
-    setTimeout(() => {
-      const userMessage = message.toLowerCase();
-      let richContent = null;
-
-      // Generate rich content based on user query
-      if (
-        userMessage.includes("sarah johnson") ||
-        userMessage.includes("competitor")
-      ) {
-        richContent = {
-          type: "agent",
-          data: {
-            id: "agent123",
-            name: "Sarah Johnson",
-            agency: "Ray White Bondi Beach",
-            photoUrl: "/confident-urban-professional.png",
-            listings: 8,
-            clearanceRate: 76,
-          },
-        };
-      } else if (
-        userMessage.includes("22 palm st") ||
-        userMessage.includes("property")
-      ) {
-        richContent = {
-          type: "property",
-          data: {
-            id: "prop456",
-            address: "22 Palm Street",
-            suburb: "Bondi Beach",
-            price: "$2.8M",
-            imageUrl: "/coastal-living.png",
-            beds: 3,
-            baths: 2,
-            carSpaces: 1,
-            sqm: 185,
-          },
-        };
-      } else if (
-        userMessage.includes("market") ||
-        userMessage.includes("trends") ||
-        userMessage.includes("randwick")
-      ) {
-        richContent = {
-          type: "marketInsight",
-          data: {
-            suburb: "Randwick",
-            medianPrice: "$2.8M",
-            priceChange: 3.2,
-            daysOnMarket: 27,
-            daysChange: -5,
-            clearanceRate: 71,
-            clearanceChange: 2,
-          },
-        };
-      }
-
-      console.log("richContent:", richContent);
-
-      // setMessages((prev) => [
-      //   ...prev,
-      //   {
-      //     role: "assistant",
-      //     content: getRandomResponse(message),
-      //     richContent: richContent,
-      //   },
-      // ]);
-      setIsLoading(false);
-    }, 1000);
-  };
-
-  // Handle suggestion click
-  const handleSuggestionClick = (suggestion: string) => {
-    setMessage(suggestion);
-    handleSendMessage();
-  };
+  const {
+    messages,
+    messagesEndRef,
+    inputRef,
+    isLoading,
+    input,
+    setInput,
+    handleSendMessage,
+    handleSuggestionClick,
+  } = useMessages();
 
   // Create a new chat
-  const handleNewChat = () => {
-    setActiveChatId("new");
-    setMessages([
-      {
-        role: "assistant",
-        content:
-          "Hello John! I'm your RealtyMate AI assistant. How can I help you today? You can ask me about market trends, competitor activity, or request help with emails or pitches.",
-        richContent: null,
-      },
-    ]);
+  const handleNewChat = () => {};
+
+  // Redirect back to home page upon closing the view
+  const onClose = () => {
+    router.push("/");
   };
 
   // Filter chat history based on search query
@@ -269,12 +158,8 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
             id="chat-messages-container"
           >
             <div className="mx-auto min-h-full max-w-3xl space-y-6 pb-10">
-              {messages.map((msg, index) => (
-                <ChatMessageItem
-                  key={index}
-                  message={msg}
-                  isLastMessage={index === messages.length - 1}
-                />
+              {messages.map((msg) => (
+                <ChatMessageItem key={msg.id} message={msg} />
               ))}
 
               {isLoading && (
@@ -309,29 +194,30 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
             <div className="mx-auto max-w-3xl">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-9 w-9 shrink-0 rounded-full bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-                          >
-                            <Paperclip className="h-4 w-4" />
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Attach files</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
+                  {/* <div className="flex items-center gap-1"> */}
+                  {/*   <TooltipProvider> */}
+                  {/*     <Tooltip> */}
+                  {/*       <TooltipTrigger asChild> */}
+                  {/*         <Button */}
+                  {/*           variant="outline" */}
+                  {/*           size="icon" */}
+                  {/*           className="h-9 w-9 shrink-0 rounded-full bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700" */}
+                  {/*         > */}
+                  {/*           <Paperclip className="h-4 w-4" /> */}
+                  {/*         </Button> */}
+                  {/*       </TooltipTrigger> */}
+                  {/*       <TooltipContent> */}
+                  {/*         <p>Attach files</p> */}
+                  {/*       </TooltipContent> */}
+                  {/*     </Tooltip> */}
+                  {/*   </TooltipProvider> */}
+                  {/* </div> */}
                   <div className="relative flex-1">
                     <Input
+                      ref={inputRef}
                       placeholder="Ask a question or request an action..."
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
                           e.preventDefault();
@@ -345,7 +231,7 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
                       size="icon"
                       className="text-primary hover:text-primary/80 absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2 rounded-full"
                       onClick={handleSendMessage}
-                      disabled={!message.trim()}
+                      disabled={!input.trim()}
                     >
                       <Send className="h-4 w-4" />
                     </Button>
@@ -461,12 +347,11 @@ export function FullPageAssistant({ onClose }: FullPageAssistantProps) {
   );
 }
 
-interface ChatMessageItemProps {
-  message: ChatMessage;
-  isLastMessage: boolean;
+interface MessageItemProps {
+  message: ReturnType<typeof useMessages>["messages"][number];
 }
 
-function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
+function ChatMessageItem({ message }: MessageItemProps) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -475,25 +360,41 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const isUser = message.role === "user";
+  const isUser = message.isUserMessage;
 
   return (
-    <div className="flex gap-4">
-      <Avatar className="h-10 w-10">
+    <div className={cn("flex gap-4", { "justify-end": isUser })}>
+      <Avatar className={cn("order-1 size-10", { "order-2": isUser })}>
         {isUser ? (
           <>
-            <AvatarImage src="/confident-agent-handshake.png" alt="User" />
+            <AvatarImage
+              src="/confident-agent-handshake.png"
+              alt="User"
+              className="object-cover"
+            />
             <AvatarFallback>JD</AvatarFallback>
           </>
         ) : (
           <>
-            <AvatarImage src="/helpful-ai-interface.png" alt="AI" />
+            <AvatarImage
+              src="/helpful-ai-interface.png"
+              alt="AI"
+              className="object-cover"
+            />
             <AvatarFallback>AI</AvatarFallback>
           </>
         )}
       </Avatar>
-      <div className="group flex flex-1 flex-col gap-1">
-        <div className="flex items-center gap-2">
+      <div
+        className={cn("group order-2 flex max-w-1/2 flex-col gap-1", {
+          "order-1": isUser,
+        })}
+      >
+        <div
+          className={cn("flex w-fit items-center gap-2", {
+            "justify-end": isUser,
+          })}
+        >
           <span className="font-medium">
             {isUser ? "You" : "RealtyMate AI"}
           </span>
@@ -505,13 +406,60 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
         </div>
         <div
           className={cn(
-            "group relative rounded-lg rounded-tl-none p-4 text-sm",
+            "group relative w-fit space-y-2 rounded-lg p-4 text-sm",
             isUser
-              ? "bg-primary dark:bg-primary text-white dark:text-white"
-              : "bg-gray-100 dark:bg-gray-800",
+              ? "bg-primary dark:bg-primary rounded-tr-none text-white dark:text-white"
+              : "rounded-tl-none bg-gray-100 dark:bg-gray-800",
           )}
         >
-          <p className="whitespace-pre-line">{message.content}</p>
+          <Markdown
+            rehypePlugins={[rehypeRaw]}
+            remarkPlugins={[remarkGfm]}
+            components={{
+              h1: ({ children }) => (
+                <h1 className="text-xl font-bold">{children}</h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-lg font-semibold">{children}</h2>
+              ),
+              p: ({ children }) => (
+                <p className="whitespace-pre-line">{children}</p>
+              ),
+              a: ({ href, children }) => (
+                <Link
+                  href={new URL(href ?? "")}
+                  className="text-blue-600 underline hover:text-blue-800"
+                  target="_blank"
+                >
+                  {children}
+                </Link>
+              ),
+              ol: ({ children }) => (
+                <ul className="list-disc space-y-2 pl-5">{children}</ul>
+              ),
+              ul: ({ children }) => (
+                <ul className="list-disc space-y-2 pl-5">{children}</ul>
+              ),
+              li: ({ children }) => <li>{children}</li>,
+              blockquote: ({ children }) => (
+                <blockquote className="border-l-4 border-gray-400 pl-4 text-gray-600 italic">
+                  {children}
+                </blockquote>
+              ),
+              code: ({ children }) => (
+                <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-sm">
+                  {children}
+                </code>
+              ),
+              pre: ({ children }) => (
+                <pre className="overflow-x-auto rounded bg-gray-900 p-4 text-white">
+                  {children}
+                </pre>
+              ),
+            }}
+          >
+            {message.content}
+          </Markdown>
 
           {!isUser && (
             <div className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
@@ -532,111 +480,71 @@ function ChatMessageItem({ message, isLastMessage }: ChatMessageItemProps) {
         </div>
 
         {/* Render rich content if available */}
-        {!isUser && message.richContent && (
-          <div className="mt-2">
-            {message.richContent.type === "agent" && (
-              <AgentCard
-                id={message.richContent.data.id}
-                name={message.richContent.data.name}
-                agency={message.richContent.data.agency}
-                photoUrl={message.richContent.data.photoUrl}
-                listings={message.richContent.data.listings}
-                clearanceRate={message.richContent.data.clearanceRate}
-              />
-            )}
-            {message.richContent.type === "property" && (
-              <PropertyCard
-                id={message.richContent.data.id}
-                address={message.richContent.data.address}
-                suburb={message.richContent.data.suburb}
-                price={message.richContent.data.price}
-                imageUrl={message.richContent.data.imageUrl}
-                beds={message.richContent.data.beds}
-                baths={message.richContent.data.baths}
-                carSpaces={message.richContent.data.carSpaces}
-                sqm={message.richContent.data.sqm}
-              />
-            )}
-            {message.richContent.type === "marketInsight" && (
-              <MarketInsightCard
-                suburb={message.richContent.data.suburb}
-                medianPrice={message.richContent.data.medianPrice}
-                priceChange={message.richContent.data.priceChange}
-                daysOnMarket={message.richContent.data.daysOnMarket}
-                daysChange={message.richContent.data.daysChange}
-                clearanceRate={message.richContent.data.clearanceRate}
-                clearanceChange={message.richContent.data.clearanceChange}
-              />
-            )}
-          </div>
-        )}
+        {/* {!isUser && message.richContent && ( */}
+        {/*   <div className="mt-2"> */}
+        {/*     {message.richContent.type === "agent" && ( */}
+        {/*       <AgentCard */}
+        {/*         id={message.richContent.data.id} */}
+        {/*         name={message.richContent.data.name} */}
+        {/*         agency={message.richContent.data.agency} */}
+        {/*         photoUrl={message.richContent.data.photoUrl} */}
+        {/*         listings={message.richContent.data.listings} */}
+        {/*         clearanceRate={message.richContent.data.clearanceRate} */}
+        {/*       /> */}
+        {/*     )} */}
+        {/*     {message.richContent.type === "property" && ( */}
+        {/*       <PropertyCard */}
+        {/*         id={message.richContent.data.id} */}
+        {/*         address={message.richContent.data.address} */}
+        {/*         suburb={message.richContent.data.suburb} */}
+        {/*         price={message.richContent.data.price} */}
+        {/*         imageUrl={message.richContent.data.imageUrl} */}
+        {/*         beds={message.richContent.data.beds} */}
+        {/*         baths={message.richContent.data.baths} */}
+        {/*         carSpaces={message.richContent.data.carSpaces} */}
+        {/*         sqm={message.richContent.data.sqm} */}
+        {/*       /> */}
+        {/*     )} */}
+        {/*     {message.richContent.type === "marketInsight" && ( */}
+        {/*       <MarketInsightCard */}
+        {/*         suburb={message.richContent.data.suburb} */}
+        {/*         medianPrice={message.richContent.data.medianPrice} */}
+        {/*         priceChange={message.richContent.data.priceChange} */}
+        {/*         daysOnMarket={message.richContent.data.daysOnMarket} */}
+        {/*         daysChange={message.richContent.data.daysChange} */}
+        {/*         clearanceRate={message.richContent.data.clearanceRate} */}
+        {/*         clearanceChange={message.richContent.data.clearanceChange} */}
+        {/*       /> */}
+        {/*     )} */}
+        {/*   </div> */}
+        {/* )} */}
 
-        {!isUser &&
-          isLastMessage &&
-          message.content.includes("analysis") &&
-          !message.richContent && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <span>Generate detailed report</span>
-                <ArrowRight className="h-3 w-3" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <span>Compare with previous month</span>
-                <ArrowRight className="h-3 w-3" />
-              </Button>
-            </div>
-          )}
+        {/* {!isUser && */}
+        {/*   isLastMessage && */}
+        {/*   message.text.includes("analysis") && */}
+        {/*   !message.richContent && ( */}
+        {/*     <div className="mt-2 flex flex-wrap gap-2"> */}
+        {/*       <Button */}
+        {/*         variant="outline" */}
+        {/*         size="sm" */}
+        {/*         className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700" */}
+        {/*       > */}
+        {/*         <span>Generate detailed report</span> */}
+        {/*         <ArrowRight className="h-3 w-3" /> */}
+        {/*       </Button> */}
+        {/*       <Button */}
+        {/*         variant="outline" */}
+        {/*         size="sm" */}
+        {/*         className="h-8 gap-1 bg-white text-xs hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700" */}
+        {/*       > */}
+        {/*         <span>Compare with previous month</span> */}
+        {/*         <ArrowRight className="h-3 w-3" /> */}
+        {/*       </Button> */}
+        {/*     </div> */}
+        {/*   )} */}
       </div>
     </div>
   );
-}
-
-// Mock response generator
-export function getRandomResponse(question: string): string {
-  const responses = [
-    "Based on the latest data, Bondi Beach has shown a 5.2% increase in median house prices over the last quarter. The average time on market is now 24 days, down from 28 days in the previous quarter. Would you like me to prepare a more comprehensive analysis?",
-
-    "I've analyzed Sarah Johnson's recent performance at Ray White Bondi Beach. She's currently listing an average of 8 properties per month with a 76% clearance rate. Your clearance rate is 82%, which gives you a competitive advantage to highlight in your pitch.",
-
-    "Here's a draft email for your follow-up:\n\nSubject: Next Steps for Your Bondi Beach Property\n\nHi [Name],\n\nThank you for taking the time to discuss your property at [Address] yesterday. Based on our conversation, I've prepared some initial thoughts on positioning your home in the current market to maximize your return.\n\nWould you be available for a 15-minute call tomorrow to discuss the next steps?\n\nBest regards,\nJohn",
-
-    "The top agents in Randwick this quarter are:\n1. Michael Chen (McGrath) - 12 listings, 74% clearance rate\n2. Emma Wilson (Belle Property) - 9 listings, 71% clearance rate\n3. David Thompson (LJ Hooker) - 8 listings, 68% clearance rate\n\nWould you like more details on any of these competitors?",
-  ];
-
-  if (
-    question.toLowerCase().includes("sarah johnson") ||
-    question.toLowerCase().includes("competitor")
-  ) {
-    return "Here's information about Sarah Johnson from Ray White Bondi Beach. She's currently one of your main competitors in the area with 8 active listings and a 76% clearance rate. Her average days on market is 25 days, which is slightly higher than your 22 days. She specializes in waterfront properties and has a strong social media presence.";
-  }
-
-  if (
-    question.toLowerCase().includes("22 palm st") ||
-    question.toLowerCase().includes("property")
-  ) {
-    return "I've found details for 22 Palm Street in Bondi Beach. This is a 3-bedroom, 2-bathroom property with ocean views. It last sold in 2018 for $2.1M and based on current market conditions, I estimate its value at approximately $2.8M. The property features open plan living and is 185 square meters in size.";
-  }
-
-  if (
-    question.toLowerCase().includes("market trend") ||
-    question.toLowerCase().includes("randwick")
-  ) {
-    return "Randwick market trends for Q1 2025:\n\n• Median house price: $2.8M (↑3.2% QoQ)\n• Median unit price: $1.2M (↑1.8% QoQ)\n• Average days on market: 27 days (↓5 days from Q4 2024)\n• Auction clearance rate: 71% (↑2% from Q4 2024)\n• New listings: 87 properties (↑12% YoY)\n\nThe most significant growth is in 3-bedroom houses, which have increased 4.5% in the quarter.";
-  }
-
-  if (question.toLowerCase().includes("email")) {
-    return "Here's your follow-up email draft:\n\nSubject: Next Steps After Our Meeting\n\nHi [Client Name],\n\nThank you for taking the time to discuss your property goals yesterday. I've been thinking about your situation and have some ideas I'd like to share about maximizing your property's potential in the current market.\n\nBased on recent comparable sales in [Suburb], properties with similar features to yours have been achieving strong results, particularly when presented with the right marketing strategy.\n\nI'd love to continue our conversation and show you my detailed proposal. Are you available for a quick call tomorrow at 2 PM?\n\nLooking forward to helping you achieve an exceptional result.\n\nBest regards,\nJohn";
-  }
-
-  return responses[Math.floor(Math.random() * responses.length)];
 }
 
 // Sample data

@@ -2,10 +2,14 @@ import { formatDate } from "@/lib/utils";
 import { Message } from "@/modules/messages/entity";
 
 export const MessagesService = {
-  processMessages(messages: Message[]): Message[] {
-    return messages.map((message) => ({
+  processMessageList(messages: Message[]): Message[] {
+    return messages.map(this.processMessage).toReversed();
+  },
+
+  processMessage(message: Message): Message {
+    return {
       ...message,
       created_at: formatDate(new Date(message.created_at).toDateString()),
-    }));
+    };
   },
 };
