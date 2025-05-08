@@ -68,12 +68,11 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
           />
         </div>
         <Button
-          variant="outline"
-          className="gap-2"
           onClick={() => onChatSelect?.(`new-chat-${Date.now()}`)}
+          className="from-primary hover:from-primary/90 gap-2 bg-linear-to-r to-blue-400 text-white shadow-md transition-all duration-300 hover:to-blue-500"
         >
           <PlusCircle className="h-4 w-4" />
-          <span className="hidden sm:inline">New Chat</span>
+          <span>New Chat</span>
         </Button>
       </div>
 
