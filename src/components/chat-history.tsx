@@ -27,14 +27,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
-interface ChatHistoryProps {
-  onChatSelect?: (chatId: string) => void;
-}
-
-export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
+export function ChatHistory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const router = useRouter();
 
   // Filter chats based on search query and active tab
   const filteredChats = chatHistory.filter((chat) => {
@@ -55,6 +53,11 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
     return matchesSearch;
   });
 
+  const onChatSelect = (chatId: number | null) => {
+    const paramString = chatId ? `/${chatId}` : "";
+    router.push(`/ai-assistant/chat/${paramString}`);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
@@ -68,7 +71,7 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
           />
         </div>
         <Button
-          onClick={() => onChatSelect?.(`new-chat-${Date.now()}`)}
+          onClick={() => onChatSelect(null)}
           className="from-primary hover:from-primary/90 gap-2 bg-linear-to-r to-blue-400 text-white shadow-md transition-all duration-300 hover:to-blue-500"
         >
           <PlusCircle className="h-4 w-4" />
@@ -96,7 +99,7 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
               </p>
               <Button
                 className="mt-4 gap-2"
-                onClick={() => onChatSelect?.(`new-chat-${Date.now()}`)}
+                onClick={() => onChatSelect(`new-chat-${Date.now()}`)}
               >
                 <PlusCircle className="h-4 w-4" />
                 <span>New Chat</span>
@@ -108,7 +111,7 @@ export function ChatHistory({ onChatSelect }: ChatHistoryProps) {
                 <Card
                   key={index}
                   className="cursor-pointer transition-shadow hover:shadow-md"
-                  onClick={() => onChatSelect?.(`chat-${index}`)}
+                  onClick={() => onChatSelect(`chat-${index}`)}
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">

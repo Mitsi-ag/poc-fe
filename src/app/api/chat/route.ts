@@ -1,21 +1,15 @@
 import { MessagesController } from "@/modules/messages/controller";
 import { openai } from "@ai-sdk/openai";
-import { streamText, ToolInvocation, experimental_createMCPClient } from "ai";
+import { experimental_createMCPClient, Message, streamText } from "ai";
 import { NextResponse } from "next/server";
 
-type MessagePayload = {
-  chat_id: number | undefined;
-  content: string;
-  role: "user" | "assistant";
-  toolInvocations?: ToolInvocation[];
-};
-
 type MessageRequest = {
-  messages: MessagePayload[];
+  messages: Message[];
+  chat_id: string | null;
 };
 
 export async function POST(req: Request) {
-  const { messages } = (await req.json()) as MessageRequest;
+  const { messages, chat_id } = (await req.json()) as MessageRequest;
 
   const newMessage = messages.at(-1);
   if (!newMessage) {
@@ -40,7 +34,7 @@ export async function POST(req: Request) {
         const output_tokens = usage.completionTokens;
 
         const createdMessage = await MessagesController.create({
-          chat_id: newMessage.chat_id ?? null,
+          chat_id: chat_id ? parseInt(chat_id) : null,
           text: newMessage.content,
           input_tokens: 0,
           output_tokens: 0,

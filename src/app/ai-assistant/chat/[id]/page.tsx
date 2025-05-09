@@ -4,7 +4,7 @@ import { FullPageAssistant } from "@/components/ai-assistant/full-page-assistant
 import { DashboardWrapper } from "@/components/dashboard-wrapper";
 import { Suspense } from "react";
 
-export default function AIAssistantPage() {
+export default function ChatByIdPage() {
   return (
     <DashboardWrapper>
       <Suspense fallback={<div>Loading AI Assistant...</div>}>

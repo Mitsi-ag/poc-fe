@@ -1,14 +1,12 @@
-"use client";
-
-import { FullPageAssistant } from "@/components/ai-assistant/full-page-assistant";
+import { ReactNode } from "react";
 import { DashboardWrapper } from "@/components/dashboard-wrapper";
 import { Suspense } from "react";
 
-export default function AIAssistantPage() {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DashboardWrapper>
       <Suspense fallback={<div>Loading AI Assistant...</div>}>
-        <FullPageAssistant />
+        {children}
       </Suspense>
     </DashboardWrapper>
   );

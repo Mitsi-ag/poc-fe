@@ -2,6 +2,6 @@
 
 import { ChatsController } from "@/modules/chats/controller";
 
-export async function fetchAllChats() {
-  return ChatsController.fetchAll();
+export async function fetchAllChats(page: number) {
+  return ChatsController.fetchAll(page);
 }

@@ -1,7 +1,7 @@
 import { fetchAPI } from "@/modules/shared/fetch-api";
 
 export const ChatsRepository = {
-  fetchAll(): Promise<unknown> {
-    return fetchAPI("chatbot/chats/");
+  fetchAll(page: number): Promise<unknown> {
+    return fetchAPI(`chatbot/chats/?page=${page}`);
   },
 };
