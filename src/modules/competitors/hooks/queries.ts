@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 export function useCompetitorsQuery(
   page: number,
   pageSize: number,
-  agencyName: string,
+  searchQuery: string,
 ) {
   return useQuery({
-    queryKey: ["all-competitors", page, pageSize, agencyName],
-    queryFn: () => fetchAllCompetitors(page, pageSize, agencyName),
+    queryKey: ["all-competitors", page, pageSize, searchQuery],
+    queryFn: () => fetchAllCompetitors(page, pageSize, searchQuery),
   });
 }

@@ -1,5 +1,5 @@
 import { useCompetitorsQuery } from "@/modules/competitors/hooks/queries";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,21 +18,24 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-function CompetitorGrid({ searchQuery }: { searchQuery: string }) {
+function CompetitorGrid({
+  searchQuery,
+  isRefreshing,
+  page,
+  setPage,
+}: {
+  searchQuery: string;
+  isRefreshing: boolean;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const [trackedAgents, setTrackedAgents] = useState<number[]>([]);
-  const [page, setPage] = useState(1);
   const pageSize = 12;
   const { data, isLoading, error } = useCompetitorsQuery(
     page,
     pageSize,
     searchQuery,
   );
-
-  useEffect(() => {
-    if (searchQuery.length > 0) {
-      setPage(1);
-    }
-  }, [searchQuery]);
 
   // Toggle tracking an agent
   const toggleTrackedAgent = (agentId: number) => {
@@ -43,7 +46,7 @@ function CompetitorGrid({ searchQuery }: { searchQuery: string }) {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || isRefreshing) {
     return (
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[...Array(6)].map((_, i) => (

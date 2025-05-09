@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Download,
   MoreHorizontal,
@@ -33,18 +33,35 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import CompetitorGrid from "./competitors-grid";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function CompetitorIntelligence() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSuburb, setSelectedSuburb] = useState("all");
   const [selectedTimeframe, setSelectedTimeframe] = useState("30");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
 
-  // Simulate refresh action
-  const handleRefresh = () => {
+  const queryClient = useQueryClient();
+
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 1500);
+    try {
+      await queryClient.invalidateQueries({
+        queryKey: ["all-competitors"],
+      });
+    } finally {
+      setPage(1);
+      setSearchQuery("");
+      setIsRefreshing(false);
+    }
   };
+
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      setPage(1);
+    }
+  }, [searchQuery]);
 
   return (
     <Card className="overflow-hidden border bg-white/80 shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/80">
@@ -152,7 +169,12 @@ export function CompetitorIntelligence() {
               </Select>
             </div>
           </div>
-          <CompetitorGrid searchQuery={searchQuery} />
+          <CompetitorGrid
+            searchQuery={searchQuery}
+            isRefreshing={isRefreshing}
+            page={page}
+            setPage={setPage}
+          />
         </div>
       </CardContent>
     </Card>
