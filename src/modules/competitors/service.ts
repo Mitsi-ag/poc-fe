@@ -1,7 +1,7 @@
 import { Competitor } from "@/modules/competitors/entity";
 
 export const CompetitorsService = {
-  processListings(listings: Competitor[]): Competitor[] {
-    return listings;
+  processCompetitors(competitors: Competitor[]): Competitor[] {
+    return competitors;
   },
 };

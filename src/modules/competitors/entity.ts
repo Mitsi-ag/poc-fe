@@ -1,11 +1,6 @@
 import { z } from "zod";
 
 export const competitorSchema = z.object({
-  //   count: z.number(),
-  //   next: z.string().url().nullable(),
-  //   previous: z.string().url().nullable(),
-  //   results: z.array(
-  //     z.object({
   id: z.number(),
   agency: z.object({
     id: z.number(),
@@ -19,12 +14,11 @@ export const competitorSchema = z.object({
   }),
   url: z.string(),
   source_id: z.string(),
+  listing_count: z.number(),
   name: z.string(),
   job_title: z.string(),
   email: z.string().email().nullable(),
   phone_numbers: z.array(z.string().nullable()),
-  // }),
-  //   ),
 });
 
 export type Competitor = z.infer<typeof competitorSchema>;

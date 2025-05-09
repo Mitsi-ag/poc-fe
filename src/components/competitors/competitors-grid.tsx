@@ -1,5 +1,5 @@
 import { useCompetitorsQuery } from "@/modules/competitors/hooks/queries";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,9 +18,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-function CompetitorGrid() {
+function CompetitorGrid({ searchQuery }: { searchQuery: string }) {
   const [trackedAgents, setTrackedAgents] = useState<number[]>([]);
-  const { data, isLoading, error } = useCompetitorsQuery();
+  const [page, setPage] = useState(1);
+  const pageSize = 12;
+  const { data, isLoading, error } = useCompetitorsQuery(
+    page,
+    pageSize,
+    searchQuery,
+  );
+
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      setPage(1);
+    }
+  }, [searchQuery]);
 
   // Toggle tracking an agent
   const toggleTrackedAgent = (agentId: number) => {
@@ -53,96 +65,118 @@ function CompetitorGrid() {
     );
   }
 
-  if (error || !data) {
+  if (error || !data || data.results.length === 0) {
     return <div className="text-center font-bold">No results found</div>;
   }
 
-  const competitorsData = data.results;
+  const { results: competitorsData, count: totalPages } = data;
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {competitorsData.map((competitor) => {
-        return (
-          <Card
-            key={competitor.id}
-            className={cn(
-              "overflow-hidden transition-all hover:shadow-md",
-              trackedAgents.includes(competitor.id) &&
-                "border-blue-200 bg-blue-50/50 dark:border-blue-900/30 dark:bg-blue-900/10",
-            )}
-          >
-            <CardHeader className="pt-4 pb-2">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-10 w-10 border border-gray-200 dark:border-gray-700">
-                    <AvatarImage
-                      src={competitor.url || "/placeholder.svg"}
-                      alt={competitor.name}
-                    />
-                    <AvatarFallback>
-                      {competitor.name.split(" ")[1][0]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <h3 className="font-medium">{competitor.name}</h3>
-                      {trackedAgents.includes(competitor.id) && (
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Tracked agent</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      )}
-                    </div>
-                    <div className="text-muted-foreground flex items-center gap-1 text-xs">
-                      <span>{competitor.agency.name}</span>
+    <>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {competitorsData.map((competitor) => {
+          return (
+            <Card
+              key={competitor.id}
+              className={cn(
+                "overflow-hidden transition-all hover:shadow-md",
+                trackedAgents.includes(competitor.id) &&
+                  "border-blue-200 bg-blue-50/50 dark:border-blue-900/30 dark:bg-blue-900/10",
+              )}
+            >
+              <CardHeader className="pt-4 pb-2">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10 border border-gray-200 dark:border-gray-700">
+                      <AvatarImage
+                        src={competitor.url || "/placeholder.svg"}
+                        alt={competitor.name}
+                      />
+                      <AvatarFallback>
+                        {competitor.name.split(" ")[1][0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <h3 className="font-medium">{competitor.name}</h3>
+                        {trackedAgents.includes(competitor.id) && (
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Tracked agent</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        )}
+                      </div>
+                      <div className="text-muted-foreground flex items-center gap-1 text-xs">
+                        <span>{competitor.agency.name}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pb-2">
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-md border p-2">
-                  <div className="text-lg font-semibold">0</div>
-                  <div className="text-xs text-gray-500">Listings</div>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-md border p-2">
+                    <div className="text-lg font-semibold">
+                      {competitor.listing_count}
+                    </div>
+                    <div className="text-xs text-gray-500">Listings</div>
+                  </div>
+                  <div className="rounded-md border p-2">
+                    <div className="text-lg font-semibold">0</div>
+                    <div className="text-xs text-gray-500">Avg. DOM</div>
+                  </div>
+                  <div className="rounded-md border p-2">
+                    <div className="text-lg font-semibold">0</div>
+                    <div className="text-xs text-gray-500">Clearance</div>
+                  </div>
                 </div>
-                <div className="rounded-md border p-2">
-                  <div className="text-lg font-semibold">0</div>
-                  <div className="text-xs text-gray-500">Avg. DOM</div>
-                </div>
-                <div className="rounded-md border p-2">
-                  <div className="text-lg font-semibold">0</div>
-                  <div className="text-xs text-gray-500">Clearance</div>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between pt-0 pb-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:bg-yellow-50 hover:text-yellow-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-yellow-400"
-                onClick={() => toggleTrackedAgent(competitor.id)}
-              >
-                {trackedAgents.includes(competitor.id) ? (
-                  <Star className="mr-1 h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ) : (
-                  <Star className="mr-1 h-4 w-4" />
-                )}
-                <span>
-                  {trackedAgents.includes(competitor.id) ? "Untrack" : "Track"}
-                </span>
-              </Button>
-            </CardFooter>
-          </Card>
-        );
-      })}
-    </div>
+              </CardContent>
+              <CardFooter className="flex justify-between pt-0 pb-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500 hover:bg-yellow-50 hover:text-yellow-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-yellow-400"
+                  onClick={() => toggleTrackedAgent(competitor.id)}
+                >
+                  {trackedAgents.includes(competitor.id) ? (
+                    <Star className="mr-1 h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  ) : (
+                    <Star className="mr-1 h-4 w-4" />
+                  )}
+                  <span>
+                    {trackedAgents.includes(competitor.id)
+                      ? "Untrack"
+                      : "Track"}
+                  </span>
+                </Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </div>
+      {totalPages && (
+        <div className="flex w-full justify-end gap-2">
+          <Button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+            Previous
+          </Button>
+          <span className="flex items-center px-2 text-sm">
+            Page {page} of {Math.ceil(totalPages / pageSize)}
+          </span>
+          <Button
+            disabled={page >= Math.ceil(totalPages / pageSize)}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            Next
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -152,7 +152,7 @@ export function CompetitorIntelligence() {
               </Select>
             </div>
           </div>
-          <CompetitorGrid />
+          <CompetitorGrid searchQuery={searchQuery} />
         </div>
       </CardContent>
     </Card>

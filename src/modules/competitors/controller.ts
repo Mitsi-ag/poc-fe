@@ -11,11 +11,11 @@ export const CompetitorsController = {
   ): Promise<PaginatedResponse<Competitor> | null> {
     try {
       const data = await CompetitorsRepository.fetchAll(filters);
-      const listingsData = CompetitorsValidator.validateListings(data);
-      listingsData.results = CompetitorsService.processListings(
-        listingsData.results,
+      const competitorsData = CompetitorsValidator.validateListings(data);
+      competitorsData.results = CompetitorsService.processCompetitors(
+        competitorsData.results,
       );
-      return listingsData;
+      return competitorsData;
     } catch (error) {
       const message =
         error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
