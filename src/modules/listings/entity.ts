@@ -45,8 +45,8 @@ export const listingSchema = z.object({
   bathrooms: z.number(),
   updated_on: z.string(),
   timestamp: z.string(),
-  source_created: z.string().nullable(),
-  source_updated: z.string().nullable(),
+  // source_created: z.string().nullable(),
+  // source_updated: z.string().nullable(),
 });
 
 export type Listing = z.infer<typeof listingSchema>;
