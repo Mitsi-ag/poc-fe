@@ -1,5 +1,8 @@
 import { competitorSchema } from "@/modules/competitors/entity";
-import { paginatedResponseSchema } from "@/modules/shared/response-schema";
+import {
+  paginatedResponseSchema,
+  bookmarkResponseSchema,
+} from "@/modules/shared/response-schema";
 
 export const CompetitorsValidator = {
   validateListings(data: unknown) {
@@ -10,5 +13,8 @@ export const CompetitorsValidator = {
     }
 
     return parseResult.data;
+  },
+  validateBookmarkResponse(data: unknown) {
+    return bookmarkResponseSchema.parse(data);
   },
 };

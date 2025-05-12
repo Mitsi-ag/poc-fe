@@ -1,7 +1,7 @@
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
 
 const API_BACKEND_URL = "http://170.64.164.95";
-const TOKEN_KEY = "01dbe5df1ef10cd0b1fe8a5e3207e7530c05a762";
+const TOKEN_KEY = "a1621bfcdb771b000319086f6c80f6f4450d63bc";
 
 // Base fetch utility for all API calls
 export async function fetchAPI<T>(

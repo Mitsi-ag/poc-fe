@@ -19,6 +19,7 @@ export const competitorSchema = z.object({
   job_title: z.string(),
   email: z.string().email().nullable(),
   phone_numbers: z.array(z.string().nullable()),
+  is_bookmarked: z.boolean(),
 });
 
 export type Competitor = z.infer<typeof competitorSchema>;

@@ -3,7 +3,10 @@ import { Competitor } from "@/modules/competitors/entity";
 import { CompetitorsRepository } from "@/modules/competitors/repository";
 import { CompetitorsService } from "@/modules/competitors/service";
 import { CompetitorsValidator } from "@/modules/competitors/validator";
-import { PaginatedResponse } from "@/modules/shared/response-schema";
+import {
+  BookmarkResponse,
+  PaginatedResponse,
+} from "@/modules/shared/response-schema";
 
 export const CompetitorsController = {
   async fetchAll(
@@ -20,6 +23,15 @@ export const CompetitorsController = {
       const message =
         error instanceof Error ? error.message : DEFAULT_ERROR_MESSAGE;
       throw new Error(message);
+    }
+  },
+  async toggleBookmark(agentId: number): Promise<BookmarkResponse> {
+    try {
+      const data = await CompetitorsRepository.toggleBookmark(agentId);
+      return CompetitorsValidator.validateBookmarkResponse(data);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : DEFAULT_ERROR_MESSAGE;
+      throw new Error(msg);
     }
   },
 };

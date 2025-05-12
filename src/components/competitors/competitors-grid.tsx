@@ -17,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useBookmarkCompetitor } from "@/modules/competitors/hooks/mutations";
 
 function CompetitorGrid({
   searchQuery,
@@ -29,22 +30,13 @@ function CompetitorGrid({
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const [trackedAgents, setTrackedAgents] = useState<number[]>([]);
   const pageSize = 12;
   const { data, isLoading, error } = useCompetitorsQuery(
     page,
     pageSize,
     searchQuery,
   );
-
-  // Toggle tracking an agent
-  const toggleTrackedAgent = (agentId: number) => {
-    if (trackedAgents.includes(agentId)) {
-      setTrackedAgents(trackedAgents.filter((id) => id !== agentId));
-    } else {
-      setTrackedAgents([...trackedAgents, agentId]);
-    }
-  };
+  const { mutate, isPending } = useBookmarkCompetitor();
 
   if (isLoading || isRefreshing) {
     return (
@@ -83,7 +75,7 @@ function CompetitorGrid({
               key={competitor.id}
               className={cn(
                 "overflow-hidden transition-all hover:shadow-md",
-                trackedAgents.includes(competitor.id) &&
+                competitor.is_bookmarked &&
                   "border-blue-200 bg-blue-50/50 dark:border-blue-900/30 dark:bg-blue-900/10",
               )}
             >
@@ -102,7 +94,7 @@ function CompetitorGrid({
                     <div>
                       <div className="flex items-center gap-1">
                         <h3 className="font-medium">{competitor.name}</h3>
-                        {trackedAgents.includes(competitor.id) && (
+                        {competitor.is_bookmarked && (
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -142,21 +134,18 @@ function CompetitorGrid({
               </CardContent>
               <CardFooter className="flex justify-between pt-0 pb-3">
                 <Button
+                  disabled={isPending}
                   variant="ghost"
                   size="sm"
                   className="text-gray-500 hover:bg-yellow-50 hover:text-yellow-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-yellow-400"
-                  onClick={() => toggleTrackedAgent(competitor.id)}
+                  onClick={() => mutate(competitor.id)}
                 >
-                  {trackedAgents.includes(competitor.id) ? (
+                  {competitor.is_bookmarked ? (
                     <Star className="mr-1 h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ) : (
                     <Star className="mr-1 h-4 w-4" />
                   )}
-                  <span>
-                    {trackedAgents.includes(competitor.id)
-                      ? "Untrack"
-                      : "Track"}
-                  </span>
+                  <span>{competitor.is_bookmarked ? "Untrack" : "Track"}</span>
                 </Button>
               </CardFooter>
             </Card>

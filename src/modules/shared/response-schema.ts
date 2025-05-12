@@ -16,3 +16,10 @@ export type PaginatedResponse<T> = {
   previous: string | null;
   count?: number | null;
 };
+
+export const bookmarkResponseSchema = z.object({
+  id: z.number().nullable(),
+  name: z.string(),
+});
+
+export type BookmarkResponse = z.infer<typeof bookmarkResponseSchema>;

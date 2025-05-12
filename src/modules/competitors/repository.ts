@@ -9,4 +9,11 @@ export const CompetitorsRepository = {
 
     return fetchAPI(`agencies/competition${queryString}`);
   },
+
+  toggleBookmark(agentId: number): Promise<unknown> {
+    return fetchAPI("agencies/bookmark/", {
+      method: "POST",
+      body: JSON.stringify({ agent_id: agentId.toString() }),
+    });
+  },
 };

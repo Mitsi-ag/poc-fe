@@ -13,3 +13,7 @@ export async function fetchAllCompetitors(
   params.set("q", searchQuery.toString());
   return CompetitorsController.fetchAll(params);
 }
+
+export async function toggleCompetitorBookmark(agentId: number) {
+  return CompetitorsController.toggleBookmark(agentId);
+}
