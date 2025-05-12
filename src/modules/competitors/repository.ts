@@ -7,6 +7,6 @@ export const CompetitorsRepository = {
       queryString = `?${filters.toString()}`;
     }
 
-    return fetchAPI(`agencies/agents${queryString}`);
+    return fetchAPI(`agencies/competition${queryString}`);
   },
 };
