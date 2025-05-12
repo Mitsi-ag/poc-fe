@@ -1,10 +1,17 @@
-import { fetchAllMessages } from "@/modules/messages/actions";
+import { fetchMessagesByChatId } from "@/modules/messages/actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
-export function useMessagesQuery() {
+/**
+ * @returns Messages for a particular chatId
+ */
+export function useMessagesByChatIdQuery() {
+  const { id } = useParams<{ id?: string }>();
+
   return useInfiniteQuery({
-    queryKey: ["all-messages"],
-    queryFn: async ({ pageParam }) => await fetchAllMessages(pageParam),
+    queryKey: ["all-messages", id],
+    queryFn: async ({ pageParam }) =>
+      await fetchMessagesByChatId(id, pageParam),
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
       if (lastPage.next) {

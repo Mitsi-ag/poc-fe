@@ -29,7 +29,6 @@ export const listingSchema = z.object({
     })
     .nullable(),
   url: z.string().url(),
-  source_id: z.number(),
   price: z.string().max(100).nullable(),
   type_of: z
     .number()
@@ -45,8 +44,6 @@ export const listingSchema = z.object({
   bathrooms: z.number(),
   updated_on: z.string(),
   timestamp: z.string(),
-  // source_created: z.string().nullable(),
-  // source_updated: z.string().nullable(),
 });
 
 export type Listing = z.infer<typeof listingSchema>;

@@ -5,7 +5,7 @@ export const ChatsService = {
   processChats(chats: Chat[]): Chat[] {
     return chats.map((chat) => ({
       ...chat,
-      created_at: formatDate(new Date(chat.created_at).toDateString()),
+      created_at: formatDate(chat.created_at),
     }));
   },
 };

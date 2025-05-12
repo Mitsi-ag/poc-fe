@@ -9,7 +9,7 @@ export const MessagesService = {
   processMessage(message: Message): Message {
     return {
       ...message,
-      created_at: formatDate(new Date(message.created_at).toDateString()),
+      created_at: formatDate(message.created_at),
     };
   },
 };

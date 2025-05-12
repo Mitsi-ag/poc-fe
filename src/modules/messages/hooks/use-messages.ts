@@ -1,9 +1,13 @@
-import { useMessagesQuery } from "@/modules/messages/hooks/queries";
+import { useMessagesByChatIdQuery } from "@/modules/messages/hooks/queries";
 import { Message, useChat } from "@ai-sdk/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export function useMessages() {
-  const { data: storedMessages, isLoading } = useMessagesQuery();
+  const { data: storedMessages, isLoading } = useMessagesByChatIdQuery();
+  const { id } = useParams<{ id?: string }>();
+  const queryClient = useQueryClient();
 
   const initialMessages: Message[] =
     storedMessages?.map((msg) => ({
@@ -16,15 +20,19 @@ export function useMessages() {
     maxSteps: 3,
     api: "/api/chat",
     initialMessages,
+    body: {
+      chat_id: id ?? null,
+    },
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages.length]);
+
+  const isNewChat = !id && messages.length === 0;
 
   // Send message function
   const handleSendMessage = async () => {
@@ -32,6 +40,9 @@ export function useMessages() {
     setInput("");
     await append({ role: "user", content: input });
     inputRef.current?.focus();
+    queryClient.invalidateQueries({
+      queryKey: ["all-chats"],
+    });
   };
 
   // Handle suggestion click
@@ -54,6 +65,7 @@ export function useMessages() {
     messagesEndRef,
     inputRef,
     input,
+    isNewChat,
     setInput,
     handleSendMessage,
     handleSuggestionClick,
