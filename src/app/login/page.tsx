@@ -11,71 +11,54 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/components/ui/use-toast";
+import { useSignIn, useUser } from "@clerk/nextjs";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
+import { toast } from "sonner";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUser();
+  const { isLoaded, signIn, setActive } = useSignIn();
 
-  // Check if already logged in
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("onboardingComplete") === "true";
-    if (isLoggedIn) {
-      router.push("/dashboard");
+    if (user) {
+      const isOnBoarded = user.publicMetadata?.isOnBoarded;
+      if (!isOnBoarded) {
+        router.push("/onboarding");
+      } else {
+        router.push("/dashboard");
+      }
     }
-  }, [router]);
+  }, [user, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
+    if (!isLoaded) return;
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // For demo purposes, accept any email/password
-      if (email && password) {
-        // Set authentication state
-        localStorage.setItem("onboardingComplete", "true");
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({
-            email,
-            name: email.split("@")[0],
-            locations: ["Sydney", "Melbourne"],
-            specializations: ["Residential", "Commercial"],
-            experience: "Experienced",
-            goals: ["Increase Listings", "Grow Network"],
-            preferredDashboardWidgets: ["Market Insights", "Lead Tracking"],
-          }),
-        );
-
-        toast({
-          title: "Login successful",
-          description: "Welcome back to RealtyMate!",
-        });
-
-        // Redirect to dashboard
-        router.push("/dashboard");
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Login failed",
-          description: "Please enter both email and password.",
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: "An error occurred during login. Please try again.",
+      setIsLoading(true);
+      const signInAttempt = await signIn?.create({
+        identifier: email,
+        password,
       });
+      if (signInAttempt?.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        toast.success("Login successful. Welcome back to RealtyMate!");
+        console.log(signInAttempt);
+        router.push("/onboarding");
+      }
+    } catch (err) {
+      console.log("SignIn Failed:", JSON.stringify(err, null, 2));
+      if (isClerkAPIResponseError(err)) {
+        toast.error(err.errors[0]?.longMessage ?? DEFAULT_ERROR_MESSAGE);
+      } else {
+        toast.error(DEFAULT_ERROR_MESSAGE);
+      }
     } finally {
       setIsLoading(false);
     }

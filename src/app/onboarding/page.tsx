@@ -11,17 +11,20 @@ import { DashboardStep } from "@/components/onboarding/dashboard-step";
 import { CompleteStep } from "@/components/onboarding/complete-step";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export default function OnboardingPage() {
-  const { currentStep, isOnboardingComplete } = useOnboarding();
+  const { currentStep } = useOnboarding();
+  const { user } = useUser();
   const router = useRouter();
 
-  // Redirect to dashboard if onboarding is already complete
   useEffect(() => {
-    if (isOnboardingComplete) {
+    if (!user) {
+      router.push("/login");
+    } else if (user && user.publicMetadata.isOnBoarded) {
       router.push("/dashboard");
     }
-  }, [isOnboardingComplete, router]);
+  }, [router, user]);
 
   const renderStep = () => {
     switch (currentStep) {
