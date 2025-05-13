@@ -6,23 +6,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 export function WelcomeStep() {
   const { userData, updateUserData, nextStep } = useOnboarding();
   const [name, setName] = useState(userData.name);
   const [email, setEmail] = useState(userData.email);
-  const [isValid, setIsValid] = useState(false);
 
   const handleContinue = () => {
-    updateUserData({ name, email });
-    nextStep();
-  };
-
-  // Validate form
-  const validateForm = () => {
     const isNameValid = name.trim().length > 0;
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    setIsValid(isNameValid && isEmailValid);
+    if (!isNameValid || !isEmailValid)
+      return toast.error("Please enter a valid name and email address.");
+    updateUserData({ name, email });
+    nextStep();
   };
 
   return (
@@ -46,7 +43,6 @@ export function WelcomeStep() {
             value={name}
             onChange={(e) => {
               setName(e.target.value);
-              validateForm();
             }}
           />
         </div>
@@ -60,14 +56,13 @@ export function WelcomeStep() {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              validateForm();
             }}
           />
         </div>
       </div>
 
       <div className="flex justify-end pt-4">
-        <Button onClick={handleContinue} disabled={!isValid} className="gap-2">
+        <Button onClick={handleContinue} className="gap-2">
           Continue <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

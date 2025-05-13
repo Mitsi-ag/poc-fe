@@ -3,6 +3,7 @@
 import type React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 type OnboardingStep =
   | "welcome"
@@ -33,7 +34,7 @@ interface OnboardingContextType {
   resetOnboarding: () => void;
 }
 
-const defaultUserData = {
+const defaultUserData: OnboardingContextType["userData"] = {
   name: "",
   email: "",
   locations: [],
@@ -56,23 +57,31 @@ export function OnboardingProvider({
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("welcome");
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
   const [userData, setUserData] = useState(defaultUserData);
+  const { user } = useUser();
 
-  // Check if onboarding is complete from localStorage on initial load
   useEffect(() => {
-    const storedOnboardingStatus = localStorage.getItem("onboardingComplete");
-    if (storedOnboardingStatus === "true") {
-      setIsOnboardingComplete(true);
+    if (user) {
+      setUserData({
+        ...defaultUserData,
+        name: user?.firstName + " " + user?.lastName,
+        email: user.emailAddresses[0].emailAddress,
+      });
     }
+  }, [user]);
 
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      try {
-        setUserData(JSON.parse(storedUserData));
-      } catch (e) {
-        console.error("Failed to parse stored user data", e);
+  useEffect(() => {
+    if (user && user.publicMetadata.isOnBoarded) {
+      setIsOnboardingComplete(true);
+      const storedUserData = localStorage.getItem("userData");
+      if (storedUserData) {
+        try {
+          setUserData(JSON.parse(storedUserData));
+        } catch (e) {
+          console.error("Failed to parse stored user data", e);
+        }
       }
     }
-  }, []);
+  }, [user]);
 
   const updateUserData = (data: Partial<typeof userData>) => {
     const updatedData = { ...userData, ...data };
