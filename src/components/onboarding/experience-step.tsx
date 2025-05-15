@@ -32,11 +32,16 @@ const experienceLevels = [
 
 export function ExperienceStep() {
   const { userData, updateUserData, nextStep, prevStep } = useOnboarding();
-  const [experience, setExperience] = useState(userData.experience || "");
+
+  const [experience, setExperience] = useState<number | null>(
+    userData.experience_level ?? null,
+  );
 
   const handleContinue = () => {
-    updateUserData({ experience });
-    nextStep();
+    if (experience !== null) {
+      updateUserData({ experience_level: experience });
+      nextStep();
+    }
   };
 
   return (
@@ -55,8 +60,13 @@ export function ExperienceStep() {
         <div className="space-y-2">
           <Label>Select your experience level</Label>
           <RadioGroup
-            value={experience}
-            onValueChange={setExperience}
+            value={experience !== null ? experienceLevels[experience].id : ""}
+            onValueChange={(selectedId) => {
+              const index = experienceLevels.findIndex(
+                (level) => level.id === selectedId,
+              );
+              setExperience(index !== -1 ? index : null);
+            }}
             className="space-y-3"
           >
             {experienceLevels.map((level) => (
@@ -84,7 +94,7 @@ export function ExperienceStep() {
         </Button>
         <Button
           onClick={handleContinue}
-          disabled={!experience}
+          disabled={experience === null}
           className="gap-2"
         >
           Continue <ArrowRight className="h-4 w-4" />

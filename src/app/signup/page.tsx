@@ -3,7 +3,7 @@
 import type React from "react";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Check, ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,11 +18,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SignedOut, useSignUp, useUser } from "@clerk/nextjs";
+import { SignedOut, useAuth, useSignUp } from "@clerk/nextjs";
 import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
 import Otp from "@/components/auth/otp";
 import { toast } from "sonner";
+import {
+  useGetAuthToken,
+  useUpdateUser,
+} from "@/modules/users/hooks/mutations";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -42,19 +46,10 @@ export default function SignUpPage() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [isPendingVerification, setIsPendingVerification] = useState(false);
   const [otp, setOtp] = useState("");
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (!isLoaded || !user) return;
-
-    const isOnBoarded = user.publicMetadata?.isOnBoarded;
-
-    if (!isOnBoarded) {
-      router.push("/onboarding");
-    } else {
-      router.push("/dashboard");
-    }
-  }, [user, isLoaded, router]);
+  const { getToken } = useAuth();
+  const { mutate: getAuthToken, isPending: isGettingAuthToken } =
+    useGetAuthToken();
+  const { mutate: updateUser, isPending: isUpdatingUser } = useUpdateUser();
 
   /***handleChange***/
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,33 +91,43 @@ export default function SignUpPage() {
 
   /***handleVerifyOtp***/
   const handleVerifyOtp = async () => {
-    if (!isLoaded) return console.log("Clerk is not loaded at handleVerifyOtp");
-    console.log("otp", otp);
-    if (otp.length !== 6) {
-      return toast.error("Please enter a valid code.");
+    if (!isLoaded) {
+      console.warn("Clerk is not loaded at handleVerifyOtp");
+      return;
     }
+
+    if (otp.length !== 6) {
+      return toast.error("Please enter a valid 6-digit code.");
+    }
+
     setIsLoading(true);
+
     try {
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code: otp,
       });
-      if (signUpAttempt.status === "complete") {
-        await setActive({ session: signUpAttempt.createdSessionId });
 
-        await fetch("/api/update-user-metadata", {
-          method: "POST",
-          body: JSON.stringify({
-            role: formData.role,
-            company_name: formData.companyName,
-            userId: signUpAttempt.createdUserId,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        router.push("/onboarding");
+      if (signUpAttempt.status !== "complete") {
+        throw new Error("OTP verification incomplete. Please try again.");
       }
+
+      await setActive({ session: signUpAttempt.createdSessionId });
+      const clerkToken = await getToken();
+      if (!clerkToken) throw new Error("Failed to get Clerk token");
+      getAuthToken(clerkToken);
+
+      updateUser(
+        {
+          role: formData.role,
+          company_name: formData.companyName,
+          email: signUpAttempt.emailAddress!,
+        },
+        {
+          onSuccess: () => {
+            router.push("/onboarding");
+          },
+        },
+      );
     } catch (err) {
       console.log(
         "SignUp Failed At OTP verification:",
@@ -308,6 +313,7 @@ export default function SignUpPage() {
                             id="companyName"
                             name="companyName"
                             placeholder="Your real estate company"
+                            required
                             value={formData.companyName}
                             onChange={handleChange}
                           />
@@ -318,6 +324,7 @@ export default function SignUpPage() {
                             id="role"
                             name="role"
                             placeholder="e.g. Agent, Team Leader, Broker"
+                            required
                             value={formData.role}
                             onChange={handleChange}
                           />
@@ -346,7 +353,9 @@ export default function SignUpPage() {
                     <Button
                       type="submit"
                       className="w-full bg-linear-to-r from-blue-500 to-blue-600"
-                      disabled={isLoading}
+                      disabled={
+                        isLoading || isGettingAuthToken || isUpdatingUser
+                      }
                     >
                       {step === 1 ? (
                         "Continue"

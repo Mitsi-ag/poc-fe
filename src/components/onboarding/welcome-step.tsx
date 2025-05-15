@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 export function WelcomeStep() {
   const { userData, updateUserData, nextStep } = useOnboarding();
-  const [name, setName] = useState(userData.name);
+  const [name, setName] = useState(userData.userName);
   const [email, setEmail] = useState(userData.email);
 
   const handleContinue = () => {
@@ -18,7 +18,7 @@ export function WelcomeStep() {
     const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isNameValid || !isEmailValid)
       return toast.error("Please enter a valid name and email address.");
-    updateUserData({ name, email });
+    updateUserData({ userName: name, email });
     nextStep();
   };
 

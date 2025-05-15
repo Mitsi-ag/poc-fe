@@ -9,22 +9,9 @@ import { ExperienceStep } from "@/components/onboarding/experience-step";
 import { GoalsStep } from "@/components/onboarding/goals-step";
 import { DashboardStep } from "@/components/onboarding/dashboard-step";
 import { CompleteStep } from "@/components/onboarding/complete-step";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
 
 export default function OnboardingPage() {
   const { currentStep } = useOnboarding();
-  const { user } = useUser();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    } else if (user && user.publicMetadata.isOnBoarded) {
-      router.push("/dashboard");
-    }
-  }, [router, user]);
 
   const renderStep = () => {
     switch (currentStep) {

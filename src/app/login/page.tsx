@@ -2,8 +2,7 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
@@ -11,31 +10,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSignIn, useUser } from "@clerk/nextjs";
+import { useAuth, useSignIn } from "@clerk/nextjs";
 import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import { toast } from "sonner";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
+import { useGetAuthToken } from "@/modules/users/hooks/mutations";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useUser();
   const { isLoaded, signIn, setActive } = useSignIn();
-
-  useEffect(() => {
-    if (user) {
-      const isOnBoarded = user.publicMetadata?.isOnBoarded;
-      if (!isOnBoarded) {
-        router.push("/onboarding");
-      } else {
-        router.push("/dashboard");
-      }
-    }
-  }, [user, router]);
+  const { getToken } = useAuth();
+  const { mutate, isPending } = useGetAuthToken();
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,9 +39,14 @@ export default function LoginPage() {
       });
       if (signInAttempt?.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
+        const clerkToken = await getToken();
+        if (!clerkToken) throw new Error("Failed to get Clerk token");
+        mutate(clerkToken, {
+          onSuccess: () => {
+            router.push("/onboarding");
+          },
+        });
         toast.success("Login successful. Welcome back to RealtyMate!");
-        console.log(signInAttempt);
-        router.push("/onboarding");
       }
     } catch (err) {
       console.log("SignIn Failed:", JSON.stringify(err, null, 2));
@@ -168,7 +164,11 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading || isPending}
+            >
               {isLoading ? "Signing in..." : "Sign in"}
             </Button>
 

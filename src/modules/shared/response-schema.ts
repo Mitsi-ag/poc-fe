@@ -23,3 +23,7 @@ export const bookmarkResponseSchema = z.object({
 });
 
 export type BookmarkResponse = z.infer<typeof bookmarkResponseSchema>;
+
+export const authTokenResponseSchema = z.object({ auth_token: z.string() });
+
+export type AuthTokenResponse = z.infer<typeof authTokenResponseSchema>;
