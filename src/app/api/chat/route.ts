@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 type MessageRequest = {
   messages: Message[];
-  chat_id: string | null;
+  chat_id: string;
 };
 
 export async function POST(req: Request) {
@@ -33,17 +33,8 @@ export async function POST(req: Request) {
         const input_tokens = usage.promptTokens;
         const output_tokens = usage.completionTokens;
 
-        const createdMessage = await MessagesController.create({
-          chat_id: chat_id ? parseInt(chat_id) : null,
-          text: newMessage.content,
-          input_tokens: 0,
-          output_tokens: 0,
-          by_user: true,
-          tool_calls: toolCalls.map((toolCall) => toolCall.toolName),
-        });
-
         await MessagesController.create({
-          chat_id: createdMessage.chat_id,
+          chat_id: parseInt(chat_id),
           text,
           input_tokens,
           output_tokens,

@@ -14,26 +14,11 @@ export function useMessagesByChatIdQuery() {
       await fetchMessagesByChatId(id, pageParam),
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
-      if (lastPage.next) {
-        const { searchParams } = new URL(lastPage.next);
-        const nextCursor = searchParams.get("cursor");
-        if (nextCursor) {
-          return nextCursor;
-        }
+      if (!lastPage.next) {
+        return null;
       }
 
-      return "";
-    },
-    getPreviousPageParam: (firstPage) => {
-      if (firstPage.previous) {
-        const { searchParams } = new URL(firstPage.previous);
-        const previousCursor = searchParams.get("cursor");
-        if (previousCursor) {
-          return previousCursor;
-        }
-      }
-
-      return "";
+      return new URL(lastPage.next).searchParams.get("cursor");
     },
     select: (data) => data.pages.flatMap((page) => page.results),
   });

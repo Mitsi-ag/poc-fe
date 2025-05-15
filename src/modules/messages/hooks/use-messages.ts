@@ -1,13 +1,17 @@
+import { useSaveUserMessageMutation } from "@/modules/messages/hooks/mutations";
 import { useMessagesByChatIdQuery } from "@/modules/messages/hooks/queries";
 import { Message, useChat } from "@ai-sdk/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export function useMessages() {
   const { data: storedMessages, isLoading } = useMessagesByChatIdQuery();
-  const { id } = useParams<{ id?: string }>();
+  const { mutateAsync } = useSaveUserMessageMutation();
   const queryClient = useQueryClient();
+
+  const { id } = useParams<{ id?: string }>();
+  const router = useRouter();
 
   const initialMessages: Message[] =
     storedMessages?.map((msg) => ({
@@ -26,19 +30,30 @@ export function useMessages() {
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const isNewChat = !id && messages.length === 0;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
 
-  const isNewChat = !id && messages.length === 0;
-
   // Send message function
-  const handleSendMessage = async () => {
-    if (input.trim() === "") return;
+  const handleSendMessage = async (message?: string) => {
+    const content = message ?? input;
+    if (content.trim() === "") return;
     setInput("");
-    await append({ role: "user", content: input });
+
+    const result = await mutateAsync({ content, chatId: id });
+
+    if (!isNewChat) {
+      await append(
+        { role: "user", content },
+        { body: { chat_id: result.chat_id } },
+      );
+    } else {
+      router.push(`/ai-assistant/chat/${result.chat_id}`);
+    }
+
     inputRef.current?.focus();
     queryClient.invalidateQueries({
       queryKey: ["all-chats"],
@@ -46,9 +61,8 @@ export function useMessages() {
   };
 
   // Handle suggestion click
-  const handleSuggestionClick = (suggestion: string) => {
-    setInput(suggestion);
-    handleSendMessage();
+  const handleSuggestionClick = async (suggestion: string) => {
+    await handleSendMessage(suggestion);
   };
 
   const renderedMessages = messages.map((message) => ({

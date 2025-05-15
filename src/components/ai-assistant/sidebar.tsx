@@ -4,16 +4,22 @@ import { cn } from "@/lib/utils";
 import { useChatsQuery } from "@/modules/chats/hooks/queries";
 import { PlusCircle, Search, Star } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
 
 export function Sidebar() {
   const { id } = useParams<{ id?: string }>();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: chatHistory, error } = useChatsQuery();
+  const {
+    data: chatHistory,
+    error,
+    fetchNextPage,
+    hasNextPage,
+  } = useChatsQuery();
 
   const handleNewChat = () => {
-    //
+    router.push("/ai-assistant");
   };
 
   const setActiveChat = (id: number) => {
@@ -58,32 +64,41 @@ export function Sidebar() {
         </div>
       </div>
 
-      <div className="flex-1 space-y-1.5 overflow-auto p-2">
-        {filteredChatHistory.map((chat) => (
-          <div
-            key={chat.id}
-            className={cn(
-              "cursor-pointer rounded-lg p-2 text-sm transition-all hover:bg-gray-100 dark:hover:bg-gray-800/50",
-              {
-                "bg-primary/10 text-primary dark:bg-primary/20":
-                  activeChatId === chat.id,
-              },
-            )}
-            onClick={() => setActiveChat(chat.id)}
-          >
-            <div className="flex items-center justify-between">
-              <h4 className="line-clamp-1 font-medium">{chat.name}</h4>
-              {chat.is_bookmarked && (
-                <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+      <div id="scrollableDiv" className="overflow-y-auto p-2">
+        <InfiniteScroll
+          dataLength={filteredChatHistory.length}
+          hasMore={hasNextPage}
+          next={fetchNextPage}
+          scrollableTarget="scrollableDiv"
+          loader={<p>Loading...</p>}
+          className="space-y-2"
+        >
+          {filteredChatHistory.map((chat) => (
+            <div
+              key={chat.id}
+              className={cn(
+                "cursor-pointer rounded-lg p-2 text-sm transition-all hover:bg-gray-100 dark:hover:bg-gray-800/50",
+                {
+                  "bg-primary/10 text-primary dark:bg-primary/20":
+                    activeChatId === chat.id,
+                },
               )}
+              onClick={() => setActiveChat(chat.id)}
+            >
+              <div className="flex items-center justify-between">
+                <h4 className="line-clamp-1 font-medium">{chat.name}</h4>
+                {chat.is_bookmarked && (
+                  <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                )}
+              </div>
+              <div className="mt-1 flex items-center gap-1">
+                <span className="text-muted-foreground text-xs">
+                  {chat.created_at}
+                </span>
+              </div>
             </div>
-            <div className="mt-1 flex items-center gap-1">
-              <span className="text-muted-foreground text-xs">
-                {chat.created_at}
-              </span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );
