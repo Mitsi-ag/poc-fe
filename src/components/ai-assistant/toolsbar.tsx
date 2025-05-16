@@ -1,4 +1,4 @@
-import { PropertyDescriptionGeneratorModal } from "@/components/ai-assistant/property-description-generator/form";
+import { PropertyDescriptionGeneratorModal } from "@/components/ai-assistant/property-description-generator/modal";
 
 export function ToolsBar() {
   return (
