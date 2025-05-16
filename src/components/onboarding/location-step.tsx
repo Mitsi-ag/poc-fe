@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, X, PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 
 // Australian suburbs/regions for demonstration
 const popularLocations = [
@@ -63,6 +64,8 @@ export function LocationStep() {
   };
 
   const handleContinue = () => {
+    if (locations.length === 0)
+      return toast.error("Please select atleast one location");
     updateUserData({ locations });
     nextStep();
   };
@@ -155,11 +158,7 @@ export function LocationStep() {
         <Button variant="outline" onClick={prevStep} className="gap-2">
           <ArrowLeft className="h-4 w-4" /> Back
         </Button>
-        <Button
-          onClick={handleContinue}
-          disabled={locations.length === 0}
-          className="gap-2"
-        >
+        <Button onClick={handleContinue} className="gap-2">
           Continue <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

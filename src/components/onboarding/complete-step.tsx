@@ -3,9 +3,48 @@
 import { useOnboarding } from "@/contexts/onboarding-context";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { useState } from "react";
+import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { completeOnboarding } from "@/app/onboarding/_action";
+import { useUpdateUser } from "@/modules/users/hooks/mutations";
 
 export function CompleteStep() {
-  const { userData, completeOnboarding } = useOnboarding();
+  const { userData } = useOnboarding();
+  const { user } = useUser();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { mutate, isPending } = useUpdateUser();
+
+  /**handleGoToDashboard***/
+  const handleGoToDashboard = async () => {
+    try {
+      setLoading(true);
+
+      const res = await completeOnboarding();
+      if (res?.message) {
+        console.log("userData", userData);
+        mutate(userData);
+        await user?.reload();
+        router.push("/dashboard");
+      }
+      if (res?.error) {
+        console.log("completeOnboarding Error", res?.error);
+      }
+    } catch (err) {
+      console.log("On boarding failed:", JSON.stringify(err, null, 2));
+      if (isClerkAPIResponseError(err)) {
+        toast.error(err.errors[0]?.longMessage ?? DEFAULT_ERROR_MESSAGE);
+      } else {
+        toast.error(DEFAULT_ERROR_MESSAGE);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-6 text-center">
@@ -17,7 +56,7 @@ export function CompleteStep() {
 
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">
-          You&apos;re all set, {userData.name}!
+          You&apos;re all set, {userData.userName}!
         </h1>
         <p className="text-gray-500">
           Your RealtyMate account has been personalized based on your
@@ -63,7 +102,12 @@ export function CompleteStep() {
       </div>
 
       <div className="pt-6">
-        <Button onClick={completeOnboarding} className="gap-2 px-8" size="lg">
+        <Button
+          disabled={loading || isPending}
+          onClick={handleGoToDashboard}
+          className="gap-2 px-8"
+          size="lg"
+        >
           Go to Dashboard <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

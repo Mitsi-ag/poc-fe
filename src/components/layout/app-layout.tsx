@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Bell,
   ChevronDown,
@@ -13,6 +13,7 @@ import {
   Search,
   Sun,
   X,
+  Loader2,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { Chatbot } from "@/components/chat/chatbot";
 import { cn } from "@/lib/utils";
+import { useClerk, useUser } from "@clerk/nextjs";
+import { deleteCookie } from "cookies-next";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,29 +41,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const [notifications, setNotifications] = useState(3);
   const [scrolled, setScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, isLoaded } = useUser();
 
-  const pathname = usePathname();
   const router = useRouter();
 
-  // Check authentication on initial load and when pathname changes
+  // Check authentication on initial load
   useEffect(() => {
-    const checkAuth = () => {
-      const isLoggedIn = localStorage.getItem("onboardingComplete") === "true";
-      setIsAuthenticated(isLoggedIn);
-
-      // Only redirect to login if not authenticated and not already on login, signup, or onboarding pages
-      const authExemptPaths = ["/login", "/signup", "/onboarding"];
-      if (
-        !isLoggedIn &&
-        !authExemptPaths.some((path) => pathname?.startsWith(path))
-      ) {
-        router.push("/login");
-      }
+    const checkAuth = async () => {
+      if (!isLoaded || !user || !user.publicMetadata.isOnBoarded) return;
     };
-
     checkAuth();
-  }, [pathname, router]);
+  }, [user, router]);
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -80,10 +71,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isDarkMode]);
 
+  // if (loading) {
+  //   return <div className="w-full min-h-screen flex justify-center items-center">
+  //     <Loader2 className="h-10 w-10 animate-spin text-primary" />
+  //   </div>
+  // }
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-linear-to-br from-gray-50 to-gray-100 transition-colors duration-300 dark:from-gray-950 dark:to-gray-900">
-        <AppSidebar isAuthenticated={isAuthenticated} />
+        <AppSidebar />
         <div className="flex w-full flex-1 flex-col">
           <header
             className={cn(
@@ -178,12 +175,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
 function UserMenu() {
   const router = useRouter();
+  const { signOut } = useClerk();
 
-  const handleLogout = () => {
-    // Clear authentication state
-    localStorage.removeItem("onboardingComplete");
+  const handleLogout = async () => {
+    await signOut();
     localStorage.removeItem("userData");
-    // Redirect to login page
+    deleteCookie("auth_token");
     router.push("/login");
   };
 

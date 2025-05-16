@@ -9,19 +9,9 @@ import { ExperienceStep } from "@/components/onboarding/experience-step";
 import { GoalsStep } from "@/components/onboarding/goals-step";
 import { DashboardStep } from "@/components/onboarding/dashboard-step";
 import { CompleteStep } from "@/components/onboarding/complete-step";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 export default function OnboardingPage() {
-  const { currentStep, isOnboardingComplete } = useOnboarding();
-  const router = useRouter();
-
-  // Redirect to dashboard if onboarding is already complete
-  useEffect(() => {
-    if (isOnboardingComplete) {
-      router.push("/dashboard");
-    }
-  }, [isOnboardingComplete, router]);
+  const { currentStep } = useOnboarding();
 
   const renderStep = () => {
     switch (currentStep) {

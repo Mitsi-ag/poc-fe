@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { deleteCookie } from "cookies-next";
+import { useClerk } from "@clerk/nextjs";
 
 // Define sidebar navigation items
 const navigationItems = [
@@ -72,15 +74,15 @@ interface AppSidebarProps {
 export function AppSidebar({ isAuthenticated = false }: AppSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const { signOut } = useClerk();
 
   // Inside the AppSidebar component, add state for the upgrade modal
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
-  const handleLogout = () => {
-    // Clear authentication state
-    localStorage.removeItem("onboardingComplete");
+  const handleLogout = async () => {
+    await signOut();
     localStorage.removeItem("userData");
-    // Redirect to login page
+    deleteCookie("auth_token");
     router.push("/login");
   };
 

@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { OnboardingProvider } from "@/contexts/onboarding-context";
 import { ReactQueryProvider } from "@/components/react-query-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +31,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <OnboardingProvider>{children}</OnboardingProvider>
+            <Toaster richColors position="top-center" />
+            <ClerkProvider
+              publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+            >
+              <OnboardingProvider>{children}</OnboardingProvider>
+            </ClerkProvider>
           </ThemeProvider>
         </ReactQueryProvider>
       </body>

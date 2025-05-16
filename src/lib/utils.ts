@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -15,4 +16,14 @@ export function toCapitalCase(str: string) {
 export function formatDate(dateString: string) {
   const parts = new Date(dateString).toDateString().split(" ");
   return `${parts[0]}, ${parts[1]} ${parts[2]}, ${parts[3]}`;
+}
+
+export function storeAuthToken(token: string) {
+  setCookie("auth_token", token, {
+    maxAge: 60 * 60 * 24 * 7,
+    path: "/",
+    secure: true,
+    sameSite: "strict",
+    // httpOnly: true, // optionally true if not accessing it from JS
+  });
 }

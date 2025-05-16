@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 type OnboardingStep =
   | "welcome"
@@ -17,30 +17,33 @@ interface OnboardingContextType {
   currentStep: OnboardingStep;
   isOnboardingComplete: boolean;
   userData: {
-    name: string;
+    userName: string;
     email: string;
     locations: string[];
     specializations: string[];
-    experience: string;
+    experience_level: number;
     goals: string[];
     preferredDashboardWidgets: string[];
+    role: string;
+    companyName: string;
   };
   updateUserData: (data: Partial<OnboardingContextType["userData"]>) => void;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: OnboardingStep) => void;
-  completeOnboarding: () => void;
   resetOnboarding: () => void;
 }
 
-const defaultUserData = {
-  name: "",
+const defaultUserData: OnboardingContextType["userData"] = {
+  userName: "",
   email: "",
   locations: [],
   specializations: [],
-  experience: "",
+  experience_level: 0,
   goals: [],
   preferredDashboardWidgets: [],
+  role: "",
+  companyName: "",
 };
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(
@@ -52,27 +55,34 @@ export function OnboardingProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("welcome");
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
   const [userData, setUserData] = useState(defaultUserData);
+  const { user } = useUser();
 
-  // Check if onboarding is complete from localStorage on initial load
   useEffect(() => {
-    const storedOnboardingStatus = localStorage.getItem("onboardingComplete");
-    if (storedOnboardingStatus === "true") {
-      setIsOnboardingComplete(true);
+    if (user) {
+      setUserData({
+        ...defaultUserData,
+        userName: user?.firstName + " " + user?.lastName,
+        email: user.emailAddresses[0].emailAddress,
+      });
     }
+  }, [user]);
 
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      try {
-        setUserData(JSON.parse(storedUserData));
-      } catch (e) {
-        console.error("Failed to parse stored user data", e);
+  useEffect(() => {
+    if (user && user.publicMetadata.isOnBoarded) {
+      setIsOnboardingComplete(true);
+      const storedUserData = localStorage.getItem("userData");
+      if (storedUserData) {
+        try {
+          setUserData(JSON.parse(storedUserData));
+        } catch (e) {
+          console.error("Failed to parse stored user data", e);
+        }
       }
     }
-  }, []);
+  }, [user]);
 
   const updateUserData = (data: Partial<typeof userData>) => {
     const updatedData = { ...userData, ...data };
@@ -118,17 +128,10 @@ export function OnboardingProvider({
     setCurrentStep(step);
   };
 
-  const completeOnboarding = () => {
-    setIsOnboardingComplete(true);
-    localStorage.setItem("onboardingComplete", "true");
-    router.push("/");
-  };
-
   const resetOnboarding = () => {
     setIsOnboardingComplete(false);
     setCurrentStep("welcome");
     setUserData(defaultUserData);
-    localStorage.removeItem("onboardingComplete");
     localStorage.removeItem("userData");
   };
 
@@ -142,7 +145,6 @@ export function OnboardingProvider({
         nextStep,
         prevStep,
         goToStep,
-        completeOnboarding,
         resetOnboarding,
       }}
     >
