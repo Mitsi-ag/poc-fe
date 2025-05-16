@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
  * @returns Messages for a particular chatId
  */
 export function useMessagesByChatIdQuery() {
-  const { id } = useParams<{ id?: string }>();
+  const { id } = useParams<{ id: string }>();
 
   return useInfiniteQuery({
     queryKey: ["all-messages", id],

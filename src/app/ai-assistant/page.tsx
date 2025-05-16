@@ -1,7 +1,7 @@
 "use client";
 
-import { FullPageAssistant } from "@/components/ai-assistant/full-page-assistant";
+import { NewChatView } from "@/components/ai-assistant/new-chat-view";
 
 export default function AIAssistantPage() {
-  return <FullPageAssistant />;
+  return <NewChatView />;
 }
