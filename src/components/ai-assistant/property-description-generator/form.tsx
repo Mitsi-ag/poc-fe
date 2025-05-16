@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useMessagesContext } from "@/contexts/messages-context";
+import { usePromptSender } from "@/hooks/use-prompt-sender";
 import {
   AGENT_SPECIALIZATION_ENUMS,
   FEATURES_ENUMS,
@@ -39,7 +39,7 @@ export function PropertyDescriptionGeneratorForm({
 }: {
   onClose: () => void;
 }) {
-  const { handleSuggestionClick } = useMessagesContext();
+  const { sendPrompt } = usePromptSender();
   const form = useForm<TForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,7 +57,7 @@ export function PropertyDescriptionGeneratorForm({
   const onSubmit = async (values: TForm) => {
     const prompt = generatePromptMessage(values);
     onClose();
-    await handleSuggestionClick(prompt);
+    await sendPrompt(prompt);
   };
 
   return (

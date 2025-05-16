@@ -13,10 +13,11 @@ export function useMessages() {
     fetchNextPage,
     hasNextPage,
   } = useMessagesByChatIdQuery();
+
   const isNewChatSent =
     storedMessages?.length === 1 && storedMessages[0].by_user;
 
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
   const queryClient = useQueryClient();
   const setInitialMessageOnNewChatPage = useSetAtom(initialMessageAtom);
 
@@ -32,7 +33,7 @@ export function useMessages() {
     api: "/api/chat",
     initialMessages,
     body: {
-      chat_id: id,
+      chat_id: id ?? null,
       is_new_chat: isNewChatSent,
     },
   });

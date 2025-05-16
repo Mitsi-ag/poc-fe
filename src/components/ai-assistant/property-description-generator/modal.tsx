@@ -8,11 +8,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useToolsQuery } from "@/modules/tools/hooks/queries";
 import { FileText } from "lucide-react";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function PropertyDescriptionGeneratorModal() {
+  const { data: tools } = useToolsQuery();
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (tools) {
+      const toolParam = searchParams.get("tool");
+      const initialOpen = tools.find(
+        (tool) => tool.id.toString() === toolParam,
+      );
+      if (initialOpen) {
+        setOpen(true);
+      }
+    }
+  }, [tools]);
 
   const onClose = () => {
     setOpen(false);

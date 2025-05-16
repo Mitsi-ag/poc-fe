@@ -16,9 +16,9 @@ export function MessagesContextProvider({ children }: { children: ReactNode }) {
 export function useMessagesContext() {
   const context = useContext(MessagesContext);
   if (!context) {
-    throw new Error(
-      "useMessagesContext should be used within MessagesContextProvider",
-    );
+    return {
+      handleSuggestionClick: () => {},
+    } as unknown as ProviderData;
   }
 
   return context;

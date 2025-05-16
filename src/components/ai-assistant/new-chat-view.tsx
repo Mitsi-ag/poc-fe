@@ -1,12 +1,11 @@
 import { ChatMessageItem } from "@/components/ai-assistant/chat-message-item";
+import { ToolsBar } from "@/components/ai-assistant/toolsbar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useSendFirstMessage } from "@/hooks/use-send-first-message";
 import { initialMessageAtom } from "@/lib/atoms";
-import { useSaveUserMessageMutation } from "@/modules/messages/hooks/mutations";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { Send } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export function NewChatView() {
@@ -16,7 +15,7 @@ export function NewChatView() {
         <MessageArea />
         <InputArea />
       </div>
-      {/* <ToolsBar /> */}
+      <ToolsBar />
     </>
   );
 }
@@ -48,35 +47,19 @@ function MessageArea() {
 
 function InputArea() {
   const [input, setInput] = useState("");
-  const { mutate } = useSaveUserMessageMutation();
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const setInitialMessage = useSetAtom(initialMessageAtom);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const handleSendMessage = () => {
-    if (input.trim() === "") return;
-    setInput("");
-    setInitialMessage(input);
-    mutate(
-      { content: input },
-      {
-        onSuccess: (data) => {
-          router.push(`/ai-assistant/chat/${data.chat_id}`);
-          queryClient.invalidateQueries({
-            queryKey: ["all-chats"],
-          });
-        },
-        onError: () => {
-          setInitialMessage("");
-        },
-      },
-    );
-  };
+  const { handleSendMessage: sendMessage } = useSendFirstMessage();
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  const handleSendMessage = async () => {
+    if (input.trim() === "") return;
+    const message = input;
+    setInput("");
+    await sendMessage(message);
+  };
 
   return (
     <div className="border-t bg-gray-50 p-4 dark:bg-gray-900">

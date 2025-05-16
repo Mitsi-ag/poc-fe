@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -15,328 +12,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Home,
-  BarChart,
-  Mail,
-  Share2,
-  ImageIcon,
-  MapPin,
-  MessageSquare,
-  Clock,
-  ArrowRight,
-  Search,
-  Sparkles,
-  Globe,
-  Calendar,
-  Camera,
-  PenTool,
-  Briefcase,
-  Users,
-  Hammer,
-  DollarSign,
-  Target,
-  FileText,
-  Zap,
-  Lightbulb,
-  TrendingUp,
-  Layers,
-  Compass,
-  Award,
-  Smartphone,
-  Video,
-  Headphones,
-  Percent,
-} from "lucide-react";
+import { cn, toCapitalCase } from "@/lib/utils";
+import { useToolsQuery } from "@/modules/tools/hooks/queries";
+import { ArrowRight, Search, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function AIToolsHub() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [featureRequest, setFeatureRequest] = useState("");
+  const router = useRouter();
+  const { data: tools } = useToolsQuery();
 
-  const tools = [
-    {
-      id: "property-description",
-      title: "Property Description Generator",
-      description: "Create compelling property listings",
-      longDescription:
-        "Transform property features into captivating descriptions that highlight the best aspects of a home. This tool analyzes property details and creates engaging, SEO-optimized content that appeals to potential buyers.",
-      category: "marketing",
-      icon: <Home className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "2-3 minutes",
-    },
-    {
-      id: "pitch-builder",
-      title: "Competitive Pitch Builder",
-      description: "Win more listings with data-backed pitches",
-      longDescription:
-        "Create powerful listing presentations that showcase your expertise against specific competitors. This tool analyzes your performance metrics and competitor data to build persuasive pitches that win more listings.",
-      category: "sales",
-      icon: <BarChart className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "5-7 minutes",
-    },
-    {
-      id: "market-analyzer",
-      title: "Market Trend Analyzer",
-      description: "Visualize and explain local market trends",
-      longDescription:
-        "Transform complex market data into clear insights and visualizations. This tool analyzes historical trends, current inventory, and predictive indicators to create compelling market reports for clients.",
-      category: "analysis",
-      icon: <TrendingUp className="h-6 w-6 text-green-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "email-campaign",
-      title: "Email Campaign Creator",
-      description: "Targeted email sequences for different scenarios",
-      longDescription:
-        "Create personalized email sequences for different client scenarios. This tool helps you nurture leads, follow up with past clients, and maintain relationships with tailored communication that drives engagement.",
-      category: "marketing",
-      icon: <Mail className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "4-5 minutes",
-    },
-    {
-      id: "social-media",
-      title: "Social Media Content Generator",
-      description: "Create engaging posts for multiple platforms",
-      longDescription:
-        "Generate platform-specific content for your social media channels. This tool creates engaging posts, captions, and hashtags tailored to different platforms and audience segments to maximize your online presence.",
-      category: "marketing",
-      icon: <Share2 className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "buyer-needs",
-      title: "Buyer Needs Analyzer",
-      description: "Match buyers to perfect properties",
-      longDescription:
-        "Analyze buyer preferences and match them to available properties. This tool helps you understand buyer priorities, recommend suitable properties, and create personalized viewing schedules that increase conversion rates.",
-      category: "sales",
-      icon: <Target className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "4-6 minutes",
-    },
-    {
-      id: "virtual-staging",
-      title: "Virtual Staging Assistant",
-      description: "Transform empty spaces with virtual staging",
-      longDescription:
-        "Create virtually staged images of empty properties. This tool helps you show the potential of vacant spaces by adding furniture and decor that appeals to your target buyer demographic.",
-      category: "marketing",
-      icon: <ImageIcon className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "5-7 minutes",
-    },
-    {
-      id: "neighborhood-expert",
-      title: "Neighborhood Expert Content",
-      description: "Position yourself as a local authority",
-      longDescription:
-        "Generate neighborhood guides and local market insights. This tool helps you create authoritative content about specific areas, highlighting amenities, market trends, and lifestyle benefits to position you as a neighborhood expert.",
-      category: "marketing",
-      icon: <MapPin className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "5-8 minutes",
-    },
-    {
-      id: "objection-handler",
-      title: "Objection Handler",
-      description: "Overcome client hesitations effectively",
-      longDescription:
-        "Prepare for and address common client objections. This tool provides data-backed responses to price concerns, market uncertainties, and other common hesitations that can derail a transaction.",
-      category: "sales",
-      icon: <MessageSquare className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "2-3 minutes",
-    },
-    {
-      id: "pricing-strategy",
-      title: "Pricing Strategy Optimizer",
-      description: "Set the perfect price with AI analysis",
-      longDescription:
-        "Determine optimal listing prices based on comprehensive market analysis. This tool analyzes comparable sales, market trends, property features, and buyer demand to recommend strategic pricing that maximizes seller returns.",
-      category: "analysis",
-      icon: <DollarSign className="h-6 w-6 text-green-500" />,
-      timeEstimate: "4-5 minutes",
-    },
-    {
-      id: "open-house",
-      title: "Open House Optimizer",
-      description: "Maximize open house effectiveness",
-      longDescription:
-        "Plan and execute high-converting open houses. This tool helps you prepare marketing materials, highlight key property features, capture visitor information, and follow up effectively to turn attendees into serious buyers.",
-      category: "sales",
-      icon: <Calendar className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "video-script",
-      title: "Video Script Generator",
-      description: "Create engaging property video content",
-      longDescription:
-        "Generate professional scripts for property videos and agent introductions. This tool helps you create compelling video content that showcases properties effectively and builds your personal brand.",
-      category: "marketing",
-      icon: <Video className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-5 minutes",
-    },
-    {
-      id: "investment-analyzer",
-      title: "Investment Property Analyzer",
-      description: "Evaluate investment potential with key metrics",
-      longDescription:
-        "Analyze the investment potential of properties with comprehensive financial metrics. This tool calculates ROI, cash flow, cap rate, and other key indicators to help investors make informed decisions.",
-      category: "analysis",
-      icon: <Briefcase className="h-6 w-6 text-green-500" />,
-      timeEstimate: "5-7 minutes",
-    },
-    {
-      id: "renovation-calculator",
-      title: "Renovation Value Calculator",
-      description: "Estimate ROI on property improvements",
-      longDescription:
-        "Calculate the potential return on investment for various renovation projects. This tool helps homeowners and investors determine which improvements will add the most value relative to their cost.",
-      category: "analysis",
-      icon: <Hammer className="h-6 w-6 text-green-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "buyer-persona",
-      title: "Buyer Persona Creator",
-      description: "Define ideal buyers for targeted marketing",
-      longDescription:
-        "Create detailed buyer personas for different property types and neighborhoods. This tool helps you understand your target audience and tailor your marketing and communication strategies to their specific needs.",
-      category: "marketing",
-      icon: <Users className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "4-6 minutes",
-    },
-    {
-      id: "multilingual-translator",
-      title: "Multilingual Property Translator",
-      description: "Translate listings into 40+ languages",
-      longDescription:
-        "Instantly translate property descriptions, marketing materials, and communications into over 40 languages. This tool helps you reach international buyers and diverse communities with professionally translated real estate content.",
-      category: "international",
-      icon: <Globe className="h-6 w-6 text-indigo-500" />,
-      timeEstimate: "2-3 minutes",
-    },
-    {
-      id: "cultural-adaptation",
-      title: "Cultural Adaptation Assistant",
-      description: "Customize content for international buyers",
-      longDescription:
-        "Adapt your property marketing for different cultural preferences and expectations. This tool helps you highlight features that appeal to specific international buyer groups and avoid cultural misunderstandings.",
-      category: "international",
-      icon: <Compass className="h-6 w-6 text-indigo-500" />,
-      timeEstimate: "4-5 minutes",
-    },
-    {
-      id: "drone-shot-planner",
-      title: "Drone Shot Planner",
-      description: "Plan perfect aerial property photography",
-      longDescription:
-        "Create detailed shot lists and flight paths for drone photography. This tool analyzes property features, surrounding areas, and lighting conditions to recommend the most impactful aerial shots.",
-      category: "marketing",
-      icon: <Camera className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "seasonal-marketing",
-      title: "Seasonal Marketing Strategist",
-      description: "Optimize listings for seasonal advantages",
-      longDescription:
-        "Adapt your property marketing to highlight seasonal advantages. This tool helps you emphasize different property features based on the time of year to maximize appeal and perceived value.",
-      category: "marketing",
-      icon: <Layers className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-5 minutes",
-    },
-    {
-      id: "audio-tour-creator",
-      title: "Audio Tour Creator",
-      description: "Generate professional property audio tours",
-      longDescription:
-        "Create engaging audio narratives for property tours. This tool transforms property details into professional audio descriptions that guide potential buyers through virtual or self-guided tours.",
-      category: "marketing",
-      icon: <Headphones className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "4-6 minutes",
-    },
-    {
-      id: "first-time-buyer-guide",
-      title: "First-Time Buyer Guide Generator",
-      description: "Create customized guides for new buyers",
-      longDescription:
-        "Generate comprehensive, personalized guides for first-time homebuyers. This tool creates educational content that positions you as a trusted advisor while simplifying the buying process for newcomers.",
-      category: "sales",
-      icon: <FileText className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "5-7 minutes",
-    },
-    {
-      id: "luxury-property-copywriter",
-      title: "Luxury Property Copywriter",
-      description: "Craft premium descriptions for high-end listings",
-      longDescription:
-        "Generate sophisticated, evocative descriptions for luxury properties. This tool uses elevated language and focuses on exclusive features, premium materials, and lifestyle benefits to appeal to affluent buyers.",
-      category: "marketing",
-      icon: <PenTool className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-    {
-      id: "market-disruption-analyzer",
-      title: "Market Disruption Analyzer",
-      description: "Predict and prepare for market shifts",
-      longDescription:
-        "Analyze potential market disruptions and their impact on your business. This tool helps you identify early warning signs of market shifts and develop proactive strategies to maintain your competitive edge.",
-      category: "analysis",
-      icon: <Zap className="h-6 w-6 text-green-500" />,
-      timeEstimate: "6-8 minutes",
-    },
-    {
-      id: "mobile-listing-optimizer",
-      title: "Mobile Listing Optimizer",
-      description: "Optimize listings for mobile device viewing",
-      longDescription:
-        "Enhance your listings for the mobile-first audience. This tool reformats descriptions, recommends mobile-friendly images, and ensures your property details display perfectly on smartphones and tablets.",
-      category: "marketing",
-      icon: <Smartphone className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "2-3 minutes",
-    },
-    {
-      id: "negotiation-coach",
-      title: "Negotiation Coach",
-      description: "Prepare for complex negotiation scenarios",
-      longDescription:
-        "Develop effective negotiation strategies for different scenarios. This tool provides data-backed talking points, counter-offer suggestions, and psychological insights to help you secure the best deals for your clients.",
-      category: "sales",
-      icon: <Award className="h-6 w-6 text-blue-500" />,
-      timeEstimate: "4-6 minutes",
-    },
-    {
-      id: "property-story-creator",
-      title: "Property Story Creator",
-      description: "Craft emotional narratives about properties",
-      longDescription:
-        "Transform property features into compelling emotional narratives. This tool helps you create stories about the lifestyle and memories a property could provide, connecting with buyers on an emotional level.",
-      category: "marketing",
-      icon: <Lightbulb className="h-6 w-6 text-purple-500" />,
-      timeEstimate: "3-5 minutes",
-    },
-    {
-      id: "price-reduction-strategist",
-      title: "Price Reduction Strategist",
-      description: "Optimize timing and amount of price adjustments",
-      longDescription:
-        "Determine the optimal timing and amount for price reductions. This tool analyzes market conditions, showing activity, and comparable sales to recommend strategic price adjustments that maximize seller returns.",
-      category: "analysis",
-      icon: <Percent className="h-6 w-6 text-green-500" />,
-      timeEstimate: "3-4 minutes",
-    },
-  ];
-
-  const filteredTools = tools.filter((tool) => {
-    const matchesSearch =
-      tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      activeCategory === "all" ||
-      tool.category === activeCategory.toLowerCase();
-    return matchesSearch && matchesCategory;
-  });
+  const filteredTools =
+    tools?.filter((tool) => {
+      const matchesSearch =
+        tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        activeCategory === "all" ||
+        tool.category === activeCategory.toLowerCase();
+      return matchesSearch && matchesCategory;
+    }) ?? [];
 
   const handleFeatureRequestSubmit = () => {
     // In a real app, this would send the request to a backend
@@ -344,6 +45,10 @@ export function AIToolsHub() {
       "Thank you for your feature request! We'll review it and get back to you soon.",
     );
     setFeatureRequest("");
+  };
+
+  const handleToolLaunch = (toolId: number) => {
+    router.push(`/ai-assistant?tool=${toolId}`);
   };
 
   return (
@@ -427,22 +132,26 @@ export function AIToolsHub() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
         {filteredTools.map((tool) => (
           <Card key={tool.id} className="overflow-hidden">
-            <CardContent className="p-4 md:p-6">
+            <CardContent className="flex h-full flex-col p-4 md:p-6">
               <div className="mb-3 flex items-start md:mb-4">
-                <div className="mr-3 rounded-lg bg-gray-100 p-2 md:mr-4 md:p-3">
-                  {tool.icon}
-                </div>
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate text-base font-semibold md:text-lg">
-                      {tool.title}
+                      {tool.name}
                     </h3>
                     <Badge
                       variant="outline"
-                      className={`text-xs whitespace-nowrap ${tool.category === "marketing" ? "bg-purple-100 text-purple-800" : ""} ${tool.category === "sales" ? "bg-blue-100 text-blue-800" : ""} ${tool.category === "analysis" ? "bg-green-100 text-green-800" : ""} ${tool.category === "international" ? "bg-indigo-100 text-indigo-800" : ""} `}
+                      className={cn("text-xs whitespace-nowrap", {
+                        "bg-purple-100 text-purple-800":
+                          tool.category === "marketing",
+                        "bg-blue-100 text-blue-800": tool.category === "sales",
+                        "bg-green-100 text-green-800":
+                          tool.category === "analysis",
+                        "bg-indigo-100 text-indigo-800":
+                          tool.category === "international",
+                      })}
                     >
-                      {tool.category.charAt(0).toUpperCase() +
-                        tool.category.slice(1)}
+                      {toCapitalCase(tool.category)}
                     </Badge>
                   </div>
                   <p className="mt-1 text-xs text-gray-500 md:text-sm">
@@ -450,17 +159,14 @@ export function AIToolsHub() {
                   </p>
                 </div>
               </div>
-              <p className="mb-3 line-clamp-3 text-xs text-gray-700 md:mb-4 md:line-clamp-4 md:text-sm">
-                {tool.longDescription}
+              <p className="mb-3 line-clamp-3 flex-1 text-xs text-gray-700 md:mb-4 md:line-clamp-4 md:text-sm">
+                {tool.prompt}
               </p>
               <div className="mt-3 flex items-center justify-between md:mt-4">
-                <div className="flex items-center text-xs text-gray-500 md:text-sm">
-                  <Clock className="mr-1 h-3 w-3 md:h-4 md:w-4" />
-                  <span>{tool.timeEstimate}</span>
-                </div>
                 <Button
                   variant="ghost"
                   className="h-auto px-2 py-1 text-xs text-blue-600 hover:bg-blue-50 hover:text-blue-800 md:text-sm"
+                  onClick={() => handleToolLaunch(tool.id)}
                 >
                   Launch <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                 </Button>
