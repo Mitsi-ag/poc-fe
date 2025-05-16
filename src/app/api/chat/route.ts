@@ -6,10 +6,12 @@ import { NextResponse } from "next/server";
 type MessageRequest = {
   messages: Message[];
   chat_id: string;
+  is_new_chat: boolean;
 };
 
 export async function POST(req: Request) {
-  const { messages, chat_id } = (await req.json()) as MessageRequest;
+  const { messages, chat_id, is_new_chat } =
+    (await req.json()) as MessageRequest;
 
   const newMessage = messages.at(-1);
   if (!newMessage) {
@@ -32,6 +34,18 @@ export async function POST(req: Request) {
         await sseClient.close();
         const input_tokens = usage.promptTokens;
         const output_tokens = usage.completionTokens;
+        const parsedChatId = parseInt(chat_id);
+
+        if (!is_new_chat) {
+          await MessagesController.create({
+            chat_id: parsedChatId,
+            text: newMessage.content,
+            input_tokens: 0,
+            output_tokens: 0,
+            by_user: true,
+            tool_calls: toolCalls.map((toolCall) => toolCall.toolName),
+          });
+        }
 
         await MessagesController.create({
           chat_id: parseInt(chat_id),

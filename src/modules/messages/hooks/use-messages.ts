@@ -1,17 +1,24 @@
-import { useSaveUserMessageMutation } from "@/modules/messages/hooks/mutations";
+import { initialMessageAtom } from "@/lib/atoms";
 import { useMessagesByChatIdQuery } from "@/modules/messages/hooks/queries";
 import { Message, useChat } from "@ai-sdk/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
+import { useSetAtom } from "jotai";
+import { useParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export function useMessages() {
-  const { data: storedMessages, isLoading } = useMessagesByChatIdQuery();
-  const { mutateAsync } = useSaveUserMessageMutation();
-  const queryClient = useQueryClient();
+  const {
+    data: storedMessages,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useMessagesByChatIdQuery();
+  const isNewChatSent =
+    storedMessages?.length === 1 && storedMessages[0].by_user;
 
-  const { id } = useParams<{ id?: string }>();
-  const router = useRouter();
+  const { id } = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const setInitialMessageOnNewChatPage = useSetAtom(initialMessageAtom);
 
   const initialMessages: Message[] =
     storedMessages?.map((msg) => ({
@@ -25,39 +32,38 @@ export function useMessages() {
     api: "/api/chat",
     initialMessages,
     body: {
-      chat_id: id ?? null,
+      chat_id: id,
+      is_new_chat: isNewChatSent,
     },
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const isNewChat = !id && messages.length === 0;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages.length]);
+
+  useEffect(() => {
+    if (isNewChatSent) {
+      setInitialMessageOnNewChatPage("");
+      const getAIResponse = async () => {
+        await append({ role: "user", content: storedMessages[0].text });
+        queryClient.invalidateQueries({
+          queryKey: ["all-messages"],
+        });
+      };
+
+      getAIResponse();
+    }
+  }, [isNewChatSent]);
 
   // Send message function
   const handleSendMessage = async (message?: string) => {
     const content = message ?? input;
     if (content.trim() === "") return;
     setInput("");
-
-    const result = await mutateAsync({ content, chatId: id });
-
-    if (!isNewChat) {
-      await append(
-        { role: "user", content },
-        { body: { chat_id: result.chat_id } },
-      );
-    } else {
-      router.push(`/ai-assistant/chat/${result.chat_id}`);
-    }
-
-    inputRef.current?.focus();
-    queryClient.invalidateQueries({
-      queryKey: ["all-chats"],
-    });
+    await append({ role: "user", content });
   };
 
   // Handle suggestion click
@@ -79,9 +85,10 @@ export function useMessages() {
     messagesEndRef,
     inputRef,
     input,
-    isNewChat,
+    hasNextPage,
     setInput,
     handleSendMessage,
     handleSuggestionClick,
+    fetchNextPage,
   };
 }

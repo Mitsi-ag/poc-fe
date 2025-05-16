@@ -6,6 +6,7 @@ import { PlusCircle, Search, Star } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
+import { Spinner } from "@/components/spinner";
 
 export function Sidebar() {
   const { id } = useParams<{ id?: string }>();
@@ -70,7 +71,7 @@ export function Sidebar() {
           hasMore={hasNextPage}
           next={fetchNextPage}
           scrollableTarget="scrollableDiv"
-          loader={<p>Loading...</p>}
+          loader={<Spinner className="size-6" />}
           className="space-y-2"
         >
           {filteredChatHistory.map((chat) => (

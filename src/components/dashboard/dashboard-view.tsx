@@ -35,7 +35,6 @@ import { MarketOpportunityCard } from "@/components/dashboard/market-opportunity
 import { PropertiesTrackingCard } from "@/components/dashboard/properties-tracking-card";
 import { TopAgentsCard } from "@/components/dashboard/top-agents-card";
 import { ChatbotFloating } from "@/components/chatbot-floating";
-import { FullPageAssistant } from "@/components/ai-assistant/full-page-assistant";
 import { UpgradeModal } from "@/components/upgrade/upgrade-modal";
 
 export function DashboardView() {
@@ -438,11 +437,6 @@ export function DashboardView() {
           isOpen={isChatbotOpen}
           onClose={() => setIsChatbotOpen(false)}
         />
-      )}
-
-      {/* Full Page AI Assistant */}
-      {isFullPageAssistantOpen && (
-        <FullPageAssistant onClose={() => setIsFullPageAssistantOpen(false)} />
       )}
 
       {/* Floating AI Assistant Button */}
