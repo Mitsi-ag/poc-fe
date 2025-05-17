@@ -12,9 +12,8 @@ import {
   useBookmarkedToolsQuery,
   useToolsQuery,
 } from "@/modules/tools/hooks/queries";
-import { FileText } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useState } from "react";
 
 export function ToolsBar() {
   const { data: tools } = useToolsQuery();
