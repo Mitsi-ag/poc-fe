@@ -2,6 +2,6 @@
 
 import { ListingsController } from "@/modules/listings/controller";
 
-export async function fetchAllListings() {
-  return ListingsController.fetchAll();
+export async function fetchPaginatedListings(page: number) {
+  return ListingsController.fetchPaginated(page);
 }

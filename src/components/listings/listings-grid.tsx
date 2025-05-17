@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/components/spinner";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { useListingsQuery } from "@/modules/listings/hooks/queries";
 import { Bath, Bed, Car, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface ListingsGridProps {
   isManagement?: boolean;
@@ -17,7 +19,13 @@ interface ListingsGridProps {
 }
 
 export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
-  const { data, isLoading, error } = useListingsQuery();
+  const {
+    data: listings,
+    isLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+  } = useListingsQuery();
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const toggleFavorite = (id: number) => {
@@ -31,7 +39,7 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {[...Array(6)].map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <Card key={i} className="overflow-hidden">
             <Skeleton className="h-48 w-full" />
             <CardContent className="p-4">
@@ -50,112 +58,114 @@ export function ListingsGrid({ isManagement = false }: ListingsGridProps) {
     );
   }
 
-  if (error || !data) {
+  if (error || !listings) {
     return <div className="text-center font-bold">No results found</div>;
   }
 
-  const listings = data.results;
-
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-      {listings.map((listing) => (
-        <Card key={listing.id} className="overflow-hidden">
-          <div className="relative">
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src={listing.images[0] || "/placeholder.svg"}
-                alt={listing.address.display_name}
-                className="object-cover"
-                fill
-              />
-            </AspectRatio>
-            <div className="absolute top-2 right-2 flex gap-2">
-              <Button
-                variant="secondary"
-                size="icon"
-                className="h-8 w-8 rounded-full bg-white/80 hover:bg-white"
-                onClick={() => toggleFavorite(listing.id)}
-              >
-                <Heart
-                  className={cn("stroke-foreground h-4 w-4", {
-                    "fill-destructive text-destructive stroke-destructive":
-                      favorites.includes(listing.id),
-                  })}
+    <div className="relative space-y-4">
+      <InfiniteScroll
+        dataLength={listings.length}
+        hasMore={hasNextPage}
+        next={fetchNextPage}
+        loader={<Spinner className="size-6" />}
+        className="grid max-w-7xl grid-cols-1 gap-4 overflow-hidden sm:grid-cols-2 md:gap-6 lg:grid-cols-3"
+      >
+        {listings.map((listing) => (
+          <Card key={listing.id} className="flex flex-col overflow-hidden">
+            <div className="relative">
+              <AspectRatio ratio={16 / 9}>
+                <Image
+                  src={listing.images[0] || "/placeholder.svg"}
+                  alt={listing.address.display_name}
+                  className="object-cover"
+                  fill
                 />
-              </Button>
-              {!isManagement && (
+              </AspectRatio>
+              <div className="absolute top-2 right-2 flex gap-2">
                 <Button
                   variant="secondary"
                   size="icon"
                   className="h-8 w-8 rounded-full bg-white/80 hover:bg-white"
+                  onClick={() => toggleFavorite(listing.id)}
                 >
-                  <Share2 className="stroke-foreground h-4 w-4" />
+                  <Heart
+                    className={cn("stroke-foreground h-4 w-4", {
+                      "fill-destructive text-destructive stroke-destructive":
+                        favorites.includes(listing.id),
+                    })}
+                  />
                 </Button>
-              )}
-            </div>
-            <div className="absolute bottom-2 left-2">
-              <Badge className="bg-primary text-white">{listing.type_of}</Badge>
-            </div>
-          </div>
-          <CardContent className="p-4 pb-0">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="line-clamp-1 text-lg font-semibold">
-                  {listing.address.display_name}
-                </h3>
-                <p className="text-muted-foreground line-clamp-1 text-sm">
-                  {listing.address.suburb}
-                </p>
+                {!isManagement && (
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-8 w-8 rounded-full bg-white/80 hover:bg-white"
+                  >
+                    <Share2 className="stroke-foreground h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+              <div className="absolute bottom-2 left-2">
+                <Badge className="bg-primary text-white">
+                  {listing.type_of}
+                </Badge>
               </div>
             </div>
-          </CardContent>
-          <CardContent className="p-4">
-            <div className="mb-2 text-xl font-bold">{listing.price}</div>
-            <div className="mb-2 flex items-center text-xs md:text-sm">
-              {listing.bedrooms > 0 && (
-                <div className="flex flex-1 items-center gap-1">
-                  <Bed className="size-4" />
-                  <span className="font-medium">{listing.bedrooms} bed(s)</span>
+            <div className="flex flex-1 flex-col justify-evenly">
+              <CardContent className="p-4 pb-0">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="line-clamp-1 text-lg font-semibold">
+                      {listing.address.display_name}
+                    </h3>
+                    <p className="text-muted-foreground line-clamp-1 text-sm">
+                      {listing.address.suburb}
+                    </p>
+                  </div>
                 </div>
-              )}
-              {listing.bathrooms > 0 && (
-                <div className="flex flex-1 items-center gap-1">
-                  <Bath className="size-4" />
-                  <span className="font-medium">
-                    {listing.bathrooms} bath(s)
-                  </span>
+              </CardContent>
+              <CardContent className="p-4">
+                <div className="mb-2 text-xl font-bold">{listing.price}</div>
+                <div className="mb-2 flex items-center text-xs md:text-sm">
+                  {listing.bedrooms > 0 && (
+                    <div className="flex flex-1 items-center gap-1">
+                      <Bed className="size-4" />
+                      <span className="font-medium">
+                        {listing.bedrooms} bed(s)
+                      </span>
+                    </div>
+                  )}
+                  {listing.bathrooms > 0 && (
+                    <div className="flex flex-1 items-center gap-1">
+                      <Bath className="size-4" />
+                      <span className="font-medium">
+                        {listing.bathrooms} bath(s)
+                      </span>
+                    </div>
+                  )}
+                  {listing.parking > 0 && (
+                    <div className="flex flex-1 items-center gap-1">
+                      <Car className="size-4" />
+                      <span className="font-medium">
+                        {listing.parking} car(s)
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-              {listing.parking > 0 && (
-                <div className="flex flex-1 items-center gap-1">
-                  <Car className="size-4" />
-                  <span className="font-medium">{listing.parking} car(s)</span>
+                <div className="text-muted-foreground flex justify-between text-xs">
+                  <div>Listed: {listing.timestamp}</div>
                 </div>
-              )}
-              {/* <div className="hidden gap-1 items-center sm:flex"> */}
-              {/*   <span className="font-medium">{listing.area}</span> */}
-              {/* </div> */}
+              </CardContent>
             </div>
-            <div className="text-muted-foreground flex justify-between text-xs">
-              <div>Listed: {listing.timestamp}</div>
-              {/* <div>Agent: {listing.agent}</div> */}
-            </div>
-            {/* {isManagement && ( */}
-            {/*   <div className="flex justify-between pt-2 mt-2 text-xs border-t"> */}
-            {/*     <div className="flex gap-1 items-center"> */}
-            {/*       <span>{listing.views} views</span> */}
-            {/*     </div> */}
-            {/*     <div>{listing.inquiries} inquiries</div> */}
-            {/*   </div> */}
-            {/* )} */}
-          </CardContent>
-          <CardFooter className="p-3 pt-0 md:p-4 md:pt-0">
-            <Button className="h-9 w-full text-sm md:h-10" variant="outline">
-              View Details
-            </Button>
-          </CardFooter>
-        </Card>
-      ))}
+            <CardFooter className="p-3 pt-0 md:p-4 md:pt-0">
+              <Button className="h-9 w-full text-sm md:h-10" variant="outline">
+                View Details
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }

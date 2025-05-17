@@ -3,8 +3,9 @@ import { ListingsService } from "@/modules/listings/service";
 import { ListingsValidator } from "@/modules/listings/validator";
 
 export const ListingsController = {
-  async fetchAll(filters?: URLSearchParams) {
-    const data = await ListingsRepository.fetchAll(filters);
+  async fetchPaginated(page: number) {
+    const validatedPage = ListingsValidator.validatePageNumber(page);
+    const data = await ListingsRepository.fetchPaginated(validatedPage);
     const listingsData = ListingsValidator.validateListings(data);
     listingsData.results = ListingsService.processListings(
       listingsData.results,
