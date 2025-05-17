@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/components/spinner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,8 +17,12 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, toCapitalCase } from "@/lib/utils";
-import { useToolsQuery } from "@/modules/tools/hooks/queries";
-import { ArrowRight, Search, Sparkles } from "lucide-react";
+import { useBookmarkToolMutation } from "@/modules/tools/hooks/mutations";
+import {
+  useBookmarkedToolsQuery,
+  useToolsQuery,
+} from "@/modules/tools/hooks/queries";
+import { ArrowRight, Search, Sparkles, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -170,6 +175,7 @@ export function AIToolsHub() {
                 >
                   Launch <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                 </Button>
+                <BookmarkButton toolId={tool.id} />
               </div>
             </CardContent>
           </Card>
@@ -184,5 +190,34 @@ export function AIToolsHub() {
         </div>
       )}
     </div>
+  );
+}
+
+function BookmarkButton({ toolId }: { toolId: number }) {
+  const { mutate, isPending: isBookmarking } = useBookmarkToolMutation();
+  const { data: bookmarkedTools } = useBookmarkedToolsQuery();
+
+  const handleBookmarkTool = (toolId: number) => {
+    mutate(toolId);
+  };
+
+  return (
+    <Button
+      variant="ghost"
+      disabled={isBookmarking}
+      onClick={() => handleBookmarkTool(toolId)}
+    >
+      {isBookmarking ? (
+        <Spinner className="size-5" />
+      ) : (
+        <Star
+          className={cn("size-5 transition-colors", {
+            "fill-yellow-300 stroke-yellow-300": bookmarkedTools?.some(
+              (t) => t.id === toolId,
+            ),
+          })}
+        />
+      )}
+    </Button>
   );
 }
