@@ -208,10 +208,10 @@ function BookmarkButton({ toolId }: { toolId: number }) {
       onClick={() => handleBookmarkTool(toolId)}
     >
       {isBookmarking ? (
-        <Spinner className="size-5" />
+        <Spinner className="size-6" />
       ) : (
         <Star
-          className={cn("size-5 transition-colors", {
+          className={cn("size-6 transition-colors", {
             "fill-yellow-300 stroke-yellow-300": bookmarkedTools?.some(
               (t) => t.id === toolId,
             ),

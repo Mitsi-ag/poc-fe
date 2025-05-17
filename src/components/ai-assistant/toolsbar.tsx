@@ -1,3 +1,4 @@
+import { PropertyDescriptionGeneratorModal } from "@/components/ai-assistant/property-description-generator/modal";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,8 +12,9 @@ import {
   useBookmarkedToolsQuery,
   useToolsQuery,
 } from "@/modules/tools/hooks/queries";
+import { FileText } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 
 export function ToolsBar() {
   const { data: tools } = useToolsQuery();
@@ -23,6 +25,14 @@ export function ToolsBar() {
   const filteredTools = tools?.filter((tool) =>
     bookmarkedTools?.every((t) => t.id !== tool.id),
   );
+
+  const isToolOpen = (toolId: number) => {
+    return toolParam === toolId.toString();
+  };
+
+  const TOOLS_ARR: ReactNode[] = [
+    <PropertyDescriptionGeneratorModal key={1} initialOpen={isToolOpen(1)} />,
+  ];
 
   return (
     <div className="flex w-64 flex-col border-l bg-gray-50 dark:bg-gray-900">
@@ -38,15 +48,18 @@ export function ToolsBar() {
             </h4>
             <div className="grid grid-cols-1 gap-1.5">
               {bookmarkedTools && bookmarkedTools.length > 0 ? (
-                bookmarkedTools.map((tool) => (
-                  <Modal
-                    key={tool.id}
-                    initialOpen={toolParam === tool.id.toString()}
-                    title={tool.name}
-                    description={tool.description}
-                    icon={""}
-                  />
-                ))
+                bookmarkedTools.map(
+                  (tool) =>
+                    TOOLS_ARR[tool.id - 1] ?? (
+                      <PlaceholderModal
+                        key={tool.id}
+                        initialOpen={toolParam === tool.id.toString()}
+                        title={tool.name}
+                        description={tool.description}
+                        icon={""}
+                      />
+                    ),
+                )
               ) : (
                 <p className="text-muted pt-2 text-center text-xs">
                   No bookmarked tools
@@ -65,7 +78,7 @@ export function ToolsBar() {
             </h4>
             <div className="space-y-1.5">
               {filteredTools?.map((tool) => (
-                <Modal
+                <PlaceholderModal
                   key={tool.id}
                   initialOpen={toolParam === tool.id.toString()}
                   title={tool.name}
@@ -81,7 +94,7 @@ export function ToolsBar() {
   );
 }
 
-function Modal({
+function PlaceholderModal({
   initialOpen,
   title,
   description,
